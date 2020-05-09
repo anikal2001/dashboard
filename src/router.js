@@ -56,10 +56,10 @@ export default new Router({
           if (permission === 'false') {
             next()
           }
-          else if(permission == 'null'){
-            next()
+          else if(permission == 'false'){
+            next('/')
           } else {
-          next('/')
+          next()
         }
       },
     },
