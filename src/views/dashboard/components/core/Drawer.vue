@@ -19,9 +19,13 @@
       dense
       nav
     >
-      <v-list-item>
+      <v-list-item 
+      style="padding:0px;"
+      width="100%"
+      height="100%"
+      >
           <v-img
-            src="../../../../assets/rcfta.jpg"
+            src="../../../../assets/sandbox_logo.png"
             max-height="200"
           />
 
@@ -90,12 +94,12 @@
         {
           icon: 'mdi-view-dashboard',
           title: 'dashboard',
-          to: '/dashboard',
+          to: '/',
         },
         {
           icon: 'mdi-account',
           title: 'User',
-          to: 'dashboard/pages/user',
+          to: '/pages/user',
         },
         {
           title: 'Charting',
@@ -110,7 +114,7 @@
         {
           title: 'Filings',
           icon: 'mdi-file-multiple',
-          to: 'dashboard/components/icons',
+          to: '/components/icons',
         },
       ],
     }),

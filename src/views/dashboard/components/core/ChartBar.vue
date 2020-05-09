@@ -1,23 +1,26 @@
 <template>
-<v-row>
     <base-material-card
       icon="mdi-chart-areaspline"
-      title="Portfolio Table"
+      title="My Portfolio"
       color="#08182b"
-      class="px-5 py-5 md-5"
-      style="width:100%;margin:10px 50px 20px 50px;"
+      class=" scroll px-5 py-3"
+      style="height:100%;margin-left:15px;"
     >
+    <div style="overflow:scroll;max-height:520px;">
       <v-simple-table>
         <thead>
           <tr>
             <th class="primary--text">
-              Stock
+              Symbol
             </th>
             <th class="primary--text">
-              Price
+              Quantity
             </th>
             <th class="primary--text">
-              Shares
+              Entry Price
+            </th>
+            <th class="primary--text">
+              Current Price
             </th>
             <th class="primary--text">
               Market Value
@@ -29,78 +32,75 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>$40</td>
-            <td>Niger</td>
-            <td>Oud-Turnhout</td>
+          <tr v-for="(task,i) in portfolio_values[0]" :key='i' >
+            <td>{{task.symbol}} </td>
+            <td>{{task.qty}} </td>
+            <td>{{task.entryPrice}}</td>
+            <td>{{task.currentPrice}}</td>
+            <td>{{task.marketValue}}</td>
             <td class="text-right">
-              $36,738
-            </td>
-          </tr>
-
-          <tr>
-            <td>2</td>
-            <td>$20</td>
-            <td>Curaçao</td>
-            <td>Sinaas-Waas</td>
-            <td class="text-right">
-              $23,789
-            </td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>$30</td>
-            <td>Netherlands</td>
-            <td>Baileux</td>
-            <td class="text-right">
-              $56,142
-            </td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>$50</td>
-            <td>Korea, South</td>
-            <td>Overland Park</td>
-            <td class="text-right">
-              $38,735
-            </td>
-          </tr>
-
-          <tr>
-            <td>5</td>
-            <td>$60</td>
-            <td>Malawi</td>
-            <td>Feldkirchen in Kärnten</td>
-            <td class="text-right">
-              $63,542
-            </td>
-          </tr>
-
-          <tr>
-            <td>6</td>
-            <td>Mason Porter</td>
-            <td>Chile</td>
-            <td>Gloucester</td>
-            <td class="text-right">
-              $78,615
+              <v-chip :color="getColor(task.returnPercent)" dark>
+              {{task.returnPercent}}
+              </v-chip>
             </td>
           </tr>
         </tbody>
       </v-simple-table>
+      </div>
     </base-material-card>
-</v-row>
 </template>
 
 <script>
+import Axios from 'axios'
+import * as Cookies from "js-cookie";
+const alpaca_key = Cookies.get('alpaca_key')
+var token = 'Token ' + alpaca_key
+console.log(token)
+let config = {
+  headers: {
+    Authorization: token
+  }
+};
 export default {
     name: 'Chartbar',
     data(){
         return{
-
-
+          portfolio_values: null,
+    }
+    },
+    mounted(){
+      this.portfolio_values = []
+      this.get_values(this.portfolio_values)
+    },
+    methods:{
+      get_values(values){
+        Axios.get('https://rcsandbox.ca/info/pos/', config)
+        .then(function (Response){
+          values.push(Response.data)
+        })
+        .catch( (error)=> {
+          if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                    // http.ClientRequest in node.js
+                    console.log(error.request);
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log('Error', error.message);
+                }
+                console.log(error.config);
+        });
+      },
+      getColor(item) {
+        item = item.toString();
+        if (item.charAt(0) == "-") return "red";
+        else return "green";
     }
     }
 

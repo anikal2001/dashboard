@@ -1,98 +1,29 @@
 <template>
-  <v-container
-    id="regular-tables"
-    fluid
-    tag="section"
-  >
-    <base-v-component
-      heading="Simple Tables"
-      link="components/simple-tables"
-    />
-
-    <base-material-card
-      icon="mdi-clipboard-text"
-      title="Simple Table"
-      class="px-5 py-3"
-    >
+  <v-container fluid tag="section">
+    <base-material-card color="#08182b" icon="mdi-clipboard-plus" title="Open Orders" class="scroll px-5 py-3">
       <v-simple-table>
         <thead>
           <tr>
-            <th class="primary--text">
-              Stock
-            </th>
-            <th class="primary--text">
-              Price
-            </th>
-            <th class="primary--text">
-              Shares
-            </th>
-            <th class="primary--text">
-              Market Value
-            </th>
-            <th class="text-right primary--text">
-              Total Profit
-            </th>
+            <th class="primary--text">Stock</th>
+            <th class="primary--text">Price</th>
+            <th class="primary--text">Quantity</th>
+            <th class="primary--text">Side</th>
+            <th class="primary--text">Order Type</th>
+            <th class="primary--text">Time in Force</th>
+            <th class="primary--text">Limit Price</th>
+            <th class="primary--text">Stop Price</th>
+            <th class="text-right primary--text"></th>
           </tr>
         </thead>
 
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Dakota Rice</td>
-            <td>Niger</td>
-            <td>Oud-Turnhout</td>
+          <tr v-for="(task,i) in open_orders" :key='i' >
+            <td>{{task.symbol}} </td>
+            <td>{{task.qty}}</td>
+            <td>{{task.type}}</td>
+            <td>{{task.side}}</td>
             <td class="text-right">
-              $36,738
-            </td>
-          </tr>
-
-          <tr>
-            <td>2</td>
-            <td>Minverva Hooper</td>
-            <td>Curaçao</td>
-            <td>Sinaas-Waas</td>
-            <td class="text-right">
-              $23,789
-            </td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>Sage Rodriguez</td>
-            <td>Netherlands</td>
-            <td>Baileux</td>
-            <td class="text-right">
-              $56,142
-            </td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>Philip Chaney</td>
-            <td>Korea, South</td>
-            <td>Overland Park</td>
-            <td class="text-right">
-              $38,735
-            </td>
-          </tr>
-
-          <tr>
-            <td>5</td>
-            <td>Doris Greene</td>
-            <td>Malawi</td>
-            <td>Feldkirchen in Kärnten</td>
-            <td class="text-right">
-              $63,542
-            </td>
-          </tr>
-
-          <tr>
-            <td>6</td>
-            <td>Mason Porter</td>
-            <td>Chile</td>
-            <td>Gloucester</td>
-            <td class="text-right">
-              $78,615
+              {{task.time_in_force}}
             </td>
           </tr>
         </tbody>
@@ -102,83 +33,31 @@
     <div class="py-3" />
 
     <base-material-card
-      color="success"
-      dark
-      icon="mdi-clipboard-plus"
-      title="Table on Dark Background"
+      color="#08182b"
+      icon="mdi-clipboard-text"
+      title="Transaction History"
       class="px-5 py-3"
     >
       <v-simple-table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Country</th>
-            <th>City</th>
-            <th class="text-right">
-              Salary
-            </th>
+            <th class="primary--text">Stock</th>
+            <th class="primary--text">Price</th>
+            <th class="primary--text">Quantity</th>
+            <th class="primary--text">Side</th>
+            <th class="primary--text text-right">Date</th>
           </tr>
         </thead>
 
+
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Dakota Rice</td>
-            <td>Niger</td>
-            <td>Oud-Turnhout</td>
+          <tr v-for="(task,i) in transaction_history[0]" :key='i' >
+            <td>{{task.symbol}} </td>
+            <td>{{task.price}}</td>
+            <td>{{task.qty}}</td>
+            <td>{{task.side}}</td>
             <td class="text-right">
-              $36,738
-            </td>
-          </tr>
-
-          <tr>
-            <td>2</td>
-            <td>Minverva Hooper</td>
-            <td>Curaçao</td>
-            <td>Sinaas-Waas</td>
-            <td class="text-right">
-              $23,789
-            </td>
-          </tr>
-
-          <tr>
-            <td>3</td>
-            <td>Sage Rodriguez</td>
-            <td>Netherlands</td>
-            <td>Baileux</td>
-            <td class="text-right">
-              $56,142
-            </td>
-          </tr>
-
-          <tr>
-            <td>4</td>
-            <td>Philip Chaney</td>
-            <td>Korea, South</td>
-            <td>Overland Park</td>
-            <td class="text-right">
-              $38,735
-            </td>
-          </tr>
-
-          <tr>
-            <td>5</td>
-            <td>Doris Greene</td>
-            <td>Malawi</td>
-            <td>Feldkirchen in Kärnten</td>
-            <td class="text-right">
-              $63,542
-            </td>
-          </tr>
-
-          <tr>
-            <td>6</td>
-            <td>Mason Porter</td>
-            <td>Chile</td>
-            <td>Gloucester</td>
-            <td class="text-right">
-              $78,615
+              {{Date_conversion(task.transaction_time)}}
             </td>
           </tr>
         </tbody>
@@ -186,3 +65,63 @@
     </base-material-card>
   </v-container>
 </template>
+<script>
+import * as Cookies from "js-cookie";
+const alpaca_key = Cookies.get('alpaca_key')
+var token = 'Token ' + alpaca_key
+console.log(token)
+let config = {
+  headers: {
+    Authorization: token
+  }
+};
+import Axios from 'axios'
+export default {
+  name: "Transaction_History",
+  data() {
+    return {
+      transaction_history: null,
+      open_orders: null
+    };
+  },
+  created() {
+    this.transaction_history = [];
+    this.open_orders = [];
+    this.get_values(this.transaction_history, this.open_orders);
+  },
+  methods: {
+    get_values(transaction, orders) {
+      Axios.get("https://rcsandbox.ca/info/activity/", config)
+        .then(function(Response) {
+          console.log(Response.data)
+          transaction.push(Response.data.transaction_history);
+          orders.push(Response.data.open_orders)
+        })
+        .catch(error => {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+          }
+          console.log(error.config);
+        });
+    },
+    Date_conversion(date){
+      let new_date = new Date(date)
+      const [{ value: mo },,{ value: da },,{ value: ye }] = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'numeric', day: '2-digit' }).formatToParts(new_date)
+      let ret_date = mo +'-'+da+'-'+ye
+      return ret_date
+    }
+  }
+};
+</script>

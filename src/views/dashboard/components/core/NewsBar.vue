@@ -1,15 +1,11 @@
 <template>
-        <base-material-card max-height="520px" color="#08182b" class="scroll px-5 py-3">
+        <base-material-card max-height="100%" color="#08182b" class="scroll px-5 py-3">
           <template v-slot:heading>
             <v-tabs
               v-model="tabs"
               background-color="transparent"
               slider-color="white"
             >
-              <span
-                class="subheading font-weight-light mx-3"
-                style="align-self: center"
-              >Tasks:</span>
               <v-tab class="mr-3">
                 <v-icon class="mr-2">
                   mdi-newspaper
@@ -35,6 +31,7 @@
             <v-text-field
             :label="$t('search')"
             color="primary"
+            v-model="search"
             v-if=" n == 2"
             hide-details
             style="max-width: auto;"
@@ -54,16 +51,16 @@
     </v-text-field>
             <div style="overflow:scroll;max-height:360px">
               <v-card-text >
-                <template v-for="(task, i) in tasks[tabs]">
+                <template v-for="(task, i) in filterFilings">
                   <v-row   
                     style="border-bottom:thin solid"
                     :key="i"
                     align="center"
                   >
                     <v-col>
-                        <a style="text-decoration: none;" :href="task.Link">
-                        <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="task.Title"></h3></a>
-                            <p class="font-weight-light" v-text="task.Summary"></p>
+                        <a style="text-decoration:none;" :href="task.Link">
+                        <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="task.Title"></h3>
+                            <p class="font-weight-light" v-text="task.Summary"></p></a>
                         <p v-if="task==0" class="font-weight-light">  Published: {{task.Date[0]}}-{{task.Date[1]}}-{{task.Date[2]}}</p>
                     </v-col>
                   </v-row>
@@ -83,6 +80,7 @@ export default {
         return{
             title_array: null,
             summary_array : null,
+            search:'',
              tabs: 0,
              tasks: {
           0: null,
@@ -99,6 +97,18 @@ export default {
             this.filings(vm.tasks[1])
         })
 
+    },
+    computed: {
+      filterFilings: function(){
+        if (this.tabs == 1){
+          return this.tasks[1].filter((filings) =>{
+            return filings.Summary.toLowerCase().match(this.search.toLowerCase()) 
+        })
+        }else{
+          return this.tasks[0]
+        }
+
+      }
     },
     methods: {
         news(vm){
@@ -135,7 +145,7 @@ export default {
             });
         },
         filings(vm){
-            Axios.get('https://rcsandbox.ca/info/filings/',)
+            Axios.get('https://rcsandbox.ca/info/filings/')
             .then(function (Response){
                 var count = Object.keys(Response.data).length;
                 for( let i = 0; i < count; i++){

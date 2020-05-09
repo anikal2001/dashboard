@@ -1,12 +1,11 @@
 <template>
   <v-app>
-    <dashboard-core-app-bar />
+    <dashboard-core-app-bar @logout= logout_mid() />
 
     <dashboard-core-drawer />
 
     <dashboard-core-view />
 
-    <dashboard-core-settings />
   </v-app>
 </template>
 
@@ -23,5 +22,10 @@
     data: () => ({
       expandOnHover: false,
     }),
+    methods:{
+      logout_mid(){
+        this.$emit('logout')
+      },
   }
+}
 </script>

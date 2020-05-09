@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import * as Cookies from 'js-cookie'
 
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/dashboard',
+      path: '/',
       component: () => import('@/views/dashboard/Index'),
       children: [
         // Dashboard
         {
           name: 'Dashboard',
-          path: '/Dashboard',
+          path: '',
           component: () => import('@/views/dashboard/Dashboard'),
         },
         // Pages
         {
           name: 'User Profile',
-          path: 'Dashboard/pages/user',
+          path: 'pages/user',
           component: () => import('@/views/dashboard/pages/UserProfile'),
         },
         {
@@ -35,7 +36,7 @@ export default new Router({
         },
         {
           name: 'Typography',
-          path: 'Dashboard/components/typography',
+          path: 'components/typography',
           component: () => import('@/views/dashboard/component/Typography'),
         },
         // Tables
@@ -57,11 +58,37 @@ export default new Router({
           component: () => import('@/views/dashboard/Upgrade'),
         },
       ],
+      async beforeEnter (to, from, next) {
+        const permission = Cookies.get('authenticated')
+        try {
+          if (permission === 'true') {
+            next()
+          }
+        } catch (e) {
+          next({
+            name: 'login_form', // back to safety route //
+            query: { redirectFrom: to.name },
+          })
+        }
+      },
     },
     {
-      path: '/',
+      path: '/login',
+      name: 'login_form',
       component: () => import('@/views/dashboard/Login_Page'),
-      name: 'login',
+      async beforeEnter (to, from, next) {
+        const permission = Cookies.get('authenticated')
+        try {
+          if (permission === 'false') {
+            next()
+          }
+        } catch (e) {
+          next({
+            name: 'Dashboard',
+            query: { redirectFrom: to.fullPath },
+          })
+        }
+      },
     },
   ],
 })

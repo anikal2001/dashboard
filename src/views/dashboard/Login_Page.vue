@@ -9,13 +9,13 @@
 <script>
  /* eslint-disable */ 
   import LoginForm from './components/core/LoginForm.vue'
-  import MenuBar from './components/core/MenuBar.vue'
+  import Firebase from 'firebase'
+  import db from '../../db.js'
   
   export default {
     name: 'LoginPage',
     components: {
-      LoginForm,
-      MenuBar
+      LoginForm
     },
   }
 </script>

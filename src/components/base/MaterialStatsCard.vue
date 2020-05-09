@@ -8,7 +8,8 @@
     <template v-slot:after-heading>
       <div class="ml-auto text-right">
         <div
-          class="body-3 black--text font-weight-dark"
+          style="font-size: 18px;"
+          class="body-4 black--text font-weight-dark"
           v-text="title"
         />
 
