@@ -44,7 +44,6 @@ import Axios from "axios";
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get('alpaca_key')
 var token = 'Token ' + alpaca_key
-console.log(token)
 let config = {
   headers: {
     Authorization: token
@@ -59,12 +58,10 @@ export default {
       icon: "mdi"
     };
   },
-  mounted() {
-    this.$nextTick(function() {
+   async created() {
       var vm = this;
       this.acc_details = [];
-      this.material_chart(this.acc_details, vm);
-    });
+      await this.material_chart(this.acc_details, vm);
   },
   methods: {
     complete(index) {

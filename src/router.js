@@ -36,16 +36,13 @@ export default new Router({
           component: () => import('@/views/dashboard/tables/RegularTables'),
         },
       ],
-      async beforeEnter (to, from, next) {
+      beforeEnter (to, from, next) {
         const permission = Cookies.get('authenticated')
-        try {
-          if (permission === 'true') {
+        if (permission === 'true') {
             next()
-          }
-        } catch (e) {
+        } else {
           next({
-            name: 'login_form', // back to safety route //
-            query: { redirectFrom: to.name },
+          path: '/login', // back to safety route //
           })
         }
       },
@@ -54,19 +51,19 @@ export default new Router({
       path: '/login',
       name: 'login_form',
       component: () => import('@/views/dashboard/Login_Page'),
-      async beforeEnter (to, from, next) {
+      beforeEnter (to, from, next) {
         const permission = Cookies.get('authenticated')
-        try {
           if (permission === 'false') {
             next()
-          }
-        } catch (e) {
-          next({
-            name: 'Dashboard',
-            query: { redirectFrom: to.fullPath },
-          })
+        } else {
+          next('/')
         }
       },
+    },
+    {
+      path: '*',
+      name: 'Redirect',
+      redirect: '/login',
     },
   ],
 })

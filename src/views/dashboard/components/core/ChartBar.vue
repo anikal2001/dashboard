@@ -55,7 +55,6 @@ import Axios from 'axios'
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get('alpaca_key')
 var token = 'Token ' + alpaca_key
-console.log(token)
 let config = {
   headers: {
     Authorization: token
@@ -68,9 +67,9 @@ export default {
           portfolio_values: null,
     }
     },
-    mounted(){
+    async created(){
       this.portfolio_values = []
-      this.get_values(this.portfolio_values)
+      await this.get_values(this.portfolio_values)
     },
     methods:{
       get_values(values){

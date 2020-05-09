@@ -65,7 +65,6 @@
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get('alpaca_key')
 var token = 'Token ' + alpaca_key
-console.log(token)
 let config = {
   headers: {
     Authorization: token
