@@ -55,7 +55,10 @@ export default new Router({
         const permission = Cookies.get('authenticated')
           if (permission === 'false') {
             next()
-        } else {
+          }
+          else if(permission == 'null'){
+            next()
+          } else {
           next('/')
         }
       },
