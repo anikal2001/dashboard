@@ -109,12 +109,12 @@
         {
           title: 'Transaction History',
           icon: 'mdi-cash-usd',
-          to: '/components/typography',
+          to: '/tables/transactions',
         },
         {
           title: 'Filings',
           icon: 'mdi-file-multiple',
-          to: '/components/icons',
+          to: '/components/filings',
         },
       ],
     }),

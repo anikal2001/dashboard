@@ -48,7 +48,7 @@
     <v-btn class="ml-2" min-width="0" text to="/pages/user">
       <v-icon>mdi-account</v-icon>
     </v-btn>
-    <v-btn class="ma-2" @click="logout()" color="#08182b">Logout</v-btn>
+    <v-btn dark class="ma-2" @click="logout()" color="#08182b">Logout</v-btn>
   </v-app-bar>
 </template>
 
