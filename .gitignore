@@ -5,7 +5,6 @@ package-lock.json
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
-/src/db.js
 
 # local env files
 .env.local
