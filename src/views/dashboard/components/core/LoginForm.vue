@@ -47,9 +47,6 @@
 </template>
 
 <script>
-import Firebase from 'firebase'
-import db from '../../../../db.js'
-import * as Cookies from 'js-cookie'
 export default {
   name: "LoginForm",
   data() {
@@ -60,6 +57,18 @@ export default {
       error: null
     };
   },
+  computed: {
+      user () {
+        return this.$store.getters.user
+      }
+    },
+    watch: {
+      user (value) {
+        if (value !== null && value !== undefined) {
+          this.$router.push('/')
+        }
+      }
+    },
   methods:{
     login: function(){
       const info ={
@@ -67,17 +76,7 @@ export default {
         password: this.password,
         error: this.error
       }
-      Firebase.auth().signInWithEmailAndPassword(info.email, info.password)
-      .then(
-        () => {
-          this.$router.push('/')
-          this.$store.commit('login')
-          Cookies.set('authenticated', 'true', { expires: 1 })
-        }, 
-        error => {
-          this.error = error.message
-        }
-      )
+      this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
     }
   }
 };

@@ -13,7 +13,7 @@
           v-text="title"
         />
 
-        <h3 class="display-3 font-weight-light text--primary">
+        <h3 class="display-2 md-2 font-weight-light text--primary">
           {{ value }} <small>{{ smallValue }}</small>
         </h3>
       </div>

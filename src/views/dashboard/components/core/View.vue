@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <router-view />
+    <router-view style="min-height:100%;" />
 
     <dashboard-core-footer />
   </v-content>

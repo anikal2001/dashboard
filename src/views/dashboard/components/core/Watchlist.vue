@@ -15,6 +15,7 @@
     <v-card-text style="padding-top:0px;">
       <v-data-table
         @page-count="pageCount = $event"
+        :loading="loading"
         :items-per-page="5"
         :page.sync="page"
         hide-default-footer
@@ -74,10 +75,16 @@ export default {
           align: "right",
           color: "black"
         },
-        { text: "", align: "right", value: "actions", sortable: false }
+        { 
+          text: "", 
+          align: "right", 
+          value: "actions", 
+          sortable: false 
+          }
       ],
       items: null,
-      componentKey: 0
+      componentKey: 0,
+      loading: false,
     };
   },
   created() {
@@ -86,8 +93,10 @@ export default {
   },
   methods: {
     getwatchlist(vm) {
+      this.loading= true
       Axios.get("https://rcsandbox.ca/info/getWatchlist/", config)
-        .then(function(Response) {
+        .then((Response) => {
+          this.loading = false
           var count = Object.keys(Response.data).length;
           for (let i = 0; i < count; i++) {
             vm.push({

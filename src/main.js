@@ -20,6 +20,7 @@ import './plugins/chartist'
 import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
+import firebase from 'firebase'
 
 Vue.config.productionTip = false
 
@@ -28,5 +29,12 @@ new Vue({
   store,
   vuetify,
   i18n,
+  created () {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
+  },
   render: h => h(App),
 }).$mount('#app')

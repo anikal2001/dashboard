@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import * as Cookies from 'js-cookie'
+import store from './store.js'
 
 Vue.use(Router)
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.user) {
+    next()
+  } else {
+    next('/login')
+  }
+}
 
 export default new Router({
   mode: 'history',
@@ -27,45 +35,31 @@ export default new Router({
         {
           name: 'Filings',
           path: 'components/filings',
-          component: () => import('@/views/dashboard/component/Icons'),
+          component: () => import('@/views/dashboard/pages/FilingSearch'),
+        },
+        {
+          name: 'Charting',
+          path: 'components/charting',
+          component: () => import('@/views/dashboard/pages/Charting/Charting.vue'),
         },
         // Tables
         {
           name: 'Transaction History',
           path: 'tables/transactions',
-          component: () => import('@/views/dashboard/tables/RegularTables'),
+          component: () => import('@/views/dashboard/pages/RegularTables'),
+        },
+        {
+          name: 'Financial Fundamentals',
+          path: 'components/fundamentals',
+          component: () => import('@/views/dashboard/pages/Fundamentals.vue'),
         },
       ],
-      beforeEnter (to, from, next) {
-        const permission = Cookies.get('authenticated')
-        if (permission === 'true') {
-            next()
-        } else {
-          next({
-          path: '/login', // back to safety route //
-          })
-        }
-      },
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/login',
       name: 'login_form',
       component: () => import('@/views/dashboard/Login_Page'),
-      beforeEnter (to, from, next) {
-        const permission = Cookies.get('authenticated')
-          if (permission === 'false') {
-            next()
-          } else if (permission === 'false') {
-            next('/')
-          } else {
-          next()
-        }
-      },
-    },
-    {
-      path: '*',
-      name: 'Redirect',
-      redirect: '/login',
     },
   ],
 })

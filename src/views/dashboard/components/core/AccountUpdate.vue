@@ -76,13 +76,11 @@ export default {
               details.push(Response.data[key]);
             }
           }
-          for (let i = 0; i < 3; i++) {
+          for (let i = 0; i < 4; i++) {
             details[i] = Number.parseFloat(details[i]).toFixed(2);
             details[i] = this.formatNumber(details[i])
             details[i] = "$" + details[i];
           }
-          details[3] = details[3].toString();
-          details[3] = '%' +  details[3] 
           if (details[3].charAt(1) == "-") {
             vm.color = "red";
             vm.icon = "mdi-arrow-down-bold";

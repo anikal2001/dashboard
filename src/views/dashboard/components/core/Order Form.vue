@@ -7,13 +7,18 @@
     <template v-slot:heading>
       <div class="display-2 font-weight-light">Trade</div>
     </template>
-    <div style="max-height:100%;overflow:scroll;">
+    <div style="max-height:100%;">
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
           <v-text-field v-model="ticker" label="Ticker" required></v-text-field>
           <v-row>
             <v-col class="pt-0">
-              <v-text-field v-model="Quantity" :rules="quantityRules" label="Quantity" required></v-text-field>
+              <v-text-field
+                v-model="Quantity"
+                :rules="quantityRules"
+                label="Quantity"
+                required="required"
+              ></v-text-field>
             </v-col>
             <v-col class="pt-0">
               <v-select
@@ -54,7 +59,13 @@
             </v-col>
           </v-row>
 
-          <v-btn :disabled="!valid" color="success" class="mr-4" @click="Ordering()">Order</v-btn>
+          <v-btn
+            :loading="loading"
+            :disabled="!valid"
+            color="success"
+            class="mr-4"
+            @click="Ordering()"
+          >Order</v-btn>
         </v-form>
       </v-container>
     </div>
@@ -63,28 +74,26 @@
 
 <script>
 import * as Cookies from "js-cookie";
-const alpaca_key = Cookies.get('alpaca_key')
-var token = 'Token ' + alpaca_key
+const alpaca_key = Cookies.get("alpaca_key");
+var token = "Token " + alpaca_key;
 let config = {
   headers: {
     Authorization: token
   }
 };
-import Axios from 'axios'
+import Axios from "axios";
 export default {
-  name: "TradeCard",
+  name: "OrderForm",
   data() {
     return {
-        valid: true,
+      valid: true,
       quantityRules: [
         v => v > 0 || "Quantity must be greater than 0",
         v => Number.isInteger(Number(v)) || "Quantity must be an integer"
       ],
       floatRules: [
         v => v > 0 || "Quantity must be greater than 0",
-        v =>
-          v.indexOf(".") != -1 ||
-          "The number must be a decimal value"
+        v => v.indexOf(".") != -1 || "The number must be a decimal value"
       ],
       ticker: "",
       position: null,
@@ -95,16 +104,19 @@ export default {
       stopPrice: null,
       order_items: ["Market", "Limit", "Stop", "Stop Limit"],
       tof_items: ["DAY", "GTC", "OPG", "CLS", "IOC", "FOK"],
-      position_items: ["Buy", "Sell"]
+      position_items: ["Buy", "Sell"],
+      loading: false
     };
   },
   methods: {
     order_stock(link) {
       Axios.get(link, config)
-        .then((Response) => {
-          this.$refs.form.reset()
+        .then(Response => {
+          this.loading = false;
+          this.$refs.form.reset();
         })
         .catch(error => {
+          this.loading = false;
           if (error.response) {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
@@ -124,48 +136,48 @@ export default {
         });
     },
     Ordering() {
-      let link =
-        "https://rcsandbox.ca/info/order/" +
-        this.ticker.toUpperCase() +
-        "/" +
-        this.Quantity +
-        "/" +
-        this.position.toLowerCase() +
-        "/";
-      if (this.order == "Stop Limit") {
-        link =
-          link +
-          "stoplimit/" +
-          this.tof.toLowerCase() +
-          "/" +
-          this.limitPrice +
-          "/" +
-          this.stopPrice +
-          "/";
-      } else if (this.order == "Limit") {
-        link =
-          link +
-          this.order.toLowerCase() +
-          "/" +
-          this.tof.toLowerCase() +
-          "/0/" +
-          this.limitPrice +
-          "/";
-      } else if (this.order == "Stop") {
-        link =
-          link +
-          this.order.toLowerCase() +
-          "/" +
-          this.tof.toLowerCase() +
-          "/0/" +
-          this.stopPrice +
-          "/";
-      } else {
-        link = link + this.order.toLowerCase() + "/" + this.tof.toLowerCase() + "/0/0/";
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        let link = `https://rcsandbox.ca/info/order/${this.ticker.toUpperCase()}/${this.Quantity}/${this.position.toLowerCase()}/`
+        if (this.order == "Stop Limit") {
+          link =
+            link +
+            "stoplimit/" +
+            this.tof.toLowerCase() +
+            "/" +
+            this.limitPrice +
+            "/" +
+            this.stopPrice +
+            "/";
+        } else if (this.order == "Limit") {
+          link =
+            link +
+            this.order.toLowerCase() +
+            "/" +
+            this.tof.toLowerCase() +
+            "/" +
+            this.limitPrice +
+            "/0.0/";
+        } else if (this.order == "Stop") {
+          link =
+            link +
+            this.order.toLowerCase() +
+            "/" +
+            this.tof.toLowerCase() +
+            "/0.0/" +
+            this.stopPrice +
+            "/";
+        } else {
+          link =
+            link +
+            this.order.toLowerCase() +
+            "/" +
+            this.tof.toLowerCase() +
+            "/0.0/0.0/";
+        }
+        this.order_stock(link);
       }
-      console.log(link)
-      this.order_stock(link);
-    },
+    }
   }
 };
 </script>

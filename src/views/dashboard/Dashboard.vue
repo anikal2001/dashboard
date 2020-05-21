@@ -4,10 +4,10 @@
       <AccountUpdate></AccountUpdate>
       <v-row>
         <v-col cols="12" md="8" class="mt-6">
-          <ChartBar></ChartBar>
+          <Portfolio></Portfolio>
         </v-col>
         <v-col cols="12" md="4" class="mt-6">
-          <TradeCard></TradeCard>
+          <order-form></order-form>
         </v-col>
       </v-row>
       <v-col cols="12" md="6" class="mt-6">
@@ -27,17 +27,17 @@ import db from "../../db.js";
 import * as Cookies from "js-cookie";
 import Watchlist from "./components/core/Watchlist.vue";
 import NewsBar from "./components/core/NewsBar.vue";
-import ChartBar from "./components/core/ChartBar.vue";
+import Portfolio from "./components/core/Portfolio.vue";
 import AccountUpdate from "./components/core/AccountUpdate.vue";
-import TradeCard from "./components/core/Trade Card.vue";
+import OrderForm from "./components/core/Order Form.vue";
 export default {
   name: "Dashboard",
   components: {
     Watchlist,
     NewsBar,
-    ChartBar,
+    Portfolio,
     AccountUpdate,
-    TradeCard
+    OrderForm
   },
   data() {
     return {
@@ -60,6 +60,6 @@ export default {
           });
       }
     });
-  }
+  },
 };
 </script>

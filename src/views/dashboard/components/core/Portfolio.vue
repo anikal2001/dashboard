@@ -6,7 +6,7 @@
       class=" scroll px-5 py-3"
       style="height:100%;margin-left:15px;"
     >
-    <div style="overflow:scroll;max-height:520px;">
+    <div style="overflow-y:auto;max-height:520px;">
       <v-simple-table>
         <thead>
           <tr>
@@ -61,20 +61,20 @@ let config = {
   }
 };
 export default {
-    name: 'Chartbar',
+    name: 'Portfolio',
     data(){
         return{
           portfolio_values: null,
     }
     },
-    async created(){
+    created(){
       this.portfolio_values = []
-      await this.get_values(this.portfolio_values)
+      this.get_values(this.portfolio_values)
     },
     methods:{
       get_values(values){
         Axios.get('https://rcsandbox.ca/info/pos/', config)
-        .then(function (Response){
+        .then((Response)=>{
           values.push(Response.data)
         })
         .catch( (error)=> {
