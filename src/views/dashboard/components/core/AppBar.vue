@@ -23,7 +23,7 @@
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
 
-    <v-menu bottom left offset-y origin="top right" transition="scale-transition">
+    <!-- <v-menu bottom left offset-y origin="top right" transition="scale-transition">
       <template v-slot:activator="{ attrs, on }">
         <v-btn class="ml-2" min-width="0" text v-bind="attrs" v-on="on">
           <v-badge color="red" overlap bordered>
@@ -43,7 +43,7 @@
           </app-bar-item>
         </div>
       </v-list>
-    </v-menu>
+    </v-menu> -->
 
     <v-btn class="ml-2" min-width="0" text to="/pages/user">
       <v-icon>mdi-account</v-icon>

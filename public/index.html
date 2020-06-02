@@ -33,39 +33,87 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
 </head>
-<div style="display: none;" class="tradingview-widget-container">
-  <div style="display:none;"class="tradingview-widget-container__widget"></div>
-  </div>
+<div style="display:none;" class="tradingview-widget-container">
+  <div style="display:none;" class="tradingview-widget-container__widget"></div>
+</div>
 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
   {
-  "symbols": [
-    {
-      "proName": "FOREXCOM:SPXUSD",
-      "title": "S&P 500"
-    },
-    {
-      "proName": "FOREXCOM:NSXUSD",
-      "title": "Nasdaq 100"
-    },
-    {
-      "proName": "FX_IDC:EURUSD",
-      "title": "EUR/USD"
-    },
-    {
-      "proName": "BITSTAMP:BTCUSD",
-      "title": "BTC/USD"
-    },
-    {
-      "proName": "BITSTAMP:ETHUSD",
-      "title": "ETH/USD"
-    }
-  ],
-  "colorTheme": "light",
-  "isTransparent": false,
-  "displayMode": "adaptive",
-  "locale": "en"
-}
-  </script>
+    "symbols": [
+      {
+        "description": "Dow Jones",
+        "proName": "CURRENCYCOM:US30"
+      },
+      {
+        "description": "Nasdaq Composite",
+        "proName": "NASDAQ:IXIC"
+      },
+      {
+        "description": "NYSE Composite",
+        "proName": "NYSE:NYA"
+      },
+      {
+        "description": "",
+        "proName": "NYSE:XAX"
+      },
+      {
+        "description": "S&P 500",
+        "proName": "CURRENCYCOM:US500"
+      },
+      {
+        "description": "Russell 2000",
+        "proName": "RUSSELL:RUT"
+      },
+      {
+        "description": "VIX",
+        "proName": "CBOE:VIX"
+      },
+      {
+        "description": "FTSE 100",
+        "proName": "CURRENCYCOM:UK100"
+      },
+      {
+        "description": "EURONEXT 100",
+        "proName": "EURONEXT:N100"
+      },
+      {
+        "description": "DAX 30",
+        "proName": "CURRENCYCOM:DE30"
+      },
+      {
+        "description": "Nikkei 225",
+        "proName": "TVC:NI225"
+      },
+      {
+        "description": "HANG SENG INDEX",
+        "proName": "HSI:HSI"
+      },
+      {
+        "description": "S&P/TSX Composite Index",
+        "proName": "TSX:TSX"
+      },
+      {
+        "description": "CAD/USD",
+        "proName": "FX_IDC:CADUSD"
+      },
+      {
+        "description": "EUR/USD",
+        "proName": "FX_IDC:EURUSD"
+      },
+      {
+        "description": "GBP/USD",
+        "proName": "MOEX:GBPUSD_SPT"
+      },
+      {
+        "description": "JPY/USD",
+        "proName": "FX_IDC:JPYUSD"
+      }
+    ],
+      "colorTheme": "light",
+        "isTransparent": false,
+          "displayMode": "adaptive",
+            "locale": "en"
+  }
+</script>
 
 <body>
   <noscript>

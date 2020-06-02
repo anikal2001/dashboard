@@ -82,9 +82,9 @@
       this.gradient = this.$refs.canvas
         .getContext('2d')
         .createLinearGradient(0, 0, 0, 450)
-      this.gradient.addColorStop(0, 'rgb(8, 24, 60, 1)')
-      this.gradient.addColorStop(0.5, 'rgb(8, 24, 60, 0.75)')
-      this.gradient.addColorStop(1, 'rgb(8, 24, 60, 0.5)')
+      // this.gradient.addColorStop(0, 'rgb(8, 24, 60, 1)')
+      // this.gradient.addColorStop(0.5, 'rgb(8, 24, 60, 0.75)')
+      // this.gradient.addColorStop(1, 'rgb(8, 24, 60, 0.5)')
       this.renderChart({
         labels: this.chartLabels,
         datasets: [
@@ -96,7 +96,7 @@
             pointHoverBorderColor: '#08182b',
             pointHoverBackgroundColor: '#fff',
             pointHoverRadius: 4,
-            pointHitRadius: 10,
+            pointHitRadius: 30,
             pointHoverBorderWidth: 1,
             borderWidth: 1,
             backgroundColor: this.gradient,

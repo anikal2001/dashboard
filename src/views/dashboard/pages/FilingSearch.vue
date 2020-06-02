@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-card class="mx-5 pa-5" tile >
-      <v-card-title style="font-size:30px;" class="mb-1">Search Filings</v-card-title>
+      <v-card-title style="font-size:30px;" class="mb-1">Filings</v-card-title>
       <form ref="form">
         <v-row align="center" justify="center">
           <v-col cols="12" md="2" class="px-0">

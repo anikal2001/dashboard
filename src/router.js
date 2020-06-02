@@ -53,6 +53,21 @@ export default new Router({
           path: 'components/fundamentals',
           component: () => import('@/views/dashboard/pages/Fundamentals.vue'),
         },
+        {
+          name: 'Single Stock Analysis',
+          path: 'pages/analysis',
+          component: () => import('@/views/dashboard/pages/ComingSoon'),
+        },
+        {
+          name: 'Resources',
+          path: 'pages/resources',
+          component: () => import('@/views/dashboard/pages/ComingSoon'),
+        },
+        {
+          name: 'Algo-Trading',
+          path: 'pages/trading',
+          component: () => import('@/views/dashboard/pages/ComingSoon'),
+        },
       ],
       beforeEnter: ifAuthenticated,
     },

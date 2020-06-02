@@ -1,19 +1,37 @@
 <template>
   <v-container>
-    <base-material-card title="Research Any Stock" color="#08182b" class="pa-20 my-10">
-    <div class="tradingview-widget-container">
-      <div id="tradingview_9cbb1"></div>
-    </div>
+    <base-material-card title="Stock Chart" color="#08182b" class="pa-20 my-10">
+      <div class="tradingview-widget-container">
+        <div id="tradingview_9cbb1"></div>
+      </div>
     </base-material-card>
-    <base-material-card title="Yearly Equity Graph" color="#08182b" class="pa-20 my-10">
-      <EquityGraph></EquityGraph>
-      </base-material-card>
-    <base-material-card title="Monthly Equity Graph" color="#08182b" class="pa-20 my-10">
-      <month-chart></month-chart>
+
+    <base-material-card color="#08182b" class="pa-20 my-10">
+      <template v-slot:heading>
+        <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
+          <v-tab class="mr-3">
+            <v-icon class="mr-2">mdi-newspaper</v-icon>Daily
+          </v-tab>
+          <v-tab class="mr-3">
+            <v-icon class="mr-2">mdi-archive</v-icon>Monthly
+          </v-tab>
+          <v-tab class="mr-3">
+            <v-icon class="mr-2">mdi-archive</v-icon>Yearly
+          </v-tab>
+        </v-tabs>
+      </template>
+      <v-tabs-items v-model="tabs" class="transparent">
+        <v-tab-item v-for="n in 3" :key="n">
+          <div>
+            <v-card-text>
+              <EquityGraph v-if="n == 3"></EquityGraph>
+              <month-chart v-if="n == 2"></month-chart>
+              <day-chart v-if="n == 1"></day-chart>
+            </v-card-text>
+          </div>
+        </v-tab-item>
+      </v-tabs-items>
     </base-material-card>
-     <base-material-card title="Daily Equity Graph" color="#08182b" class="pa-20 my-10">
-      <day-chart></day-chart>
-     </base-material-card>
   </v-container>
 </template>
 
@@ -27,6 +45,11 @@ export default {
     EquityGraph,
     MonthChart,
     DayChart
+  },
+  data(){
+    return{
+      tabs: 0,
+    }
   },
   mounted() {
     new TradingView.widget({

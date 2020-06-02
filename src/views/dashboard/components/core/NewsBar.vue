@@ -18,13 +18,8 @@
           v-model="search"
           v-if=" n == 2"
           hide-details
-          style="max-width: auto;"
+          style="max-width: auto;padding-bottom:10px"
         >
-          <template v-slot:append-outer>
-            <v-btn class="mt-n2" elevation="2" fab small>
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
-          </template>
         </v-text-field>
         <v-btn
           v-if="n==2"
@@ -38,7 +33,7 @@
             <template v-for="(task, i) in filterFilings">
               <v-row style="border-bottom:thin solid" :key="i" align="center">
                 <v-col>
-                  <a style="text-decoration:none;" :href="task.Link">
+                  <a style="text-decoration:none;" target="_blank" :href="task.Link">
                     <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="task.Title"></h3>
                     <p class="font-weight-light" v-text="task.Summary"></p>
                   </a>

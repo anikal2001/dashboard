@@ -140,8 +140,7 @@ export default {
           "/" +
           this.period +
           "/" +
-          this.numPeriods +
-          "/";
+          this.numPeriods
       } else if (this.statement === "Income Statement") {
         type = "income";
         link =
@@ -151,8 +150,7 @@ export default {
           "/" +
           this.period +
           "/" +
-          this.numPeriods +
-          "/";
+          this.numPeriods
       } else {
         type = "balance";
         link =
@@ -162,8 +160,7 @@ export default {
           "/" +
           this.period +
           "/" +
-          this.numPeriods +
-          "/";
+          this.numPeriods
       }
       this.$emit("send_link", [link, type]);
     }
