@@ -1,5 +1,5 @@
 <template>
-  <base-material-card color="#08182b" class="px-5 py-3" style="height:520px;">
+  <base-material-card color="#08182b" class="px-5 py-3" style="height:600px;">
     <v-form ref="form">
       <v-text-field v-model="newTicker" label="Add New Ticker" single-line hide-details>
         <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:append-outer>
@@ -16,7 +16,7 @@
       <v-data-table
         @page-count="pageCount = $event"
         :loading="loading"
-        :items-per-page="5"
+        :items-per-page="6"
         :page.sync="page"
         hide-default-footer
         :headers="headers"

@@ -10,13 +10,13 @@
       <template v-slot:heading>
         <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
           <v-tab class="mr-3">
-            <v-icon class="mr-2">mdi-newspaper</v-icon>Daily
+            Daily
           </v-tab>
           <v-tab class="mr-3">
-            <v-icon class="mr-2">mdi-archive</v-icon>Monthly
+           Monthly
           </v-tab>
           <v-tab class="mr-3">
-            <v-icon class="mr-2">mdi-archive</v-icon>Yearly
+           Yearly
           </v-tab>
         </v-tabs>
       </template>

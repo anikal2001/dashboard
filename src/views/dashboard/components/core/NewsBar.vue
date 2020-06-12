@@ -1,5 +1,5 @@
 <template>
-  <base-material-card max-height="100%" color="#08182b" class="scroll px-5 py-3">
+  <base-material-card height="600px" color="#08182b" class="scroll px-5 py-3">
     <template v-slot:heading>
       <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
         <v-tab class="mr-3">
@@ -13,22 +13,39 @@
     <v-tabs-items v-model="tabs" class="transparent">
       <v-tab-item v-for="n in 3" :key="n">
         <v-text-field
-          :label="$t('search')"
+          :label="$t('Search Recent Filings')"
           color="primary"
           v-model="search"
           v-if=" n == 2"
           hide-details
           style="max-width: auto;padding-bottom:10px"
-        >
-        </v-text-field>
+        ></v-text-field>
         <v-btn
           v-if="n==2"
           style="color: white;"
           small
           color="rgb(17, 25, 69)"
-          @click="FilingSearch()"
         >Search for more Filings</v-btn>
-        <div style="overflow-y:scroll;max-height:360px">
+        <v-btn
+          v-if="n==1"
+          style="color: white;"
+          small
+          dark
+          color="rgb(17, 25, 69)"
+        ><a :href="'https://advantage.factset.com/academic_idrequest'" target="_blank" style="color:white; text-decoration:none;">Factset</a></v-btn>
+        <v-btn
+          v-if="n==1"
+          style="margin:10px;"
+          small
+          dark
+          color="rgb(17, 25, 69)"
+        ><a :href="'https://www.bloomberg.com/account/register'" target="_blank" style="color:white;text-decoration:none;">Bloomberg News</a></v-btn>
+        <v-btn
+          v-if="n==1"
+          small
+          color="rgb(17, 25, 69)"
+        ><a :href="'https://portal.bloombergforeducation.com/'" target="_blank" style="color:white; text-decoration:none;">Bloomberg Market Concepts</a></v-btn>
+        <div :class="[n==1 ? 'news': 'filings']">
           <v-card-text>
             <template v-for="(task, i) in filterFilings">
               <v-row style="border-bottom:thin solid" :key="i" align="center">
@@ -150,12 +167,20 @@ export default {
           console.log(error.config);
         });
     },
-    FilingSearch(){
-      this.$router.push('/components/filings')
+    FilingSearch() {
+      this.$router.push("/components/filings");
     }
   }
 };
 </script>
 
 <style>
+.news {
+  overflow-y: scroll;
+  max-height: 420px;
+}
+.filings {
+  overflow-y: scroll;
+  max-height: 400px;
+}
 </style>

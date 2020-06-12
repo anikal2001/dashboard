@@ -68,7 +68,7 @@
       >
         <div
 
-          class="card-title font-weight-light"
+          class="card-title display-2 font-weight-light"
           v-text="title"
         />
       </div>

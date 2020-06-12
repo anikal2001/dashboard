@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@alpacahq/alpaca-trade-api": "^1.2.9",
+    "@vue/cli": "^4.4.1",
     "apexcharts": "^3.19.2",
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",

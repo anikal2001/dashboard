@@ -5,7 +5,7 @@
         style="justify-content:center"
         align="center"
         class="display-4"
-      >Get Accounting Fundamentals</v-card-title>
+      >Get Financial Statement Data</v-card-title>
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-container fluid>
           <v-row align-content="center" justify="center">
@@ -107,7 +107,7 @@ export default {
     valid: true,
     show: false,
     period_items: ["Annual", "Quarter"],
-    income_items: ["Cash Flows", "Income Statement", "Balance Sheet"],
+    income_items: ["Cash Flows Statement", "Income Statement", "Balance Sheet"],
     Ticker: "",
     statement: null,
     period: null,
