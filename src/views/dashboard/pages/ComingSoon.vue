@@ -3,7 +3,7 @@
     <div class="topleft">
     </div>
     <div class="middle">
-      <h1>COMING SOON</h1>
+      <h1 color="black">COMING SOON</h1>
       <hr />
     </div>
   </div>
@@ -28,7 +28,6 @@ html {
 }
 
 .bgimg {
-  background-image: url("../../../assets/coming_soon.jpg");
   height: 100%;
   background-position: center;
   background-size: cover;
@@ -56,6 +55,7 @@ html {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  color: black;
 }
 
 hr {
