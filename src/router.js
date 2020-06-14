@@ -56,7 +56,7 @@ export default new Router({
         {
           name: 'Single Stock Analysis',
           path: 'pages/analysis',
-          component: () => import('@/views/dashboard/pages/ComingSoon'),
+          component: () => import('@/views/dashboard/pages/CompanyProfile.vue'),
         },
         {
           name: 'Resources',
