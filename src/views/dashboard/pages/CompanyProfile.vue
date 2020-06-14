@@ -5,12 +5,21 @@
         style="justify-content:center;font-size:48px"
         align="center"
         class="display-4"
+<<<<<<< HEAD
       ><h1 style="font:source-sans-pro">Get Public Company Data</h1></v-card-title>
       <v-card-title
         style="justify-content:center;font-size:48px"
         align="center"
         class="display-4"
       ><h4 style="font:source-sans-pro"> Gain instant access to key company stats, financials, analyst recommendations, and upcoming corporate events</h4></v-card-title>
+=======
+      ><h4 style="font:source-sans-pro">Get Public Company Data</h4></v-card-title>
+      <v-card-title
+        style="justify-content:center;font-size:18px"
+        align="center"
+        class="display-4"
+      ><p style="font:source-sans"> Gain instant access to key company stats, financials, analyst recommendations, and upcoming corporate events</p></v-card-title>
+>>>>>>> evenNewerBranch
       <form ref="form">
         <v-row align="center" justify="center">
           
@@ -49,7 +58,11 @@
     <v-row>
     <v-col cols = '7'>  
      <base-material-card
+<<<<<<< HEAD
     style="max-height:100%;overflow-top:scroll;margin:25px 5px 0px 0px"
+=======
+    style="height:90%;overflow-top:scroll;margin:25px 10px 0px 0px"
+>>>>>>> evenNewerBranch
     color="#08182b"
     class="px-5 py-3"
     v-if="test"
@@ -59,8 +72,13 @@
     </template>
     
     </div>
+<<<<<<< HEAD
         <p> {{this.company.companyName}} ({{this.company.exchange}}: {{this.company.symbol}}) </p>
         
+=======
+        <h2>{{this.company.companyName}}</h2> <br>
+        ({{this.company.exchange}}: {{this.company.symbol}})<br>
+>>>>>>> evenNewerBranch
         {{this.company.website}}<br>
         {{this.company.city}}, {{this.company.state}}, {{this.company.country}}<br>
         {{this.company.industry}}<br>
@@ -73,10 +91,17 @@
   </base-material-card>
   </v-col>
   <v-col cols = '5' >  
+<<<<<<< HEAD
      <v-card v-if ='test'class="mx-5 pa-5" tile >
        <div style="max-width:80%;" >
     <trading-vue  :data="this.$data"></trading-vue>
     </div>
+=======
+     <v-card id="chart_div" v-if ='test' class="mx-0 pa-5" tile style="height:90%;overflow-top:scroll;margin:25px 10px 0px 0px" >
+    
+    <trading-vue  colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF' :width='525' :height='380'  :titleTxt='chartHeader' :data="this.$data"></trading-vue>
+  
+>>>>>>> evenNewerBranch
     </v-card>
     
   
@@ -105,6 +130,7 @@
   </base-material-card>
 
   </v-col>
+<<<<<<< HEAD
   <v-col cols='5'>
  
      <base-material-card
@@ -152,6 +178,131 @@
     </template>
     Next Earnings Date: {{this.key_stats.nextEarningsDate}}<br>
     Next Dividend Date: {{this.key_stats.nextDividendDate}}<br>
+=======
+  <v-col cols='5'> 
+  <base-material-card
+  style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
+    color="#08182b"
+    class="px-5 py-3"
+    v-if='test'>
+  <template v-slot:heading>
+      <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
+        <v-tab class="mr-3">
+          <v-icon class="mr-2">mdi-chart-pie</v-icon>Analyst Recommendations
+        </v-tab>
+        <v-tab class="mr-3">
+          <v-icon class="mr-2">mdi-target</v-icon>Price Targets
+        </v-tab>
+      </v-tabs>
+    </template>
+    <v-tabs-items v-model="tabs" class="transparent">
+      <v-tab-item v-for="n in 2" :key="n">
+        <div v-if="n==1">
+            <v-row>
+            <div style="margin: 40px 0px 25px 25px; justify:center;">
+               <h2> Recommendations <br> Distribution </h2>
+              <div >
+              Strong Buy: {{analyst_recommendations.ratingBuy}} analysts<br>
+              Moderate Buy: {{analyst_recommendations.ratingOverweight}} analysts<br>
+              Hold: {{analyst_recommendations.ratingHold}} analysts<br>
+              Moderate Sell: {{analyst_recommendations.ratingUnderweight}} analysts<br>
+              Strong Sell: {{analyst_recommendations.ratingSell}} analysts<br>
+              </div>
+              
+            </div>
+            <div>
+              <div style="justify:center;margin: 40px 0px 25px 25px;" >
+                <apexchart type="pie" width="300" :options="chartOptions" :series="series"></apexchart>
+              </div>
+              
+            </div>
+            </v-row>
+        </div>
+        <div v-if='n==2'>
+          <v-row>
+          <div  style="margin: 40px 25px 25px 25px;">
+          <h2> Price Targets </h2>
+            <div>
+              Average Price Target: ${{price_target.priceTargetAverage}}<br>
+              Highest Price Target: ${{price_target.priceTargetHigh}}<br>
+              Lowest Price Target: ${{price_target.priceTargetLow}}<br>
+              Number of Anlysts: {{price_target.numberOfAnalysts}}<br>
+            </div>
+          </div>
+            <div style="justify:center;" >
+                <apexchart type="rangeBar" width="300" :options="priceTargetChartOptions" :series="priceTargetSeries"></apexchart>
+            </div>
+          </v-row>
+        </div>
+        </div>
+      </v-tab-item>
+    </v-tabs-items>
+  </base-material-card>
+
+  <base-material-card
+  style="overflow-top:scroll;margin:50px 0px 5% 0px"
+    color="#08182b"
+    class="px-5 py-3"
+    v-if='test'>
+  <template v-slot:heading>
+      <v-tabs v-model="tabs2" background-color="transparent" slider-color="white">
+        <v-tab class="mr-3">
+          <v-icon class="mr-2">mdi-newspaper</v-icon>News
+        </v-tab>
+        <v-tab class="mr-3">
+          <v-icon class="mr-2">mdi-archive</v-icon>Filings
+        </v-tab>
+         <v-tab class="mr-3">
+          <v-icon class="mr-2">mdi-calendar</v-icon>Upcoming Events
+        </v-tab>
+    
+      </v-tabs>
+    </template>
+    <v-tabs-items v-model="tabs2" class="transparent">
+      <v-tab-item v-for="n in 3" :key="n">
+        <div style="overflow-y:scroll;max-height:360px" v-if='n==1'>
+          <div>
+          <v-card-text>
+            <template  v-for="item in news">
+              <v-row style="border-bottom:thin solid"  align="center">
+                <v-col>
+                  <a style="text-decoration:none;" target="_blank" :href="item.url">
+                    <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="item.headline"></h3>
+                    <p class="font-weight-light" v-text="item.summary"></p>
+                  </a>
+                </v-col>
+              </v-row>
+            </template>
+          </v-card-text>
+          </div>
+        </div>
+
+        <div style="overflow-y:scroll;max-height:360px" v-if='n==2'>
+          <div>
+          <v-card-text>
+            <template  v-for="item in filings">
+              <v-row style="border-bottom:thin solid" align="center">
+                <v-col>
+                  <a style="text-decoration:none;" target="_blank" :href="item.link">
+                    <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="item.name"></h3>
+
+                    <p class="font-weight-light" > Filing Type: {{item.type}}</p>
+                    <p class="font-weight-light" > Filing Date: {{item.date}}</p>
+                    
+                  </a>
+                </v-col>
+              </v-row>
+            </template>
+          </v-card-text>
+          </div>
+        </div>
+        <div v-if="n==3">
+            <p>Next Earnings Date: {{key_stats.nextEarningsDate}}<br>
+              Next Dividend Date: {{key_stats.nextDividendDate}}</p>
+        </div>
+      </v-tab-item>
+    </v-tabs-items>
+>>>>>>> evenNewerBranch
   </base-material-card>
    </v-col>
     </v-row>
@@ -167,7 +318,10 @@ import fundamentals from "../components/core/StatementExtractor.vue";
 import VueApexCharts from 'vue-apexcharts';
 import * as Cookies from "js-cookie";
 import Axios from "axios";
+<<<<<<< HEAD
 import ticker from "../components/core/Ticker.vue";
+=======
+>>>>>>> evenNewerBranch
 import { hello } from "./CSV-writing.js";
 const alpaca_key = Cookies.get("alpaca_key");
 var token = "Token " + alpaca_key;
@@ -181,7 +335,10 @@ export default {
   name: "CompanyProfile",
   components: { 
   TradingVue,
+<<<<<<< HEAD
   ticker,
+=======
+>>>>>>> evenNewerBranch
   fundamentals,
   'apexchart': VueApexCharts}, 
 
@@ -214,6 +371,10 @@ export default {
             }]
           },
     test: false,
+<<<<<<< HEAD
+=======
+    chartHeader: "",
+>>>>>>> evenNewerBranch
     ohlcv: [],
     valid: true,
     show: false,
@@ -244,11 +405,81 @@ export default {
     type: null,
     company: null,
     logo: null,
+<<<<<<< HEAD
+=======
+    tabs:4,
+    tabs2:4,
+>>>>>>> evenNewerBranch
     key_stats: null, 
     analyst_recommendations:null,
     price_target: null, 
     stuff: null,
+<<<<<<< HEAD
     newTicker:null,
+=======
+    barRange: [],
+    newTicker:null,
+    news: null,
+    filings: null,
+    cleanedNames: {
+        "companyName": "Company Name",
+        "marketcap": 'Market Capitalization',
+        "week52high": '52 Week High',
+        "week52low": '52 Week Low',
+        "week52change": '52 Week Change',
+        "sharesOutstanding": 'Outstanding Shares',
+        "float": 'Float',
+        "avg10Volume": 'Average 10 Day Volume',
+        "avg30Volume": 'Average 30 Day Volume',
+        "day200MovingAvg": '200 Day Moving Average',
+        "day50MovingAvg": '50 Day Moving Average',
+        "employees": 'Employees',
+        "ttmEPS": 'TTM EPS',
+        "ttmDividendRate": 'TTM Dividend Rate',
+        "dividendYield": 'Dividend Yield',
+        "nextDividendDate": 'Next Dividend Date',
+        "exDividendDate": 'Ex-Dividend Date',
+        "nextEarningsDate": 'Next Earnings Date',
+        "peRatio": 'PE Ratio',
+        "beta": 'Beta',
+        "maxChangePercent": 'Max Change Percentage',
+        "year5ChangePercent": '5 Year Holding Period Return',
+        "year2ChangePercent": '2 Year Holding Period Return',
+        "year1ChangePercent": '1 Year Holding Period Return',
+        "ytdChangePercent": 'Year to Date Return',
+        "month6ChangePercent": '6 Month Holding Period Return',
+        "month3ChangePercent": '3 Month Holding Period Return',
+        "month1ChangePercent": '1 Month Holding Period Return',
+        "day30ChangePercent": '30 Day Holding Period Return',
+        "day5ChangePercent": '5 Day Holding Period Return',
+      },
+    priceTargetSeries: [{
+              data: [{
+                x: '52-Week Trading Range',
+                y: [1, 5]
+              }, {
+                x: 'Current Analyst Forecast',
+                y: [4, 6]
+              },]
+          }],
+          priceTargetChartOptions: {
+            chart: {
+              type: 'rangeBar',
+              decimalsInFloat: 2,
+            },
+            plotOptions: {
+              bar: {
+                decimalsInFloat: 2,
+                horizontal: true
+              }
+            },
+            dataLabels: {
+              enabled: true,
+              decimalsInFloat: 2,
+            }
+          },
+
+>>>>>>> evenNewerBranch
   }),
   methods: {
     get_filings() {
@@ -266,24 +497,57 @@ export default {
           this.key_stats = Response.data.stats;
           this.analyst_recommendations = Response.data.analyst_recommendations;
           this.price_target = Response.data.price_target;
+<<<<<<< HEAD
+=======
+          this.filings = Response.data.filings;
+          this.news = Response.data.news;
+>>>>>>> evenNewerBranch
           this.loading = false;
           this.test = true;
           var temp = {};
           for (var x in this.key_stats){
+<<<<<<< HEAD
             if (x == 'marketcap' || x == 'sharesOutstanding' || x == 'ttmEPS' || x == 'ttmDividendRate' || x == 'peRatio' || x=='beta'){
             temp = {'name': x, "val": this.key_stats[x]};
+=======
+            if (x == 'marketcap' || x == 'sharesOutstanding' || x == 'ttmEPS' || x == 'dividendYield' || x == 'peRatio' || x=='beta' || x=='week52high' || x=='week52low' || x=='float' || x=='sharesOutstanding'
+            || x=='week52Change'){
+            temp = {'name': this.cleanedNames[x] , "val": this.key_stats[x]};
+>>>>>>> evenNewerBranch
             console.log(x);
             this.items.push(temp);
             }
           }
+<<<<<<< HEAD
           this.ohlcv = Response.data.charting_yearly;
         
           this.series = [this.analyst_recommendations.ratingSell, this.analyst_recommendations.ratingUnderweight, this.analyst_recommendations.ratingHold, this.analyst_recommendations.ratingOverweight, this.analyst_recommendations.ratingBuy,]
+=======
+          temp = {'name': '52 Week Trading Range' , "val": this.key_stats['week52low']+ " - " + this.key_stats['week52high']};
+          this.items.push(temp);
+          this.ohlcv = Response.data.charting_yearly;        
+          this.series = [this.analyst_recommendations.ratingSell, this.analyst_recommendations.ratingUnderweight, this.analyst_recommendations.ratingHold, this.analyst_recommendations.ratingOverweight, this.analyst_recommendations.ratingBuy,];
+          var tradingRange =[Number(this.key_stats['week52low']).toFixed(2),  Number(this.key_stats['week52high']).toFixed(2)];
+          var forecast = 
+          this.priceTargetSeries=[{
+              data: [{
+                x: '52-Week Trading Range',
+                y: [Number(this.key_stats['week52low']).toFixed(2),  Number(this.key_stats['week52high']).toFixed(2)]
+              }, {
+                x: 'Current Analyst Forecast',
+                y: [this.price_target.priceTargetLow, this.price_target.priceTargetHigh]
+              },]
+          }];
+>>>>>>> evenNewerBranch
           //var count = Object.keys(Response.data.filings).length;
           //for (let i = 0; i < count; i++) {
            // this.items.push({
            //   title: Response.data.filings[i].title,
+<<<<<<< HEAD
            //   link: Response.data.filings[i].link
+=======
+           //   link: Response.data.filings[i].lin
+>>>>>>> evenNewerBranch
               
            // });
           }
@@ -300,6 +564,7 @@ export default {
         //this.populate_table(Response.data);
       });
     },
+<<<<<<< HEAD
     mounted() {
     new TradingView.widget({
       width: 600,
@@ -315,6 +580,14 @@ export default {
       allow_symbol_change: true,
       container_id: "tradingview_9cbb1"
     });
+=======
+    normal_names(key) {
+      key = key.replace(/([A-Z])/g, " $1").trim();
+      key = key.substring(0, 1).toUpperCase() + key.substring(1);
+      return key;
+    },
+    mounted() {
+>>>>>>> evenNewerBranch
   }
 }
 

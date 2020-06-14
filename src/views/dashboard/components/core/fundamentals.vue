@@ -1,5 +1,6 @@
 <template>
   <div class="ticker-form">
+<<<<<<< HEAD
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-container fluid>
           <v-row align-content="center" justify="center">
@@ -8,6 +9,16 @@
                 v-model="statement"
                 :items="income_items"
                 label="Income Statement"
+=======
+      <v-form ref="form" v-model="valid" style="width:100%;" lazy-validation>
+        
+          <v-row align-content="center" justify='center'  >
+            <v-col class="d-flex" cols="12" sm="3">
+              <v-select
+                v-model="statement"
+                :items="income_items"
+                label="Statement"
+>>>>>>> evenNewerBranch
                 :rules="[v => !!v || 'Item is required']"
                 filled
                 outlined
@@ -15,7 +26,11 @@
                 style="border-radius:3px;"
               />
             </v-col>
+<<<<<<< HEAD
             <v-col class="d-flex" cols="12" md="2">
+=======
+            <v-col class="d-flex" cols="12" md="3">
+>>>>>>> evenNewerBranch
               <v-text-field
                 v-model="Ticker"
                 :rules="nameRules"
@@ -27,7 +42,11 @@
               />
             </v-col>
 
+<<<<<<< HEAD
             <v-col class="d-flex" cols="12" sm="2">
+=======
+            <v-col class="d-flex" cols="12" sm="3">
+>>>>>>> evenNewerBranch
               <v-select
                 v-model="period"
                 :items="period_items"
@@ -40,7 +59,11 @@
               />
             </v-col>
 
+<<<<<<< HEAD
             <v-col v-if="period ==='Annual'" class="d-flex" cols="12" md="2">
+=======
+            <v-col v-if="period ==='Annual'" class="d-flex" cols="12" md="3">
+>>>>>>> evenNewerBranch
               <v-text-field
                 v-model="numPeriods"
                 filled
@@ -52,7 +75,11 @@
               />
             </v-col>
 
+<<<<<<< HEAD
             <v-col v-if="period ==='Quarter'" class="d-flex" cols="12" md="2">
+=======
+            <v-col v-if="period ==='Quarter'" class="d-flex" cols="12" md="3">
+>>>>>>> evenNewerBranch
               <v-text-field
                 v-model="numPeriods"
                 filled
@@ -63,17 +90,31 @@
                 required
               />
             </v-col>
+<<<<<<< HEAD
             <v-col class="d-flex" cols="12" md="2">
+=======
+            
+          </v-row>
+        <v-row>
+        <div class="d-flex" cols="12" md="2" style='margin-righ:0px;' justify='right'>
+>>>>>>> evenNewerBranch
               <v-btn
                 :disabled="!valid"
                 color="#08182b"
                 class="white--text"
                 large
                 @click="Ordering()"
+<<<<<<< HEAD
               >Export</v-btn>
             </v-col>
           </v-row>
         </v-container>
+=======
+                justify='right'
+              >Export</v-btn>
+            </div>
+        </v-row>
+>>>>>>> evenNewerBranch
       </v-form>
   </div>
 </template>
@@ -153,6 +194,7 @@ export default {
 </script>
 <style scoped>
 .ticker-form {
+<<<<<<< HEAD
   display: flex;
   justify-content: center;
   width: 100%;
@@ -163,5 +205,17 @@ export default {
   padding: 0;
   justify-content: flex-end;
   align-items: baseline;
+=======
+ /* display: flex;
+  justify-content: center;
+  width: 100%;
+  align-content: center;*/
+}
+#title {
+  /*color: white;
+  padding: 0;
+  justify-content: flex-end;
+  align-items: baseline;*/
+>>>>>>> evenNewerBranch
 }
 </style>
