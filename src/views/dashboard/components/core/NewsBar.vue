@@ -32,19 +32,19 @@
           small
           dark
           color="rgb(17, 25, 69)"
-        ><a :href="'https://advantage.factset.com/academic_idrequest'" target="_blank" style="color:white; text-decoration:none;">Factset</a></v-btn>
+        ><a :href="'https://www.bloomberg.com/live/us'" target="_blank" style="color:white; text-decoration:none;">Bloomberg US Stream</a></v-btn>
         <v-btn
           v-if="n==1"
           style="margin:10px;"
           small
           dark
           color="rgb(17, 25, 69)"
-        ><a :href="'https://www.bloomberg.com/account/register'" target="_blank" style="color:white;text-decoration:none;">Bloomberg News</a></v-btn>
+        ><a :href="'https://www.bloomberg.com/live/europe'" target="_blank" style="color:white;text-decoration:none;">Bloomberg Europe Stream</a></v-btn>
         <v-btn
           v-if="n==1"
           small
           color="rgb(17, 25, 69)"
-        ><a :href="'https://portal.bloombergforeducation.com/'" target="_blank" style="color:white; text-decoration:none;">Bloomberg Market Concepts</a></v-btn>
+        ><a :href="'https://www.bloomberg.com/live/asia'" target="_blank" style="color:white; text-decoration:none;">Bloomberg Asia Stream</a></v-btn>
         <div :class="[n==1 ? 'news': 'filings']">
           <v-card-text>
             <template v-for="(task, i) in filterFilings">

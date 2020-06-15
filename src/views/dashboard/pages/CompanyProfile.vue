@@ -5,21 +5,12 @@
         style="justify-content:center;font-size:48px"
         align="center"
         class="display-4"
-<<<<<<< HEAD
-      ><h1 style="font:source-sans-pro">Get Public Company Data</h1></v-card-title>
-      <v-card-title
-        style="justify-content:center;font-size:48px"
-        align="center"
-        class="display-4"
-      ><h4 style="font:source-sans-pro"> Gain instant access to key company stats, financials, analyst recommendations, and upcoming corporate events</h4></v-card-title>
-=======
       ><h4 style="font:source-sans-pro">Get Public Company Data</h4></v-card-title>
       <v-card-title
         style="justify-content:center;font-size:18px"
         align="center"
         class="display-4"
       ><p style="font:source-sans"> Gain instant access to key company stats, financials, analyst recommendations, and upcoming corporate events</p></v-card-title>
->>>>>>> evenNewerBranch
       <form ref="form">
         <v-row align="center" justify="center">
           
@@ -58,11 +49,7 @@
     <v-row>
     <v-col cols = '7'>  
      <base-material-card
-<<<<<<< HEAD
-    style="max-height:100%;overflow-top:scroll;margin:25px 5px 0px 0px"
-=======
     style="height:90%;overflow-top:scroll;margin:25px 10px 0px 0px"
->>>>>>> evenNewerBranch
     color="#08182b"
     class="px-5 py-3"
     v-if="test"
@@ -71,14 +58,9 @@
        <div class="display-2 font-weight-light">Company Profile</div>
     </template>
     
-    </div>
-<<<<<<< HEAD
-        <p> {{this.company.companyName}} ({{this.company.exchange}}: {{this.company.symbol}}) </p>
-        
-=======
+    <div>
         <h2>{{this.company.companyName}}</h2> <br>
         ({{this.company.exchange}}: {{this.company.symbol}})<br>
->>>>>>> evenNewerBranch
         {{this.company.website}}<br>
         {{this.company.city}}, {{this.company.state}}, {{this.company.country}}<br>
         {{this.company.industry}}<br>
@@ -86,22 +68,14 @@
         
         CEO: {{this.company.CEO}}<br>
         Number of Employees: {{this.company.employees}}<br>
-        
-
+    </div>
   </base-material-card>
   </v-col>
   <v-col cols = '5' >  
-<<<<<<< HEAD
-     <v-card v-if ='test'class="mx-5 pa-5" tile >
-       <div style="max-width:80%;" >
-    <trading-vue  :data="this.$data"></trading-vue>
-    </div>
-=======
      <v-card id="chart_div" v-if ='test' class="mx-0 pa-5" tile style="height:90%;overflow-top:scroll;margin:25px 10px 0px 0px" >
     
     <trading-vue  colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF' :width='525' :height='380'  :titleTxt='chartHeader' :data="this.$data"></trading-vue>
   
->>>>>>> evenNewerBranch
     </v-card>
     
   
@@ -130,55 +104,6 @@
   </base-material-card>
 
   </v-col>
-<<<<<<< HEAD
-  <v-col cols='5'>
- 
-     <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0px 0px 0px 0px"
-    color="#08182b"
-    class="px-5 py-3"
-    v-if="test"
-  >
-   <template v-slot:heading>
-      <div class="display-2 font-weight-light">Analyst Recommendations</div>
-    </template>
-    <v-row>
-    <div>
-    <div >
-       <apexchart type="pie" width="380" :options="chartOptions" :series="series"></apexchart>
-    </div>
-    <div >
-    Strong Buy: {{this.analyst_recommendations.ratingBuy}} analysts<br>
-    Moderate Buy: {{this.analyst_recommendations.ratingOverweight}} analysts<br>
-    Hold: {{this.analyst_recommendations.ratingHold}} analysts<br>
-    Moderate Sell: {{this.analyst_recommendations.ratingUnderweight}} analysts<br>
-    Strong Sell: {{this.analyst_recommendations.ratingSell}} analysts<br>
-    </div>
-    </div>
-    <div >
-    <h2> Price Targets </h2>
-
-    Average Price Target: ${{this.price_target.priceTargetAverage}}<br>
-    Highest Price Target: ${{this.price_target.priceTargetHigh}}<br>
-    Lowest Price Target: ${{this.price_target.priceTargetLow}}<br>
-    Number of Anlysts: ${{this.price_target.numberOfAnalysts}}<br>
-    </div>
-    </v-row>
-  </base-material-card>
-    
-  <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:50px 0px 5% 0px"
-    color="#08182b"
-    class="px-5 py-3"
-    v-if="test"
-  >
-
-   <template v-slot:heading>
-      <div class="display-2 font-weight-light">Upcoming Corporate Events</div>
-    </template>
-    Next Earnings Date: {{this.key_stats.nextEarningsDate}}<br>
-    Next Dividend Date: {{this.key_stats.nextDividendDate}}<br>
-=======
   <v-col cols='5'> 
   <base-material-card
   style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
@@ -234,7 +159,6 @@
             </div>
           </v-row>
         </div>
-        </div>
       </v-tab-item>
     </v-tabs-items>
   </base-material-card>
@@ -264,7 +188,7 @@
           <div>
           <v-card-text>
             <template  v-for="item in news">
-              <v-row style="border-bottom:thin solid"  align="center">
+              <v-row style="border-bottom:thin solid" :key="item" align="center">
                 <v-col>
                   <a style="text-decoration:none;" target="_blank" :href="item.url">
                     <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="item.headline"></h3>
@@ -280,8 +204,8 @@
         <div style="overflow-y:scroll;max-height:360px" v-if='n==2'>
           <div>
           <v-card-text>
-            <template  v-for="item in filings">
-              <v-row style="border-bottom:thin solid" align="center">
+            <template  v-for="item in filings" >
+              <v-row style="border-bottom:thin solid" v-bind:key="item" align="center">
                 <v-col>
                   <a style="text-decoration:none;" target="_blank" :href="item.link">
                     <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="item.name"></h3>
@@ -302,11 +226,9 @@
         </div>
       </v-tab-item>
     </v-tabs-items>
->>>>>>> evenNewerBranch
   </base-material-card>
    </v-col>
     </v-row>
-    </v-card>
 
     
   </v-container>
@@ -318,10 +240,6 @@ import fundamentals from "../components/core/StatementExtractor.vue";
 import VueApexCharts from 'vue-apexcharts';
 import * as Cookies from "js-cookie";
 import Axios from "axios";
-<<<<<<< HEAD
-import ticker from "../components/core/Ticker.vue";
-=======
->>>>>>> evenNewerBranch
 import { hello } from "./CSV-writing.js";
 const alpaca_key = Cookies.get("alpaca_key");
 var token = "Token " + alpaca_key;
@@ -335,10 +253,6 @@ export default {
   name: "CompanyProfile",
   components: { 
   TradingVue,
-<<<<<<< HEAD
-  ticker,
-=======
->>>>>>> evenNewerBranch
   fundamentals,
   'apexchart': VueApexCharts}, 
 
@@ -371,10 +285,7 @@ export default {
             }]
           },
     test: false,
-<<<<<<< HEAD
-=======
     chartHeader: "",
->>>>>>> evenNewerBranch
     ohlcv: [],
     valid: true,
     show: false,
@@ -405,18 +316,12 @@ export default {
     type: null,
     company: null,
     logo: null,
-<<<<<<< HEAD
-=======
     tabs:4,
     tabs2:4,
->>>>>>> evenNewerBranch
     key_stats: null, 
     analyst_recommendations:null,
     price_target: null, 
     stuff: null,
-<<<<<<< HEAD
-    newTicker:null,
-=======
     barRange: [],
     newTicker:null,
     news: null,
@@ -479,7 +384,6 @@ export default {
             }
           },
 
->>>>>>> evenNewerBranch
   }),
   methods: {
     get_filings() {
@@ -497,32 +401,19 @@ export default {
           this.key_stats = Response.data.stats;
           this.analyst_recommendations = Response.data.analyst_recommendations;
           this.price_target = Response.data.price_target;
-<<<<<<< HEAD
-=======
           this.filings = Response.data.filings;
           this.news = Response.data.news;
->>>>>>> evenNewerBranch
           this.loading = false;
           this.test = true;
           var temp = {};
           for (var x in this.key_stats){
-<<<<<<< HEAD
-            if (x == 'marketcap' || x == 'sharesOutstanding' || x == 'ttmEPS' || x == 'ttmDividendRate' || x == 'peRatio' || x=='beta'){
-            temp = {'name': x, "val": this.key_stats[x]};
-=======
             if (x == 'marketcap' || x == 'sharesOutstanding' || x == 'ttmEPS' || x == 'dividendYield' || x == 'peRatio' || x=='beta' || x=='week52high' || x=='week52low' || x=='float' || x=='sharesOutstanding'
             || x=='week52Change'){
             temp = {'name': this.cleanedNames[x] , "val": this.key_stats[x]};
->>>>>>> evenNewerBranch
             console.log(x);
             this.items.push(temp);
             }
           }
-<<<<<<< HEAD
-          this.ohlcv = Response.data.charting_yearly;
-        
-          this.series = [this.analyst_recommendations.ratingSell, this.analyst_recommendations.ratingUnderweight, this.analyst_recommendations.ratingHold, this.analyst_recommendations.ratingOverweight, this.analyst_recommendations.ratingBuy,]
-=======
           temp = {'name': '52 Week Trading Range' , "val": this.key_stats['week52low']+ " - " + this.key_stats['week52high']};
           this.items.push(temp);
           this.ohlcv = Response.data.charting_yearly;        
@@ -538,16 +429,11 @@ export default {
                 y: [this.price_target.priceTargetLow, this.price_target.priceTargetHigh]
               },]
           }];
->>>>>>> evenNewerBranch
           //var count = Object.keys(Response.data.filings).length;
           //for (let i = 0; i < count; i++) {
            // this.items.push({
            //   title: Response.data.filings[i].title,
-<<<<<<< HEAD
-           //   link: Response.data.filings[i].link
-=======
            //   link: Response.data.filings[i].lin
->>>>>>> evenNewerBranch
               
            // });
           }
@@ -564,30 +450,12 @@ export default {
         //this.populate_table(Response.data);
       });
     },
-<<<<<<< HEAD
-    mounted() {
-    new TradingView.widget({
-      width: 600,
-      height: 400,
-      symbol: "NASDAQ:AAPL",
-      timezone: "Etc/UTC",
-      theme: "light",
-      style: "1",
-      locale: "en",
-      toolbar_bg: "#f1f3f6",
-      enable_publishing: false,
-      range: "ytd",
-      allow_symbol_change: true,
-      container_id: "tradingview_9cbb1"
-    });
-=======
     normal_names(key) {
       key = key.replace(/([A-Z])/g, " $1").trim();
       key = key.substring(0, 1).toUpperCase() + key.substring(1);
       return key;
     },
     mounted() {
->>>>>>> evenNewerBranch
   }
 }
 
