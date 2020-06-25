@@ -17,7 +17,7 @@
               Quantity
             </th>
             <th class="primary--text">
-              Entry Price
+              VWAP
             </th>
             <th class="primary--text">
               Current Price
@@ -37,7 +37,7 @@
             <td>{{task.qty}} </td>
             <td>{{task.entryPrice}}</td>
             <td>{{task.currentPrice}}</td>
-            <td>{{task.marketValue}}</td>
+            <td>${{formatNumber(task.marketValue)}}</td>
             <td class="text-right">
               <v-chip :color="getColor(task.returnPercent)" dark>
               {{task.returnPercent}}
@@ -100,7 +100,10 @@ export default {
         item = item.toString();
         if (item.charAt(0) == "-") return "red";
         else return "green";
-    }
+    },
+    formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      }
     }
 
 }

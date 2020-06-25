@@ -59,9 +59,9 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/CompanyProfile.vue'),
         },
         {
-          name: 'Resources',
+          name: 'Knowledge Base',
           path: 'pages/resources',
-          component: () => import('@/views/dashboard/pages/ComingSoon'),
+          component: () => import('@/views/dashboard/pages/Resources'),
         },
         {
           name: 'Algo-Trading',

@@ -31,7 +31,7 @@
       <base-material-stats-card
         v-bind:color="color"
         v-bind:icon="icon"
-        title="Profit & Loss"
+        title="Cumulative PnL"
         v-bind:value="acc_details[3]"
         sub-title="12%"
       />

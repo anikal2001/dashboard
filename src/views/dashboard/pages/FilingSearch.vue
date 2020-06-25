@@ -45,17 +45,26 @@
     >
       You have entered an invalid ticker
     </v-alert>
-      <v-list flat >
-        <v-list-item-group class="pa-5" v-model="item" color="primary">
-          <v-list-item style="border:2px solid;border-bottom: 0px" v-for="(item, i) in items" :key="i">
-            <a target="_blank" :href="item.link" style="text-decoration: none;">
-            <v-list-item-content align="center" justify="center">
-                <v-list-item-title v-text="item.title"></v-list-item-title>
-            </v-list-item-content>
-            </a>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+    <div>
+          <div>
+          <v-card-text>
+            <template  v-for="item in items" >
+              <v-row style="border-bottom:thin solid" v-bind:key="item" align="center">
+                <v-col>
+                  <a style="text-decoration:none;" target="_blank" :href="item.link">
+                    <h3 class="font-weight-dark" style="padding-bottom:.5rem;" v-text="item.name"></h3>
+
+                    <p class="font-weight-light" > Filing Type: {{item.type}}</p>
+                    <p class="font-weight-light" > Filing Date: {{item.date}}</p>
+                    
+                  </a>
+                </v-col>
+              </v-row>
+            </template>
+          </v-card-text>
+          </div>
+      </div>
+      
     </v-card>
   </v-container>
 </template>
@@ -85,13 +94,16 @@ export default {
         "/";
       Axios.get(link)
         .then(Response => {
-          var count = Object.keys(Response.data.filings).length;
-          for (let i = 0; i < count; i++) {
-            this.items.push({
-              title: Response.data.filings[i].title,
-              link: Response.data.filings[i].link
-            });
-          }
+          //var count = Object.keys(Response.data.filings).length;
+          this.items = Response.data;
+          console.log(this.items);
+
+          //for (let i = 0; i < count; i++) {
+          //  this.items.push({
+          //    title: Response.data.filings[i].title,
+          //    link: Response.data.filings[i].link
+          //  });
+          //}
           this.loading = false
         })
         .catch(error => {

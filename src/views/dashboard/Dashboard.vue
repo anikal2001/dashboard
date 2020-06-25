@@ -1,5 +1,12 @@
 <template>
   <v-container id="dashboard" fluid tag="section">
+    <balloon
+      title = 'Music While You Work'
+      position = 'bottom-right'
+    >
+      <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
+      <!--<youtube :player-vars="{autoplay: 1}"      :video-id="videoID"></youtube> -->
+    </balloon>
     <v-row>
       <AccountUpdate></AccountUpdate>
       <v-row>
@@ -17,7 +24,9 @@
         <news-bar></news-bar>
       </v-col>
     </v-row>
+    
   </v-container>
+   
 </template>
 
 <script>
@@ -30,6 +39,10 @@ import NewsBar from "./components/core/NewsBar.vue";
 import Portfolio from "./components/core/Portfolio.vue";
 import AccountUpdate from "./components/core/AccountUpdate.vue";
 import OrderForm from "./components/core/Order Form.vue";
+import { Balloon } from 'vue-balloon';
+import Vue from 'vue';
+import VueYouTubeEmbed from 'vue-youtube-embed';
+Vue.use(VueYouTubeEmbed);
 export default {
   name: "Dashboard",
   components: {
@@ -37,11 +50,13 @@ export default {
     NewsBar,
     Portfolio,
     AccountUpdate,
-    OrderForm
+    OrderForm,
+    Balloon,
   },
   data() {
     return {
-      user: null
+      user: null,
+      videoID: "5qap5aO4i9A",
     };
   },
   created() {

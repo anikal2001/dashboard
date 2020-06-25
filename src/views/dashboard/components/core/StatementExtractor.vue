@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-container>
-        <ticker @export="get_csv" @send_link="get_link"></ticker>
+        <ticker :Ticker='ticker'  @export="get_csv" @send_link="get_link"></ticker>
       </v-container>
 
   </div>
@@ -25,11 +25,16 @@ export default {
   components: {
     ticker
   },
+  props:{
+    ticker:String,
+  },
   data() {
     return {
       link: null,
       loading: false,
       csv_link: null,
+      title:null,
+      ticker:null,
       items: [],
       headers: [],
       url: "https://78.media.tumblr.com/tumblr_m39nv7PcCU1r326q7o1_500.png"
@@ -53,7 +58,7 @@ export default {
       const a = document.createElement("a");
       a.setAttribute("hidden", "");
       a.setAttribute("href", url); //or any other extension
-      a.setAttribute("download", "download.csv");
+      a.setAttribute("download", title + ".csv");
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

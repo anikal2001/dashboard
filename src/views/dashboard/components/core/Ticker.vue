@@ -107,7 +107,7 @@ export default {
     valid: true,
     show: false,
     period_items: ["Annual", "Quarter"],
-    income_items: ["Cash Flows Statement", "Income Statement", "Balance Sheet"],
+    income_items: ["Statement of Cash Flows", "Income Statement", "Balance Sheet"],
     Ticker: "",
     statement: null,
     period: null,
@@ -131,7 +131,7 @@ export default {
       let type = null;
       this.show = true
       let link = "https://rcsandbox.ca/info/financials/";
-      if (this.statement === "Cash Flows") {
+      if (this.statement === "Statement of Cash Flows") {
         type = "cash";
         link =
           link +

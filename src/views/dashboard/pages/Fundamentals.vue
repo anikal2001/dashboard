@@ -1,11 +1,11 @@
 <template>
   <div>
-    <base-material-card title="Get Financial Statement Data" color="#08182b" class="px-5 py-10">
+    <v-card class="px-5 py-10">
       <v-container>
         <ticker @export="get_csv" @send_link="get_link"></ticker>
         <v-data-table v-if="items.length > 0" :loading="loading" :headers="headers" :items="items"></v-data-table>
       </v-container>
-    </base-material-card>
+    </v-card>
   </div>
 </template>
 

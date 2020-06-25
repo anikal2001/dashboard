@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card class="mx-5 pa-5" tile >
+    <v-card class="mx-2 pa-5" tile >
       <v-card-title
         style="justify-content:center;font-size:48px"
         align="center"
@@ -9,8 +9,8 @@
       <v-card-title
         style="justify-content:center;font-size:18px"
         align="center"
-        class="display-4"
-      ><p style="font:source-sans"> Gain instant access to key company stats, financials, analyst recommendations, and upcoming corporate events</p></v-card-title>
+        class="display-3"
+      ><p style="font:source-sans"> Gain instant access to key company stats, financials, <br> analyst recommendations, and upcoming corporate events</p></v-card-title>
       <form ref="form">
         <v-row align="center" justify="center">
           
@@ -29,6 +29,7 @@
                   <v-icon>mdi-magnify</v-icon>
                 </v-btn>
               </template>
+              
             </v-text-field>
           </v-col>
         </v-row>
@@ -49,9 +50,9 @@
     <v-row>
     <v-col cols = '7'>  
      <base-material-card
-    style="height:90%;overflow-top:scroll;margin:25px 10px 0px 0px"
+    style="height:93%;overflow-top:scroll;margin:25px 10px 0px 0px"
     color="#08182b"
-    class="px-5 py-3"
+    class="mx-2 pa-5"
     v-if="test"
   >
    <template v-slot:heading>
@@ -72,11 +73,11 @@
   </base-material-card>
   </v-col>
   <v-col cols = '5' >  
-     <v-card id="chart_div" v-if ='test' class="mx-0 pa-5" tile style="height:90%;overflow-top:scroll;margin:25px 10px 0px 0px" >
+     
     
-    <trading-vue  colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF' :width='525' :height='380'  :titleTxt='chartHeader' :data="this.$data"></trading-vue>
+    <trading-vue v-if="test" style="height:95%;overflow-top:scroll;margin:25px 0px 0px 0px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
   
-    </v-card>
+    
     
   
   </v-col>
@@ -86,7 +87,7 @@
       <base-material-card
     style="max-height:100%;overflow-top:scroll;margin:0 10px 50px 0px"
     color="#08182b"
-    class="px-5 py-3"
+    class="mx-2 pa-5"
     v-if="test"
   >
    <template v-slot:heading>
@@ -98,17 +99,11 @@
           :headers="headers"
           :items="items"
         ></v-data-table>
-  <h1> Financial Statements </h1>
-  
-  <fundamentals></fundamentals>
   </base-material-card>
-
-  </v-col>
-  <v-col cols='5'> 
-  <base-material-card
+   <base-material-card
   style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
     color="#08182b"
-    class="px-5 py-3"
+    class="mx-2 pa-5"
     v-if='test'>
   <template v-slot:heading>
       <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
@@ -145,7 +140,7 @@
         </div>
         <div v-if='n==2'>
           <v-row>
-          <div  style="margin: 40px 25px 25px 25px;">
+          <div  style="margin: 0px 0px 0px 0px;">
           <h2> Price Targets </h2>
             <div>
               Average Price Target: ${{price_target.priceTargetAverage}}<br>
@@ -162,11 +157,18 @@
       </v-tab-item>
     </v-tabs-items>
   </base-material-card>
+  </v-col>
+  <v-col cols='5'> 
+  <v-card v-if="test" style="margin: 40px 25px 25px 25px;">
+    <h1> Financial Statements </h1>
+  
+  <fundamentals :ticker='Ticker'></fundamentals>
+  </v-card>
 
   <base-material-card
   style="overflow-top:scroll;margin:50px 0px 5% 0px"
     color="#08182b"
-    class="px-5 py-3"
+    class="mx-2 pa-5"
     v-if='test'>
   <template v-slot:heading>
       <v-tabs v-model="tabs2" background-color="transparent" slider-color="white">
@@ -221,8 +223,8 @@
           </div>
         </div>
         <div v-if="n==3">
-            <p>Next Earnings Date: {{key_stats.nextEarningsDate}}<br>
-              Next Dividend Date: {{key_stats.nextDividendDate}}</p>
+            <p><b>Next Earnings Date:</b> {{key_stats.nextEarningsDate}}<br>
+              <b>Next Dividend Date:</b> {{key_stats.nextDividendDate}}</p>
         </div>
       </v-tab-item>
     </v-tabs-items>
@@ -289,6 +291,7 @@ export default {
     ohlcv: [],
     valid: true,
     show: false,
+    lol: 'lol',
     period_items: ["Annual", "Quarter"],
     income_items: ["Cash Flows", "Income Statement", "Balance Sheet"],
     Ticker: "",

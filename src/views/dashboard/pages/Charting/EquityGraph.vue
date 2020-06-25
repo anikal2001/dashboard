@@ -1,9 +1,9 @@
 <template>
-<div>
+<div style="height:100%;">
   <DownloadButton :name="'daily-graph'" :link="dailyPng" />
       <line-chart
         chart-id="line-daily"
-        style="height:500px;"
+        style="height:100%;"
         v-if="loaded"
         :chart-data="equity_year"
         :chart-labels="labels_year"

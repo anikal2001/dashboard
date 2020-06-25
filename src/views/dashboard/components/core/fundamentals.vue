@@ -4,43 +4,33 @@
         
           <v-row align-content="center" justify='center'  >
             <v-col class="d-flex" cols="12" sm="3">
-              <v-select
-                v-model="statement"
-                :items="income_items"
-                label="Statement"
-                :rules="[v => !!v || 'Item is required']"
-                filled
-                outlined
-                required
-                style="border-radius:3px;"
-              />
+              <v-btn
+              style=""
+              medium
+              dark
+              v-on:click='getIncomeStatement'
+              color="rgb(17, 25, 69)">Income Statement</v-btn>
             </v-col>
             <v-col class="d-flex" cols="12" md="3">
-              <v-text-field
-                v-model="Ticker"
-                :rules="nameRules"
-                filled
-                outlined
-                style="border-radius:3px;"
-                label="Ticker"
-                required
-              />
+              <v-btn
+              style=""
+              medium
+              dark
+              v-on:click='getBalanceSheet'
+              color="rgb(17, 25, 69)">Balance Sheet</v-btn>
             </v-col>
 
-            <v-col class="d-flex" cols="12" sm="3">
-              <v-select
-                v-model="period"
-                :items="period_items"
-                :rules="[v => !!v || 'Item is required']"
-                label="Period"
-                filled
-                outlined
-                required
-                style="border-radius:3px;"
-              />
+            <v-col class="d-flex" cols="12" md="3">
+            <v-btn
+              style=""
+              medium
+              dark
+              v-on:click='getCashFlow'
+              color="rgb(17, 25, 69)">Statement of Cash Flows</v-btn>
             </v-col>
 
-            <v-col v-if="period ==='Annual'" class="d-flex" cols="12" md="3">
+
+            <v-col class="d-flex" cols="12" md="3">
               <v-text-field
                 v-model="numPeriods"
                 filled
@@ -52,16 +42,6 @@
               />
             </v-col>
 
-            <v-col v-if="period ==='Quarter'" class="d-flex" cols="12" md="3">
-              <v-text-field
-                v-model="numPeriods"
-                filled
-                outlined
-                :rules="quarterRules"
-                style="border-radius:3px;"
-                label="Number of Periods"
-                required
-              />
             </v-col>
             
           </v-row>
@@ -90,12 +70,15 @@ const config = {
 };
 export default {
   name: "Ticker",
+  props:{
+    Ticker:String,
+  },
   data: () => ({
     valid: true,
     show: false,
     period_items: ["Annual", "Quarter"],
-    income_items: ["Cash Flows", "Income Statement", "Balance Sheet"],
-    Ticker: "",
+    income_items: ["Statement of Cash Flows", "Income Statement", "Balance Sheet"],
+   // Ticker: "",
     statement: null,
     period: null,
     numPeriods: null,
@@ -113,12 +96,25 @@ export default {
     ]
   }),
   methods: {
+    getCashFlow()
+    {
+      this.statement = "Statement of Cash Flows";
+      this.Ordering();
+    },
+    getBalanceSheet(){
+      this.statement = "Balance Sheet";
+      this.Ordering();
+    },
+    getIncomeStatement(){
+      this.statement = "Income Statement";
+      this.Ordering();
+    },
     Ordering(event) {
       this.$refs.form.validate();
       let type = null;
       this.show = true
       let link = "https://rcsandbox.ca/info/financials/";
-      if (this.statement === "Cash Flows") {
+      if (this.statement === "Statement of Cash Flows") {
         type = "cash";
         link =
           link +
