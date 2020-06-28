@@ -1,12 +1,5 @@
 <template>
   <v-container id="dashboard" fluid tag="section">
-    <balloon
-      title = 'Music While You Work'
-      position = 'bottom-right'
-    >
-      <!-- balloon content goes here.. for example a youtube video with the vue-youtube-embed plugin -->
-      <!--<youtube :player-vars="{autoplay: 1}"      :video-id="videoID"></youtube> -->
-    </balloon>
     <v-row>
       <AccountUpdate></AccountUpdate>
       <v-row>
@@ -15,6 +8,7 @@
         </v-col>
         <v-col cols="12" md="4" class="mt-6">
           <order-form></order-form>
+
         </v-col>
       </v-row>
       <v-col cols="12" md="6" class="mt-6">

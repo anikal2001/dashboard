@@ -68,26 +68,6 @@ export default {
         to: "/"
       },
       {
-        title: "Charting",
-        icon: "fas fa-chart-line",
-        to: "/components/charting"
-      },
-      {
-        title: "Transaction History",
-        icon: "fas fa-money-check-alt",
-        to: "/tables/transactions"
-      },
-      {
-        title: "Filings",
-        icon: "fas fa-archive",
-        to: "/components/filings"
-      },
-      {
-        title: "Statement Wizard",
-        icon: "fa-file-invoice",
-        to: "/components/fundamentals"
-      },
-      {
         title: "Single Stock Analysis",
         icon: "fa-chart-area",
         to: "/pages/analysis"
@@ -98,7 +78,7 @@ export default {
         to: "/pages/trading"
       },
       {
-        title: "Resources",
+        title: "Knowledge Base",
         icon: "fa-book",
         to: "/pages/resources"
       }

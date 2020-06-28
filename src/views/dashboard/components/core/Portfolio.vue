@@ -69,7 +69,12 @@ export default {
     },
     created(){
       this.portfolio_values = []
-      this.get_values(this.portfolio_values)
+      this.get_values(this.portfolio_values);
+      setInterval(() => {
+       console.log('portfolio updated') ;
+       this.get_values(this.portfolio_values);
+      }, 10000);
+      
     },
     methods:{
       get_values(values){

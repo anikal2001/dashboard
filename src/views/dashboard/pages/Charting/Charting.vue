@@ -4,16 +4,16 @@
       <template v-slot:heading>
         <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
           <v-tab class="mr-3">
-            Equity
+            Security Charting
           </v-tab>
           <v-tab class="mr-3">
-            IntraDay
+            Portfolio: IntraDay
           </v-tab>
           <v-tab class="mr-3">
-           1 Month
+           Portfolio: 1 Month
           </v-tab>
           <v-tab class="mr-3">
-           1 Year
+           Portfolio: 1 Year
           </v-tab>
         </v-tabs>
       </template>

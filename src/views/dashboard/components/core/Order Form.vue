@@ -1,6 +1,7 @@
 <template>
+<div>
   <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px"
+    style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px; margin-bottom: 10px;"
     color="#08182b"
     class="px-5 py-3"
   >
@@ -70,6 +71,64 @@
       </v-container>
     </div>
   </base-material-card>
+  <v-card
+  style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px"
+    class="px-5 py-3">
+  <v-container>
+    <v-row>
+       <v-col cols='6' style='align-items:center;'>
+          
+    <v-btn
+            
+            style='margin-bottom: 20%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+            
+            justify='center'
+            @click="$router.push('components/charting')"
+          >Launch Charting</v-btn>
+    
+    
+    <v-btn
+          
+            class="mr-4"
+            style='width:100%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            @click="$router.push('tables/transactions')"
+          >Launch <br>Transaction History</v-btn>
+    
+  
+   
+      </v-col>
+      <v-col cols='6' style='align-items:center;'>
+ 
+   
+    <v-btn
+            
+            style='margin-bottom:20%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+            @click="$router.push('components/filings')"
+          >Launch <br>Filings Search</v-btn>
+  
+   
+    <v-btn
+            style='color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+            @click="$router.push('components/fundamentals')"
+          >Launch<br> Statement Wizard</v-btn>
+    
+    </v-col>
+       <v-col cols='3' style='align-items:center;'>
+      </v-col>
+    </v-col>
+    </v-row>
+    </v-container>
+
+  </v-card>
+
+</div> 
 </template>
 
 <script>

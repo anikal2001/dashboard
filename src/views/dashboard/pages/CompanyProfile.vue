@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
     <v-card class="mx-2 pa-5" tile >
+      <div v-if='!test'>
       <v-card-title
         style="justify-content:center;font-size:48px"
         align="center"
@@ -11,6 +12,7 @@
         align="center"
         class="display-3"
       ><p style="font:source-sans"> Gain instant access to key company stats, financials, <br> analyst recommendations, and upcoming corporate events</p></v-card-title>
+      </div>
       <form ref="form">
         <v-row align="center" justify="center">
           
@@ -74,9 +76,9 @@
   </v-col>
   <v-col cols = '5' >  
      
-    
-    <trading-vue v-if="test" style="height:95%;overflow-top:scroll;margin:25px 0px 0px 0px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
-  
+    <div style='height:20vh'>
+    <trading-vue v-if="test" style="overflow-top:scroll;margin:25px 0px 0px 0px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
+    </div>
     
     
   
@@ -131,16 +133,17 @@
               
             </div>
             <div>
-              <div style="justify:center;margin: 40px 0px 25px 25px;" >
-                <apexchart type="pie" width="300" :options="chartOptions" :series="series"></apexchart>
+              <v-container fluid>
+              <div style="justify:center;margin: 40px 0px 25px 25px;width:20vw;" >
+                <apexchart type="pie" width='100%' :options="chartOptions" :series="series"></apexchart>
               </div>
-              
+              </v-container>
             </div>
             </v-row>
-        </div>
-        <div v-if='n==2'>
+        </div >
+        <div  v-if='n==2'>
           <v-row>
-          <div  style="margin: 0px 0px 0px 0px;">
+          <div  style="justify:center;'margin: 0px 0px 0px 0px;">
           <h2> Price Targets </h2>
             <div>
               Average Price Target: ${{price_target.priceTargetAverage}}<br>
@@ -267,7 +270,7 @@ export default {
     series: [],
           chartOptions: {
             chart: {
-              width: 380,
+              width: '380%',
               type: 'pie',
              
             },
@@ -276,7 +279,7 @@ export default {
               breakpoint: 480,
               options: {
                 chart: {
-                  width: 200,
+                  width: 400,
                   
                 },
                  colors: ['#bb0500', '#dc6568', '#9C27B0', '#66b186' ,'#007d34'],

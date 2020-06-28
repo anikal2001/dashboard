@@ -24,6 +24,7 @@
           v-if="n==2"
           style="color: white;"
           small
+          v-on:click="$router.push('components/filings')"
           color="rgb(17, 25, 69)"
         >Search for more Filings</v-btn>
         <v-btn
