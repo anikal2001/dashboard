@@ -11,7 +11,7 @@
               <v-tooltip bottom />
             </v-toolbar>
             <v-card-text>
-              <v-form @submit.prevent="login">
+              <v-form  @submit.prevent="login">
                 <v-text-field
                   v-model="email"
                   prepend-icon="person"
@@ -77,7 +77,7 @@ export default {
         error: this.error
       }
       this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
-    }
+    },
   }
 };
 </script>

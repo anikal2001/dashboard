@@ -21,6 +21,7 @@
               outlined
               v-model="newTicker"
               label="Enter Ticker"
+              @keydown.enter.prevent="get_filings()"
               :loading="loading"
               class="pa-5"
               single-line
@@ -54,32 +55,31 @@
      <base-material-card
     style="height:93%;overflow-top:scroll;margin:25px 10px 0px 0px"
     color="#08182b"
+    title="Company Profile"
     class="mx-2 pa-5"
     v-if="test"
   >
-   <template v-slot:heading>
-       <div class="display-2 font-weight-light">Company Profile</div>
-    </template>
+  <v-card outlined style="height:inherit">
+    <v-card-title style="font-size:2.10rem;">{{this.company.companyName}}</v-card-title>
+    <v-card-subtitle>{{this.company.exchange}}: {{this.company.symbol}}</v-card-subtitle>
+    <v-card-subtitle>{{this.company.website}}</v-card-subtitle>
+    <v-card-subtitle>{{this.company.city}}, {{this.company.state}}, {{this.company.country}}</v-card-subtitle>
+    <v-card-subtitle>{{this.company.industry}}</v-card-subtitle>
+    <v-card-subtitle>CEO: {{this.company.CEO}}</v-card-subtitle>
+     <v-card-subtitle> of Employees: {{this.company.employees}}</v-card-subtitle>
+    <v-card-text>{{this.company.description}}</v-card-text>
     
-    <div>
-        <h2>{{this.company.companyName}}</h2> <br>
-        ({{this.company.exchange}}: {{this.company.symbol}})<br>
-        {{this.company.website}}<br>
-        {{this.company.city}}, {{this.company.state}}, {{this.company.country}}<br>
-        {{this.company.industry}}<br>
-        {{this.company.description}}<br>
-        
-        CEO: {{this.company.CEO}}<br>
-        Number of Employees: {{this.company.employees}}<br>
-    </div>
+  </v-card>
   </base-material-card>
   </v-col>
   <v-col cols = '5' >  
-     
+    <v-card v-if="test" style="height:100%" >
+      <v-container>
     <div style='height:20vh'>
-    <trading-vue v-if="test" style="overflow-top:scroll;margin:25px 0px 0px 0px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
+    <trading-vue style="overflow-top:scroll;margin:25px 25px 25px 25px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
     </div>
-    
+      </v-container>
+    </v-card>
     
   
   </v-col>
@@ -120,6 +120,7 @@
     <v-tabs-items v-model="tabs" class="transparent">
       <v-tab-item v-for="n in 2" :key="n">
         <div v-if="n==1">
+          <v-container>
             <v-row>
             <div style="margin: 40px 0px 25px 25px; justify:center;">
                <h2> Recommendations <br> Distribution </h2>
@@ -134,17 +135,19 @@
             </div>
             <div>
               <v-container fluid>
-              <div style="justify:center;margin: 40px 0px 25px 25px;width:20vw;" >
+              <div style="justify:center;margin: 40px 0px 25px 25px;width:25vw;" >
                 <apexchart type="pie" width='100%' :options="chartOptions" :series="series"></apexchart>
               </div>
               </v-container>
             </div>
             </v-row>
+          </v-container>
         </div >
+        <v-container>
         <div  v-if='n==2'>
-          <v-row>
-          <div  style="justify:center;'margin: 0px 0px 0px 0px;">
-          <h2> Price Targets </h2>
+          <v-row style="justify-content:center;">
+          <div  style="align-self:center;justify:center;'margin: 0px 0px 0px 0px;">
+          <h2 style="align-items: center;"> Price Targets </h2>
             <div>
               Average Price Target: ${{price_target.priceTargetAverage}}<br>
               Highest Price Target: ${{price_target.priceTargetHigh}}<br>
@@ -152,11 +155,12 @@
               Number of Anlysts: {{price_target.numberOfAnalysts}}<br>
             </div>
           </div>
-            <div style="justify:center;" >
-                <apexchart type="rangeBar" width="300" :options="priceTargetChartOptions" :series="priceTargetSeries"></apexchart>
+            <div>
+                <apexchart type="rangeBar" width="500" :options="priceTargetChartOptions" :series="priceTargetSeries"></apexchart>
             </div>
           </v-row>
         </div>
+        </v-container>
       </v-tab-item>
     </v-tabs-items>
   </base-material-card>
@@ -175,7 +179,7 @@
     v-if='test'>
   <template v-slot:heading>
       <v-tabs v-model="tabs2" background-color="transparent" slider-color="white">
-        <v-tab class="mr-3">
+        <v-tab >
           <v-icon class="mr-2">mdi-newspaper</v-icon>News
         </v-tab>
         <v-tab class="mr-3">

@@ -76,6 +76,7 @@
                 class="white--text"
                 large
                 @click="Ordering()"
+                @keydown.enter.prevent="Ordering()"
               >Get</v-btn>
             </v-col>
             <v-col v-if="show" class="d-flex" cols="12" md="2">

@@ -1,6 +1,6 @@
 <template>
 <v-flex class="form justify-center">
-    <div style="width:30%">
+    <div style="width:30%" @keyup.shift="alert('hello')">
         <login-form></login-form>
     </div>
 </v-flex>

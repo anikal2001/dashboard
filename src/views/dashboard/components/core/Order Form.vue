@@ -71,62 +71,27 @@
       </v-container>
     </div>
   </base-material-card>
-  <v-card
-  style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px"
+  <base-material-card
+  color="primary"
+  title="Launchpad"
+  style="max-height:100%;overflow-top:scroll;margin:50px 50px 0px 0px"
     class="px-5 py-3">
-  <v-container>
-    <v-row>
-       <v-col cols='6' style='align-items:center;'>
-          
-    <v-btn
-            
-            style='margin-bottom: 20%;color: white;justify:center;width:100%;'
-            color="rgb(17, 25, 69)"
-            class="mr-4"
-            
-            justify='center'
-            @click="$router.push('components/charting')"
-          >Launch Charting</v-btn>
-    
-    
-    <v-btn
-          
-            class="mr-4"
-            style='width:100%;color: white;justify:center;width:100%;'
-            color="rgb(17, 25, 69)"
-            @click="$router.push('tables/transactions')"
-          >Launch <br>Transaction History</v-btn>
-    
-  
-   
-      </v-col>
-      <v-col cols='6' style='align-items:center;'>
- 
-   
-    <v-btn
-            
-            style='margin-bottom:20%;color: white;justify:center;width:100%;'
-            color="rgb(17, 25, 69)"
-            class="mr-4"
-            @click="$router.push('components/filings')"
-          >Launch <br>Filings Search</v-btn>
-  
-   
-    <v-btn
-            style='color: white;justify:center;width:100%;'
-            color="rgb(17, 25, 69)"
-            class="mr-4"
-            @click="$router.push('components/fundamentals')"
-          >Launch<br> Statement Wizard</v-btn>
-    
-    </v-col>
-       <v-col cols='3' style='align-items:center;'>
-      </v-col>
-    </v-col>
+      <v-container>
+    <v-row >
+      <template v-for="n in button_list">
+        <v-col :key="n">
+          <v-btn small
+            @click="$router.push(n.link)"
+            width="160px"
+          > <i style="padding-right:5px;" :class="n.icon"></i>
+            {{n.title}}
+          </v-btn>
+        </v-col>
+      </template>
     </v-row>
-    </v-container>
+  </v-container>
 
-  </v-card>
+  </base-material-card>
 
 </div> 
 </template>
@@ -145,6 +110,39 @@ export default {
   name: "OrderForm",
   data() {
     return {
+      button_list: [
+        {
+          'title':'Charting',
+          'link': 'components/charting',
+          'icon': 'fas fa-chart-line'
+        }, 
+        {
+        'title':'Transaction History',
+        'link': 'tables/transactions',
+        'icon': "fas fa-money-check-alt"
+        }, 
+        {
+          'title':'Filings Search',
+          'link': 'components/filings',
+          'icon': "fas fa-archive"
+          }, 
+        {
+          'title':'Statement Wizard',
+          'link':'components/fundamentals',
+          'icon': "fas fa-file-invoice"
+          },
+          {
+          'title':'Algo-Trading',
+          'link': 'pages/trading',
+          'icon': "fas fa-code"
+          },
+          {
+          'title':'Knowledge Base',
+          'link': 'pages/trading',
+          'icon': "fas fa-book"
+          }
+        ],
+
       valid: true,
       quantityRules: [
         v => v > 0 || "Quantity must be greater than 0",
