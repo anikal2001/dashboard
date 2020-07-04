@@ -60,13 +60,13 @@
     v-if="test"
   >
   <v-card outlined style="height:inherit">
-    <v-card-title style="font-size:2.10rem;">{{this.company.companyName}}</v-card-title>
+    <v-card-title style="padding-bottom:20px;font-size:2.10rem;">{{this.company.companyName}}</v-card-title>
     <v-card-subtitle>{{this.company.exchange}}: {{this.company.symbol}}</v-card-subtitle>
     <v-card-subtitle>{{this.company.website}}</v-card-subtitle>
     <v-card-subtitle>{{this.company.city}}, {{this.company.state}}, {{this.company.country}}</v-card-subtitle>
     <v-card-subtitle>{{this.company.industry}}</v-card-subtitle>
     <v-card-subtitle>CEO: {{this.company.CEO}}</v-card-subtitle>
-     <v-card-subtitle> of Employees: {{this.company.employees}}</v-card-subtitle>
+     <v-card-subtitle>Number of Employees: {{this.company.employees}}</v-card-subtitle>
     <v-card-text>{{this.company.description}}</v-card-text>
     
   </v-card>
@@ -175,14 +175,14 @@
   <base-material-card
   style="overflow-top:scroll;margin:50px 0px 5% 0px"
     color="#08182b"
-    class="mx-2 pa-5"
+    class=""
     v-if='test'>
   <template v-slot:heading>
       <v-tabs v-model="tabs2" background-color="transparent" slider-color="white">
-        <v-tab >
+        <v-tab class="mr-3">
           <v-icon class="mr-2">mdi-newspaper</v-icon>News
         </v-tab>
-        <v-tab class="mr-3">
+        <v-tab >
           <v-icon class="mr-2">mdi-archive</v-icon>Filings
         </v-tab>
          <v-tab class="mr-3">
