@@ -1,48 +1,20 @@
 <template>
-  <div>
+  <div >
+  <v-row >
+    <v-col cols='12' >
+    <v-container>
+      <div >
+         <v-card-title
+        style="justify-content:center;font-size:18px"
+        align="center"
+        class="display-2"
+      ><p style="font:source-sans">  Looking for help? Open Sandbox Documentation here </p></v-card-title>
+       </div> 
+    </v-container>
+    </v-col>
+  </v-row>
   <v-row>
   <v-col style="margin-left:0px;" cols='9'>
-    <v-col cols='12'>
-      <v-card style="min-height:5vh;max-height:7vh;" >
-        <v-row style='margin-left:0px;justify:center;'>
-          <v-col cols ='3'>
-            <h2> Bloomberg Streams</h2>
-          </v-col>
-          <v-col cols ='2'>
-          <v-btn
-         
-          style="color: white;"
-          small
-          dark
-          color="rgb(17, 25, 69)"
-        ><a :href="'https://www.bloomberg.com/live/us'" target="_blank" style="color:white; text-decoration:none;">Bloomberg US Stream</a></v-btn>
-        </v-col>
-        <v-col cols = '2'>
-        <v-btn
-          
-          style=""
-          small
-          dark
-          color="rgb(17, 25, 69)"
-        ><a :href="'https://www.bloomberg.com/live/europe'" target="_blank" style="color:white;text-decoration:none;">Bloomberg Europe Stream</a></v-btn>
-        </v-col>
-        <v-col cols = '2'>
-        <v-btn
-          
-          small
-          color="rgb(17, 25, 69)"
-        ><a :href="'https://www.bloomberg.com/live/asia'" target="_blank" style="color:white; text-decoration:none;">Bloomberg Asia Stream</a></v-btn>
-        </v-col>
-        <v-col cols = '2'>
-          <v-btn
-          small
-          color="rgb(17, 25, 69)"
-        ><a :href="'https://www.youtube.com/watch?v=dp8PhLsUcFE'" target="_blank" style="color:white; text-decoration:none;">Bloomberg Global Stream</a></v-btn>
-        </v-col>
-
-      </v-row>
-      </v-card>
-    </v-col>
     <v-row style="margin-top:10px;margin-bottom:10px;">
     <v-col cols='4'>
       <base-material-card  color="#08182b" style="margin-left:10px;height:65vh;">
@@ -81,7 +53,7 @@
     <v-col cols='4'>
       <base-material-card color="#08182b" style="height:65vh;" >
       <template v-slot:heading>
-      <div class="display-1 font-weight-light">FinTech BuzzFeed</div>
+      <div class="display-1 font-weight-light">Finance Books & Journal Articles</div>
     </template>
         <div style="margin-left:10px;">
         </div>
@@ -90,17 +62,63 @@
     </v-row>  
     <v-row >
     <v-col cols='4'>
-      <v-card  style="height:20vh;">
+      <v-card  style="height:25vh;">
       <template v-slot:heading>
       <div class="display-2 font-weight-light">Trade</div>
     </template>
         <div style="padding:2vh;margin-left:10px;">
-        <h2> Sandbox Documentation</h2>
+        <h2>Bloomberg Live Streams</h2>
+        
+       <v-container>
+    <v-row>
+       <v-col cols='6' style='align-items:center;'>
+          
+        <v-btn
+            
+            style='height:3vh;margin-bottom: 20%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+            
+            justify='center'
+          ><a :href="'https://www.bloomberg.com/live/us'" target="_blank" style="color:white; text-decoration:none;">US Stream</a></v-btn>
+    
+    
+          <v-btn
+          
+            class="mr-4"
+            style='height:3vh;width:100%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+          ><a :href="'https://www.bloomberg.com/live/europe'" target="_blank" style="color:white;text-decoration:none;">Europe Stream</a></v-btn>
+    
+  
+   
+      </v-col>
+      <v-col cols='6' style='align-items:center;'>
+ 
+   
+    <v-btn
+            
+            style='height:3vh;margin-bottom:20%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+          ><a :href="'https://www.bloomberg.com/live/asia'" target="_blank" style="color:white; text-decoration:none;">Asia Stream</a></v-btn>
+  
+   
+    <v-btn
+            style='height:3vh;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+          ><a :href="'https://www.youtube.com/watch?v=dp8PhLsUcFE'" target="_blank" style="color:white; text-decoration:none;">Global Stream</a></v-btn>
+    
+        </v-col>
+    
+    </v-row>
+    </v-container>
         </div>
       </v-card>
     </v-col>
     <v-col cols='4'>
-      <v-card style="height:20vh;" >
+      <v-card style="height:25vh;" >
       <template v-slot:heading>
       <div class="display-2 font-weight-light">Trade</div>
     </template>
@@ -110,12 +128,12 @@
       </v-card>
     </v-col>
     <v-col cols='4'>
-      <v-card   style="height:20vh;" >
+      <v-card   style="height:25vh;" >
       <template v-slot:heading>
       <div class="display-2 font-weight-light">Trade</div>
     </template>
         <div style="padding:2vh;margin-left:10px;">
-        <h2>Finance Books & Journal Articles</h2>
+        <h2>Get In Touch</h2>
         </div>
       </v-card>
     </v-col>
@@ -123,11 +141,11 @@
     
     
   </v-col>
-<v-col cols='3'>
-  <v-col cols='12'>
-   <base-material-card  color="#08182b" style="align:center; padding: 20px;height:100vh;" >
+<v-col cols='3' style='margin-top:20px;'>
+  
+   <base-material-card  color="#08182b" style="align:center; padding: 20px;height:93vh;" >
    <template v-slot:heading>
-      <div class="display-2 font-weight-light">The Uptick</div>
+      <div class="display-1 font-weight-light">The Uptick</div>
     </template>
      <div style="margin-left:0px;overflow-y: scroll; max-height: 90%;">
         

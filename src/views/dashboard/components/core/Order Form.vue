@@ -86,7 +86,7 @@
             
             justify='center'
             @click="$router.push('components/charting')"
-          >Launch Charting</v-btn>
+          > Charting</v-btn>
     
     
     <v-btn
@@ -95,7 +95,7 @@
             style='width:100%;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
             @click="$router.push('tables/transactions')"
-          >Launch <br>Transaction History</v-btn>
+          > Transaction<br> History</v-btn>
     
   
    
@@ -109,7 +109,7 @@
             color="rgb(17, 25, 69)"
             class="mr-4"
             @click="$router.push('components/filings')"
-          >Launch <br>Filings Search</v-btn>
+          >Filings <br>Search</v-btn>
   
    
     <v-btn
@@ -117,7 +117,7 @@
             color="rgb(17, 25, 69)"
             class="mr-4"
             @click="$router.push('components/fundamentals')"
-          >Launch<br> Statement Wizard</v-btn>
+          >Statement <br>Wizard</v-btn>
     
     </v-col>
        <v-col cols='3' style='align-items:center;'>

@@ -119,9 +119,17 @@
     </template>
     <v-tabs-items v-model="tabs" class="transparent">
       <v-tab-item v-for="n in 2" :key="n">
-        <div v-if="n==1">
+        <div style="margin: 0px 0px 0px 17%; justify:center;" v-if="n==1">
             <v-row>
-            <div style="margin: 40px 0px 25px 25px; justify:center;">
+            
+            <div style="margin: 0.5vw 0px 0px 0vw; justify:center;">
+              <v-container fluid>
+              <div style="justify:center;margin: 40px 0px 25px 25px;width:20vw;" >
+                <apexchart type="pie" width='100%' :options="chartOptions" :series="series"></apexchart>
+              </div>
+              </v-container>
+            </div>
+            <div style="margin: 8% 0px 25px 0vw; justify:center;">
                <h2> Recommendations <br> Distribution </h2>
               <div >
               Strong Buy: {{analyst_recommendations.ratingBuy}} analysts<br>
@@ -132,28 +140,23 @@
               </div>
               
             </div>
-            <div>
-              <v-container fluid>
-              <div style="justify:center;margin: 40px 0px 25px 25px;width:20vw;" >
-                <apexchart type="pie" width='100%' :options="chartOptions" :series="series"></apexchart>
-              </div>
-              </v-container>
-            </div>
+            
             </v-row>
         </div >
-        <div  v-if='n==2'>
-          <v-row>
-          <div  style="justify:center;'margin: 0px 0px 0px 0px;">
-          <h2> Price Targets </h2>
+        <div  v-if='n==2' style="min-height:25vh;max-height:45vh;width:30vw;">
+          <v-row >
+          
+            <div style="width:100%;justify:center;height:90%;margin: 2% 0px 0px 2vw;" >
+                <apexchart type="rangeBar" width="80%" :options="priceTargetChartOptions" :series="priceTargetSeries"></apexchart>
+            </div>
+            <div  style="margin: 0% 0% 0px 0px;">
+            <h2> Price Targets </h2>
             <div>
               Average Price Target: ${{price_target.priceTargetAverage}}<br>
               Highest Price Target: ${{price_target.priceTargetHigh}}<br>
               Lowest Price Target: ${{price_target.priceTargetLow}}<br>
               Number of Anlysts: {{price_target.numberOfAnalysts}}<br>
             </div>
-          </div>
-            <div style="justify:center;" >
-                <apexchart type="rangeBar" width="300" :options="priceTargetChartOptions" :series="priceTargetSeries"></apexchart>
             </div>
           </v-row>
         </div>

@@ -73,7 +73,7 @@ export default {
       setInterval(() => {
        console.log('portfolio updated') ;
        this.get_values(this.portfolio_values);
-      }, 10000);
+      }, 30000);
       
     },
     methods:{
