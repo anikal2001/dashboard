@@ -25,7 +25,7 @@
               hide-details
             >
               <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:append-outer>
-                <v-btn color="primary" class="mt-n5" elevation="1" :loading="loading" fab medium v-on:click="get_filings()">
+                <v-btn color="primary" class="mt-n5" @keyup.enter.prevent="get_filings()" elevation="1" :loading="loading" fab medium v-on:click="get_filings()">
                   <v-icon>mdi-magnify</v-icon>
                 </v-btn>
               </template>
