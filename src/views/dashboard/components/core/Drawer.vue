@@ -38,6 +38,32 @@
 
         <base-item v-else :key="`item-${i}`" :item="item" />
       </template>
+            <v-list-group>
+        <template v-slot:activator>
+          <v-list-item-content color="white">
+            <v-list-item-title  class="display-1">Dashboard</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item v-for="(sub, i) in SubMenu" :key="i" @click="$router.push(sub[2])" >
+          <v-list-item-title class="display-1" v-text="sub[0]"></v-list-item-title>
+          <v-list-item-action>
+            <v-icon v-text="sub[1]"></v-icon>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list-group>
+                  <v-list-group>
+        <template v-slot:activator> 
+          <v-list-item-content>
+            <v-list-item-title color="white" class="display-1">Security Analysis</v-list-item-title>
+          </v-list-item-content>
+        </template>
+        <v-list-item v-for="(sub, i) in SubMenu2" :key="i" @click="$router.push(sub[2])">
+          <v-list-item-title class="display-1" v-text="sub[0]"></v-list-item-title>
+          <v-list-item-action>
+            <v-icon v-text="sub[1]"></v-icon>
+          </v-list-item-action>
+        </v-list-item>
+      </v-list-group>
 
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -82,6 +108,14 @@ export default {
         icon: "fa-book",
         to: "/pages/resources"
       }
+    ],
+    SubMenu: [
+      ["Transaction History", "fas fa-chart-line", 'tables/transactions'],
+      ["Charting", "fas fa-money-check-alt", 'components/charting'],
+    ],
+    SubMenu2:[
+      ["Filing Search", "fas fa-archive", 'components/filings'],
+      ["Statement Wizard", "fas fa-file-invoice", 'components/fundamentals'],
     ]
   }),
 
