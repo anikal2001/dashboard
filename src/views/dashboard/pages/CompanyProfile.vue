@@ -53,27 +53,25 @@
     <v-row>
     <v-col cols = '7'>  
      <base-material-card
-    style="height:93%;overflow-top:scroll;margin:25px 10px 0px 0px"
+    style="height:90%;overflow-top:scroll;margin:25px 10px 25px 0px"
     color="#08182b"
     title="Company Profile"
     class="mx-2 pa-5"
     v-if="test"
   >
-  <v-card outlined style="height:inherit">
+  <v-card flat style="height:inherit">
     <v-card-title style="padding-bottom:20px;font-size:2.10rem;">{{this.company.companyName}}</v-card-title>
-    <v-card-subtitle>{{this.company.exchange}}: {{this.company.symbol}}</v-card-subtitle>
-    <v-card-subtitle>{{this.company.website}}</v-card-subtitle>
-    <v-card-subtitle>{{this.company.city}}, {{this.company.state}}, {{this.company.country}}</v-card-subtitle>
-    <v-card-subtitle>{{this.company.industry}}</v-card-subtitle>
-    <v-card-subtitle>CEO: {{this.company.CEO}}</v-card-subtitle>
+    <v-card-subtitle>{{this.company.exchange}}: {{this.company.symbol}}<br>{{this.company.website}}<br>{{this.company.city}}, {{this.company.state}}, {{this.company.country}}<br>{{this.company.industry}}<br>CEO: {{this.company.CEO}}</v-card-subtitle>
      <v-card-subtitle>Number of Employees: {{this.company.employees}}</v-card-subtitle>
     <v-card-text>{{this.company.description}}</v-card-text>
+    <v-card-subtitle>Peer Group: {{this.peers}}</v-card-subtitle>
+
     
   </v-card>
   </base-material-card>
   </v-col>
   <v-col cols = '5' >  
-    <v-card v-if="test" style="height:100%" >
+    <v-card v-if="test" style="height:95%" >
       <v-container>
     <div style='height:20vh'>
     <trading-vue style="overflow-top:scroll;margin:25px 25px 25px 25px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
@@ -86,22 +84,100 @@
   </v-row>
       <v-row> 
         <v-col cols='7'>
-      <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0 10px 50px 0px"
+           <base-material-card
+  style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
     color="#08182b"
     class="mx-2 pa-5"
-    v-if="test"
-  >
-   <template v-slot:heading>
-      <div class="display-2 font-weight-light">Key Stats</div>
-    </template>
-    <v-data-table
+    v-if='test'>
+      <template v-slot:heading>
+          <v-tabs v-model="tabs3" background-color="transparent" slider-color="white">
+            <v-tab class="mr-3">
+              <v-icon class="mr-2">mdi-chart-pie</v-icon>Key Stats
+            </v-tab>
+            <v-tab class="mr-3">
+              <v-icon class="mr-2">mdi-target</v-icon>Multiples
+            </v-tab>
+            <v-tab class="mr-3">
+              <v-icon class="mr-2">mdi-target</v-icon>Capital Stucture
+            </v-tab>
+          </v-tabs>
+        </template>
+        <v-tabs-items v-model="tabs3" class="transparent">
+          <v-tab-item v-for="w in 3">
+            <div v-if="w==1">
+              <v-card-title>
+          
+          <v-text-field
+            v-model="keyStatsSearch"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+            
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+            
+              :loading="loading"
+              :headers="headers"
+              :items="items"
+              :disable-pagination='true'
+              :hide-default-footer='true'
+              :search='keyStatsSearch'
+            ></v-data-table>
+            </div >
+            <v-container>
+             <div v-if="w==2">
+              <v-card-title>
+          
+          <v-text-field
+            v-model="keyStatsSearch"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+            
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+            
+              :loading="loading"
+              :headers="headers"
+              :items="multiples"
+              :disable-pagination='true'
+              :hide-default-footer='true'
+              :search='keyStatsSearch'
+            ></v-data-table>
+            </div >
+            </v-container>
 
-          :loading="loading"
-          :headers="headers"
-          :items="items"
-        ></v-data-table>
-  </base-material-card>
+            <div v-if="w==3">
+              <v-card-title>
+          
+          <v-text-field
+            v-model="keyStatsSearch"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+            
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+            
+              :loading="loading"
+              :headers="headers"
+              :items="capitalStats"
+              :disable-pagination='true'
+              :hide-default-footer='true'
+              :search='keyStatsSearch'
+            ></v-data-table>
+            </div >
+          </v-tab-item>
+        </v-tabs-items>
+    </base-material-card>
+    
+
    <base-material-card
   style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
     color="#08182b"
@@ -118,18 +194,12 @@
       </v-tabs>
     </template>
     <v-tabs-items v-model="tabs" class="transparent">
-      <v-tab-item v-for="n in 2" :key="n">
-        <div v-if="n==1">
+      <v-tab-item v-for="x in 2" :key="n">
+        <div v-if="x==1">
           <v-container>
-            <v-row>
+            <v-row style="justify-content:center;">
             
-            <div style="margin: 0.5vw 0px 0px 0vw; justify:center;">
-              <v-container fluid>
-              <div style="justify:center;margin: 40px 0px 25px 25px;width:20vw;" >
-                <apexchart type="pie" width='100%' :options="chartOptions" :series="series"></apexchart>
-              </div>
-              </v-container>
-            </div>
+            
             <div style="margin: 8% 0px 25px 0vw; justify:center;">
                <h2> Recommendations <br> Distribution </h2>
               <div >
@@ -152,7 +222,7 @@
           </v-container>
         </div >
         <v-container>
-        <div  v-if='n==2'>
+        <div  v-if='x==2'>
           <v-row style="justify-content:center;">
           <div  style="align-self:center;justify:center;'margin: 0px 0px 0px 0px;">
           <h2 style="align-items: center;"> Price Targets </h2>
@@ -174,7 +244,7 @@
   </base-material-card>
   </v-col>
   <v-col cols='5'> 
-  <v-card v-if="test" style="margin: 40px 25px 25px 25px;">
+  <v-card v-if="test" style="margin: 0px 25px 25px 25px;">
     <h1> Financial Statements </h1>
   
   <fundamentals :ticker='Ticker'></fundamentals>
@@ -259,6 +329,7 @@ import * as Cookies from "js-cookie";
 import Axios from "axios";
 import { hello } from "./CSV-writing.js";
 const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -275,12 +346,16 @@ export default {
 
   
   data: () => ({
+    multiples:[],
+    capitalStats:[],
+    keyStatsSearch:'',
      styles: {
         width: "80%",
         height: "500px",
       },
     series: [],
           chartOptions: {
+            colors: ['#45b6fe', '#3792cb', '#296d98', '#1c4966' ,'#0e2433'],
             chart: {
               width: '380%',
               type: 'pie',
@@ -294,7 +369,7 @@ export default {
                   width: 400,
                   
                 },
-                 colors: ['#bb0500', '#dc6568', '#9C27B0', '#66b186' ,'#007d34'],
+                 
                 legend: {
                   position: 'bottom'
                 }
@@ -302,6 +377,7 @@ export default {
             }]
           },
     test: false,
+    peers:"",
     chartHeader: "",
     ohlcv: [],
     valid: true,
@@ -336,6 +412,7 @@ export default {
     logo: null,
     tabs:4,
     tabs2:4,
+    tabs3:3,
     key_stats: null, 
     analyst_recommendations:null,
     price_target: null, 
@@ -386,6 +463,10 @@ export default {
               },]
           }],
           priceTargetChartOptions: {
+            fill:{
+              colors:['#45b6fe', '#3792cb',],
+            },
+            
             chart: {
               type: 'rangeBar',
               decimalsInFloat: 2,
@@ -407,8 +488,9 @@ export default {
     get_filings() {
       this.items.length = 0
       this.loading = true
+      console.log(config);
       let link =
-        "https://rcsandbox.ca/info/company-profile/" +
+        base_link +  "info/company-profile/" +
         this.newTicker.toUpperCase() ;
       Axios.get(link, config)
         .then(Response => {
@@ -421,6 +503,10 @@ export default {
           this.price_target = Response.data.price_target;
           this.filings = Response.data.filings;
           this.news = Response.data.news;
+          for (var i = 0; i < Response.data.peers.length; i++){
+            this.peers = this.peers + Response.data.peers[i]+ " ";
+          }
+          this.peers
           this.loading = false;
           this.test = true;
           var temp = {};
@@ -431,7 +517,28 @@ export default {
             console.log(x);
             this.items.push(temp);
             }
+            
+            else if (x == 'debtToEquity' || x == 'enterpriseValueToRevenue' || x == 'priceToSales' || x == 'priceToBook' || x == 'forwardPERatio' || x=='beta'
+            || x=='pegRatio'|| x=='peHigh'|| x=='peLow'|| x=='putCallRatio'){
+            temp = {'name': x , "val": this.key_stats[x]};
+            console.log(x);
+            this.multiples.push(temp);
+            } 
+            
+            
+            
+            if (x == 'totalCash' || x == 'currentDebt' || x == 'marketcap' || x == 'debtToEquity' || x == 'beta'){
+            temp = {'name': x , "val": this.key_stats[x]};
+            console.log(x);
+            this.capitalStats.push(temp);
+            } 
           }
+          
+          temp = {'name': "EV/EBITDA" , "val": parseFloat(this.key_stats['enterpriseValue'])/parseFloat(this.key_stats['EBITDA'])};
+            this.multiples.push(temp);
+            temp = {'name': "MarketCap/Revenue" , "val": parseFloat(this.key_stats['marketcap'])/parseFloat(this.key_stats['totalRevenue'])};
+            this.multiples.push(temp);
+
           temp = {'name': '52 Week Trading Range' , "val": this.key_stats['week52low']+ " - " + this.key_stats['week52high']};
           this.items.push(temp);
           this.ohlcv = Response.data.charting_yearly;        

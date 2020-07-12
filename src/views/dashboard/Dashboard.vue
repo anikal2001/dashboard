@@ -55,14 +55,19 @@ export default {
   },
   created() {
     firebase.auth().onAuthStateChanged(user => {
+      var backup = false; 
+
       if (user) {
         this.user = user;
         let uid = this.user.uid;
-        db.collection("user-info")
-          .doc(this.user.uid)
+        db.collection("backups")
+        .doc (this.user.uid)
           .get()
           .then(doc => {
-            Cookies.set('alpaca_key', doc.data().terminal_key)
+            console.log('Bashaar is the best');
+            Cookies.set('alpaca_key', doc.data().terminal_key);
+            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/');
+            console.log(doc.data().terminal_key);
           })
           .catch(err => {
             console.log("Error getting documents", err);

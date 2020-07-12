@@ -3,7 +3,7 @@
     <v-card class="px-5 py-10">
       <v-container>
         <ticker @export="get_csv" @send_link="get_link"></ticker>
-        <v-data-table v-if="items.length > 0" :loading="loading" :headers="headers" :items="items"></v-data-table>
+        <v-data-table v-if="items.length > 0" :disable-pagination='true'  :hide-default-footer='true' :loading="loading" :headers="headers" :items="items"></v-data-table>
       </v-container>
     </v-card>
   </div>
@@ -39,6 +39,7 @@ export default {
   },
   methods: {
     get_link(value) {
+      console.log('buenos dias muchachiladas');
       this.loading = true;
       this.link = value[0] + "/json/";
       this.csv_link = value[0] + "/csv/";

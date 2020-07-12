@@ -17,16 +17,24 @@
   <v-col style="margin-left:0px;" cols='9'>
     <v-row style="margin-top:10px;margin-bottom:10px;">
     <v-col cols='4'>
-      <base-material-card  color="#08182b" style="margin-left:10px;height:65vh;">
-      <template v-slot:heading>
-      <div class="display-1 font-weight-light">Upcoming Events & Podcasts</div>
-      </template>
+      <base-material-card  color="#08182b" style="margin-left:10px;height:65vh;" icon="mdi-calendar"
+  title="Upcoming Events & Podcasts">
+      
         <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height: 85%;">
-        <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in upcomingEvents'>
+        <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in upcomingEvents '>
          <a  style=" text-decoration:none;" :href="item.link" target="_blank">
+        <v-container>
+         <v-row style='padding:10px;width:100%'> 
+           <v-col xl='2'lg='4' md='4'>
+          <h3>{{item.splitDate[2]}}</h3>
+          <h1>{{item.splitDate[1]}}</h1>
+          </v-col>
+          <v-col xl='10'lg='8' md='8'> 
           <h3>{{item.title}}</h3>
-          <p>{{item.summary}}<br>
-          {{item.published}}</p>
+          </v-col>
+          
+         </v-row> 
+         </v-container>
         </a>
         </div>
         
@@ -34,10 +42,8 @@
       </base-material-card>
     </v-col>
     <v-col cols='4'>
-      <base-material-card  color="#08182b" style="height:65vh;" >
-      <template v-slot:heading>
-      <div class="display-1 font-weight-light">Recent Economic Research</div>
-    </template>
+      <base-material-card  color="#08182b" style="height:65vh;" icon="mdi-graph"
+      title="Recent Economic Research" >
       <div style="padding:0.5vh;overflow-y: scroll; max-height: 85%;margin-left:10px;">
                 
         <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in econResearch'>
@@ -51,10 +57,9 @@
       </base-material-card>
     </v-col>
     <v-col cols='4'>
-      <base-material-card color="#08182b" style="height:65vh;" >
-      <template v-slot:heading>
-      <div class="display-1 font-weight-light">Finance Books & Journal Articles</div>
-    </template>
+      <base-material-card color="#08182b" style="height:65vh;" icon="mdi-book"
+      title="Finance Books & Journal Articles" >
+    
         <div style="margin-left:10px;">
         </div>
       </base-material-card>
@@ -62,12 +67,10 @@
     </v-row>  
     <v-row >
     <v-col cols='4'>
-      <v-card  style="height:25vh;">
-      <template v-slot:heading>
-      <div class="display-2 font-weight-light">Trade</div>
-    </template>
-        <div style="padding:2vh;margin-left:10px;">
-        <h2>Bloomberg Live Streams</h2>
+      <base-material-card  color="#08182b"  style="height:25vh;"  icon="mdi-cast"
+      title="Bloomberg Live Stream ">
+     
+        <div style="margin-left:10px;">
         
        <v-container>
     <v-row>
@@ -115,27 +118,59 @@
     </v-row>
     </v-container>
         </div>
-      </v-card>
+      </base-material-card>
     </v-col>
     <v-col cols='4'>
-      <v-card style="height:25vh;" >
-      <template v-slot:heading>
-      <div class="display-2 font-weight-light">Trade</div>
-    </template>
-      <div style="padding:2vh;margin-left:10px;">
-        <h2>BMO Finance Lab Software</h2>
+      <base-material-card   color="#08182b" style="height:25vh;"  icon="mdi-laptop"
+      title="BMO Finance Lab Software">
+    
+      <div style=";margin-left:10px;">
+     
+        <v-row style='margin-left:2vw;justify-content:center'>
+       <v-col cols='12' style='align-items:center;'>
+        <v-row>  
+        <v-btn
+            
+            style='height:3vh;margin-bottom: 5%;color: white;justify:center;width:80%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+            
+            justify='center'
+          ><a :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'" target="_blank" style="color:white; text-decoration:none;">Capital IQ</a></v-btn>
+    
+        </v-row>
+        <v-row>
+          <v-btn
+          
+            class="mr-4"
+            style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;;'
+            color="rgb(17, 25, 69)"
+          ><a :href="'https://login.factset.com/'" target="_blank" style="color:white;text-decoration:none;">FactSet</a></v-btn>
+        </v-row>
+        <v-row>
+          <v-btn
+          
+            class="mr-4"
+            style='height:3vh;width:80%;color: white;self-align:center;'
+            color="rgb(17, 25, 69)"
+          ><a :href="'https://portal.bloombergforeducation.com/login'" target="_blank" style="color:white;text-decoration:none;">Bloomberg Market Concepts</a></v-btn>
+        </v-row>
+  
+   
+      </v-col>
+    
+    </v-row>
+
       </div>
-      </v-card>
+      </base-material-card>
     </v-col>
     <v-col cols='4'>
-      <v-card   style="height:25vh;" >
-      <template v-slot:heading>
-      <div class="display-2 font-weight-light">Trade</div>
-    </template>
-        <div style="padding:2vh;margin-left:10px;">
-        <h2>Get In Touch</h2>
+      <base-material-card  color="#08182b" icon="mdi-headset"
+      title="Get In Touch"  style="height:25vh;" >
+        <div style="margin-left:10px;">
+        
         </div>
-      </v-card>
+      </base-material-card>
     </v-col>
     </v-row>
     
@@ -170,6 +205,8 @@
 
 <script>
 import Axios from "axios";
+import * as Cookies from "js-cookie";
+const base_link = Cookies.get("link");
 export default {
   name: "Resources",
   components: {
@@ -185,7 +222,7 @@ export default {
   methods:
   {
     getUptick(){
-      Axios.get('https://rcsandbox.ca/info/resources/')
+      Axios.get(base_link + 'info/resources/')
         .then(Response => {
             this.uptick = Response.data.uptick.entries;
             this.econResearch = Response.data.research;

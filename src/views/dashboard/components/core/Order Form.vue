@@ -4,10 +4,10 @@
     style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px; margin-bottom: 10px;"
     color="#08182b"
     class="px-5 py-3"
+    icon="mdi-flare"
+  title="Trade"
   >
-    <template v-slot:heading>
-      <div class="display-2 font-weight-light">Trade</div>
-    </template>
+    
     <div style="max-height:100%;">
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -73,6 +73,7 @@
   </base-material-card>
   <base-material-card
   color="primary"
+  icon="mdi-rocket"
   title="Launchpad"
   style="max-height:100%;overflow-top:scroll;margin:50px 50px 0px 0px"
     class="px-5 py-3">
@@ -82,7 +83,7 @@
         <v-col :key="n">
           <v-btn small
             @click="$router.push(n.link)"
-            width="160px"
+            width="100%"
           > <i style="padding-right:5px;" :class="n.icon"></i>
             {{n.title}}
           </v-btn>
@@ -132,9 +133,9 @@ export default {
           'icon': "fas fa-file-invoice"
           },
           {
-          'title':'Algo-Trading',
-          'link': 'pages/trading',
-          'icon': "fas fa-code"
+          'title':'Security Analysis',
+          'link': 'pages/analysis',
+          'icon': "fas fa-chart-area"
           },
           {
           'title':'Knowledge Base',
