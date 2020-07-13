@@ -40,7 +40,9 @@
 import Axios from "axios";
 import Vue from "vue";
 import * as Cookies from "js-cookie";
-const alpaca_key = Cookies.get('alpaca_key')
+const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
+
 var token = 'Token ' + alpaca_key
 let config = {
   headers: {
@@ -94,7 +96,7 @@ export default {
   methods: {
     getwatchlist(vm) {
       this.loading= true
-      Axios.get("https://rcsandbox.ca/info/getWatchlist/", config)
+      Axios.get(base_link + "info/getWatchlist/", config)
         .then((Response) => {
           this.loading = false
           var count = Object.keys(Response.data).length;
@@ -127,7 +129,7 @@ export default {
     },
     addtowatchlist() {
       let link =
-        "https://rcsandbox.ca/info/addToWatchlist/" + this.newTicker + "/";
+        base_link + "info/addToWatchlist/" + this.newTicker + "/";
       Axios.get(link, config)
         .then(response => {
           this.items.push({
@@ -159,7 +161,7 @@ export default {
     deleteItem(item) {
       const index = this.items.indexOf(item);
       let link =
-        "https://rcsandbox.ca/info/removeFromWatchlist/" +
+        base_link + "info/removeFromWatchlist/" +
         this.items[index].ticker +
         "/";
       Axios.get(link, config).then(function(Response) {

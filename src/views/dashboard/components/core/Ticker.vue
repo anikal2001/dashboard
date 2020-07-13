@@ -97,9 +97,13 @@
 
 <script>
 import Axios from "axios";
-const config = {
+import * as Cookies from "js-cookie";
+const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
+var token = "Token " + alpaca_key;
+let config = {
   headers: {
-    Authorization: "Token 417f59ad885874647d9cc51c5a1834f30d955162"
+    Authorization: token
   }
 };
 export default {
@@ -131,7 +135,7 @@ export default {
       this.$refs.form.validate();
       let type = null;
       this.show = true
-      let link = "https://rcsandbox.ca/info/financials/";
+      let link = base_link + "info/financials/";
       if (this.statement === "Statement of Cash Flows") {
         type = "cash";
         link =

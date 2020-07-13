@@ -100,6 +100,7 @@
 <script>
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -196,7 +197,7 @@ export default {
     Ordering() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-        let link = `https://rcsandbox.ca/info/order/${this.ticker.toUpperCase()}/${this.Quantity}/${this.position.toLowerCase()}/`
+        let link = base_link + `info/order/${this.ticker.toUpperCase()}/${this.Quantity}/${this.position.toLowerCase()}/`
         if (this.order == "Stop Limit") {
           link =
             link +

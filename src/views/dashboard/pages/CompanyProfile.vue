@@ -355,7 +355,8 @@ export default {
       },
     series: [],
           chartOptions: {
-            colors: ['#45b6fe', '#3792cb', '#296d98', '#1c4966' ,'#0e2433'],
+            // ['#45b6fe', '#3792cb', '#296d98', '#1c4966' ,'#0e2433'],
+            colors: ['#0e2433', '#1c4966', '#296d98','#3792cb' ,'#45b6fe'],
             chart: {
               width: '380%',
               type: 'pie',
@@ -464,7 +465,7 @@ export default {
           }],
           priceTargetChartOptions: {
             fill:{
-              colors:['#45b6fe', '#3792cb',],
+              colors:['#1c4966',],
             },
             
             chart: {
