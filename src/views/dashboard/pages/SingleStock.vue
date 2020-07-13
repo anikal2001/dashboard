@@ -15,6 +15,7 @@ import Axios from "axios";
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
 var token = "Token " + alpaca_key;
+var token2 = "Token 922be03dda90a60ae9b569b9d73424e52350facf"
 let config = {
   headers: {
     Authorization: token
@@ -44,7 +45,7 @@ export default {
       this.csv_link = value[0] + "/csv/";
       this.items.length = 0;
       this.headers.length = 0;
-      Axios.get(this.link, config).then(Response => {
+      Axios.get(this.link, config).then(Response => { 
         this.populate_table(Response.data);
       });
     },

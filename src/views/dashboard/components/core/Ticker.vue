@@ -76,7 +76,6 @@
                 class="white--text"
                 large
                 @click="Ordering()"
-                @keydown.enter.prevent="Ordering()"
               >Get</v-btn>
             </v-col>
             <v-col v-if="show" class="d-flex" cols="12" md="2">
@@ -143,7 +142,7 @@ export default {
           "cash/" +
           this.Ticker +
           "/" +
-          this.period +
+          this.period.toLowerCase() +
           "/" +
           this.numPeriods
       } else if (this.statement === "Income Statement") {
@@ -153,7 +152,7 @@ export default {
           "income/" +
           this.Ticker +
           "/" +
-          this.period +
+          this.period.toLowerCase() +
           "/" +
           this.numPeriods
       } else {
@@ -163,7 +162,7 @@ export default {
           "balance/" +
           this.Ticker +
           "/" +
-          this.period +
+          this.period.toLowerCase() +
           "/" +
           this.numPeriods
       }

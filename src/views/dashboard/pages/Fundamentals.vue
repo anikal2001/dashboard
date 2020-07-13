@@ -47,6 +47,7 @@ export default {
       this.headers.length = 0;
       Axios.get(this.link, config).then(Response => {
         this.populate_table(Response.data);
+        console.log(this.link)
       });
     },
     forceFileDownload(data) {

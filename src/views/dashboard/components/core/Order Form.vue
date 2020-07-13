@@ -83,7 +83,7 @@
         <v-col :key="n">
           <v-btn small
             @click="$router.push(n.link)"
-            width="100%"
+            width="10rem"
           > <i style="padding-right:5px;" :class="n.icon"></i>
             {{n.title}}
           </v-btn>
