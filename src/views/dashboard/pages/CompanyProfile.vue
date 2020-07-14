@@ -94,8 +94,8 @@
   </v-col>
   </v-row>
       <v-row> 
-        <v-col cols='7'>
-           <base-material-card
+       <v-col cols='7'>
+    <base-material-card
   style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
     color="#08182b"
     class="mx-2 pa-5"
@@ -187,182 +187,9 @@
           </v-tab-item>
         </v-tabs-items>
     </base-material-card>
-    
-
-   <base-material-card
-  style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
-    color="#08182b"
-    class="mx-2 pa-5"
-    v-if='test'>
-  <template v-slot:heading>
-      <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-        <v-tab class="mr-3">
-          <v-icon class="mr-2">mdi-chart-pie</v-icon>Analyst Recommendations
-        </v-tab>
-        <v-tab class="mr-3">
-          <v-icon class="mr-2">mdi-target</v-icon>Price Targets
-        </v-tab>
-      </v-tabs>
-    </template>
-    <v-tabs-items v-model="tabs" class="transparent">
-      <v-tab-item v-for="x in 2" :key="n">
-        <div v-if="x==1">
-          <v-container>
-            <v-row style="justify-content:center;">
-            
-            
-            <div style="margin: 8% 0px 25px 0vw; justify:center;">
-               <h2> Recommendations <br> Distribution </h2>
-              <div >
-              Strong Buy: {{analyst_recommendations.ratingBuy}} analysts<br>
-              Moderate Buy: {{analyst_recommendations.ratingOverweight}} analysts<br>
-              Hold: {{analyst_recommendations.ratingHold}} analysts<br>
-              Moderate Sell: {{analyst_recommendations.ratingUnderweight}} analysts<br>
-              Strong Sell: {{analyst_recommendations.ratingSell}} analysts<br>
-              </div>
-              
-      <v-col cols="7">
-        <base-material-card
-          style="height:93%;overflow-top:scroll;margin:25px 10px 0px 0px"
-          color="#08182b"
-          title="Company Profile"
-          class="mx-2 pa-5"
-          v-if="test"
-        >
-          <v-card outlined style="height:inherit">
-            <v-card-title
-              style="padding-bottom:20px;font-size:2.10rem;"
-            >{{this.company.companyName}}</v-card-title>
-            <v-card-subtitle>{{this.company.exchange}}: {{this.company.symbol}}</v-card-subtitle>
-            <v-card-subtitle>{{this.company.website}}</v-card-subtitle>
-            <v-card-subtitle>{{this.company.city}}, {{this.company.state}}, {{this.company.country}}</v-card-subtitle>
-            <v-card-subtitle>{{this.company.industry}}</v-card-subtitle>
-            <v-card-subtitle>CEO: {{this.company.CEO}}</v-card-subtitle>
-            <v-card-subtitle>Number of Employees: {{this.company.employees}}</v-card-subtitle>
-            <v-card-text>{{this.company.description}}</v-card-text>
-          </v-card>
-        </base-material-card>
-      </v-col>
-      <v-col cols="5">
-        <v-card v-if="test" style="height:70%">
-          <v-container>
-            <div style="height:20vh; width:50%">
-              <trading-vue
-                style="overflow-top:scroll;margin:25px 25px 25px 25px"
-                colorTitle="#000000"
-                width="500"
-                colorGrid="#f0f0f0"
-                HLcolorText="#000000"
-                colorText="#000000"
-                colorBack="#FFFFFF"
-                :titleTxt="chartHeader"
-                :data="this.$data"
-              ></trading-vue>
-            </div>
-          </v-container>
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="7">
-        <base-material-card
-          style="max-height:100%;overflow-top:scroll;margin:0 10px 50px 0px"
-          color="#08182b"
-          class="mx-2 pa-5"
-          v-if="test"
-        >
-          <template v-slot:heading>
-            <div class="display-2 font-weight-light">Key Stats</div>
-          </template>
-          <v-data-table :loading="loading" :headers="headers" :items="items"></v-data-table>
-        </base-material-card>
-        <base-material-card
-          style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
-          color="#08182b"
-          class="mx-2 pa-5"
-          v-if="test"
-        >
-          <template v-slot:heading>
-            <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-chart-pie</v-icon>Analyst Recommendations
-              </v-tab>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-target</v-icon>Price Targets
-              </v-tab>
-            </v-tabs>
-          </template>
-          <v-tabs-items v-model="tabs" class="transparent">
-            <v-tab-item v-for="n in 2" :key="n">
-              <div v-if="n==1">
-                <v-container>
-                  <v-row>
-                    <div style="margin: 40px 0px 25px 25px; justify:center;">
-                      <h2>
-                        Recommendations
-                        <br />Distribution
-                      </h2>
-                      <div>
-                        Strong Buy: {{analyst_recommendations.ratingBuy}} analysts
-                        <br />
-                        Moderate Buy: {{analyst_recommendations.ratingOverweight}} analysts
-                        <br />
-                        Hold: {{analyst_recommendations.ratingHold}} analysts
-                        <br />
-                        Moderate Sell: {{analyst_recommendations.ratingUnderweight}} analysts
-                        <br />
-                        Strong Sell: {{analyst_recommendations.ratingSell}} analysts
-                        <br />
-                      </div>
-                    </div>
-                    <div>
-                      <v-container fluid>
-                        <div style="justify:center;margin: 40px 0px 25px 25px;width:25vw;">
-                          <apexchart
-                            type="pie"
-                            width="100%"
-                            :options="chartOptions"
-                            :series="series"
-                          ></apexchart>
-                        </div>
-                      </v-container>
-                    </div>
-                  </v-row>
-                </v-container>
-              </div>
-              <v-container>
-                <div v-if="n==2">
-                  <v-row style="justify-content:center;">
-                    <div style="align-self:center;justify:center;'margin: 0px 0px 0px 0px;">
-                      <h2 style="align-items: center;">Price Targets</h2>
-                      <div>
-                        Average Price Target: ${{price_target.priceTargetAverage}}
-                        <br />
-                        Highest Price Target: ${{price_target.priceTargetHigh}}
-                        <br />
-                        Lowest Price Target: ${{price_target.priceTargetLow}}
-                        <br />
-                        Number of Anlysts: {{price_target.numberOfAnalysts}}
-                        <br />
-                      </div>
-                    </div>
-                    <div>
-                      <apexchart
-                        type="rangeBar"
-                        width="500"
-                        :options="priceTargetChartOptions"
-                        :series="priceTargetSeries"
-                      ></apexchart>
-                    </div>
-                  </v-row>
-                </div>
-              </v-container>
-            </v-tab-item>
-          </v-tabs-items>
-        </base-material-card>
-      </v-col>
-      <v-col cols="5">
-        <v-card v-if="test" style="margin: 40px 25px 25px 25px;">
+    </v-col>
+    <v-col cols='5'>
+        <v-card v-if="test" style="margin: 0px 25px 25px 25px;">
           <v-card-title class="display-2">Financial Statements</v-card-title>
           <v-text-field
             v-model="numPeriods"
@@ -374,9 +201,9 @@
             required
           />
           <v-container style="display:flex;justify-content:space-around;">
-            <v-btn :disabled="numPeriods.length > 0" color="primary" small @click="get_link('cash', Ticker)">Statement of Cash Flows</v-btn>
-            <v-btn :disabled="numPeriods.length > 0" color="primary" small @click="get_link('income', Ticker)">Income Statement</v-btn>
-            <v-btn :disabled="numPeriods.length > 0" color="primary" small @click="get_link('balance', Ticker)">Balance Sheet</v-btn>
+            <v-btn :disabled="numPeriods < 1 || numPeriods > 4" color="primary" small @click="get_link('cash', Ticker)">Statement of Cash Flows</v-btn>
+            <v-btn :disabled="numPeriods < 1 || numPeriods > 4 " color="primary" small @click="get_link('income', Ticker)">Income Statement</v-btn>
+            <v-btn :disabled="numPeriods < 1 || numPeriods > 4" color="primary" small @click="get_link('balance', Ticker)">Balance Sheet</v-btn>
           </v-container>
         </v-card>
 
@@ -456,7 +283,97 @@
             </v-tab-item>
           </v-tabs-items>
         </base-material-card>
+    
+    </v-col>
+    </v-row>
+    <v-row>
+    
+      <v-col cols="7">
+        <base-material-card
+          style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
+          color="#08182b"
+          class="mx-2 pa-5"
+          v-if="test"
+        >
+          <template v-slot:heading>
+            <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
+              <v-tab class="mr-3">
+                <v-icon class="mr-2">mdi-chart-pie</v-icon>Analyst Recommendations
+              </v-tab>
+              <v-tab class="mr-3">
+                <v-icon class="mr-2">mdi-target</v-icon>Price Targets
+              </v-tab>
+            </v-tabs>
+          </template>
+          <v-tabs-items v-model="tabs" class="transparent">
+            <v-tab-item v-for="n in 2" :key="n"> 
+              <div v-if="n==1" style='margin-left:0vw;width:100%;'>
+                <v-container>
+                  <v-row>
+                    <div style="margin: 7vw 0px 25px 25px; justify:center;">
+                      <h2>
+                        Recommendations Distribution
+                      </h2>
+                      <div>
+                        Strong Buy: {{analyst_recommendations.ratingBuy}} analysts
+                        <br />
+                        Moderate Buy: {{analyst_recommendations.ratingOverweight}} analysts
+                        <br />
+                        Hold: {{analyst_recommendations.ratingHold}} analysts
+                        <br />
+                        Moderate Sell: {{analyst_recommendations.ratingUnderweight}} analysts
+                        <br />
+                        Strong Sell: {{analyst_recommendations.ratingSell}} analysts
+                        <br />
+                      </div>
+                    </div>
+                    <div>
+                      <v-container fluid>
+                        <div style="justify:center;margin: 40px 0px 25px 25px;width:25vw;">
+                          <apexchart
+                            type="pie"
+                            width="100%"
+                            :options="chartOptions"
+                            :series="series"
+                          ></apexchart>
+                        </div>
+                      </v-container>
+                    </div>
+                  </v-row>
+                </v-container>
+              </div>
+              <v-container>
+                <div v-if="n==2">
+                  <v-row style="justify-content:center;">
+                    <div style="align-self:center;justify:center;'margin: 0px 0px 0px 0px;">
+                      <h2 style="align-items: center;">Price Targets</h2>
+                      <div>
+                        Average Price Target: ${{price_target.priceTargetAverage}}
+                        <br />
+                        Highest Price Target: ${{price_target.priceTargetHigh}}
+                        <br />
+                        Lowest Price Target: ${{price_target.priceTargetLow}}
+                        <br />
+                        Number of Anlysts: {{price_target.numberOfAnalysts}}
+                        <br />
+                      </div>
+                    </div>
+                    <div>
+                      <apexchart
+                        type="rangeBar"
+                        width="500"
+                        :options="priceTargetChartOptions"
+                        :series="priceTargetSeries"
+                      ></apexchart>
+                    </div>
+                  </v-row>
+                </div>
+              </v-container>
+            </v-tab-item>
+          </v-tabs-items>
+        </base-material-card>
       </v-col>
+      
     </v-row>
   </v-container>
 </template>
@@ -629,13 +546,8 @@ export default {
               decimalsInFloat: 2,
             }
           },
-          {
-            x: "Current Analyst Forecast",
-            y: [4, 6]
-          }
-        ]
-      }
-    ],
+        
+      
     priceTargetChartOptions: {
       chart: {
         type: "rangeBar",
@@ -730,8 +642,7 @@ export default {
            //   link: Response.data.filings[i].lin
               
            // });
-          }
-        ]);
+          
         //var count = Object.keys(Response.data.filings).length;
         //for (let i = 0; i < count; i++) {
         // this.items.push({
@@ -743,7 +654,7 @@ export default {
     },
     get_link(value, ticker) {
       let link =
-        "https://rcsandbox.ca/info/financials/" +
+        base_link + "info/financials/" +
         value +
         "/" +
         this.newTicker +

@@ -22,7 +22,6 @@
   </v-container>
    
 </template>
-
 <script>
 import Axios from "axios";
 import firebase from "firebase";
@@ -76,4 +75,5 @@ export default {
     });
   },
 };
+
 </script>
