@@ -1,4 +1,5 @@
 <template>
+<div id='mydiv'></div>
   <v-container id="dashboard" fluid tag="section">
     <v-row>
       <AccountUpdate></AccountUpdate>
@@ -23,6 +24,7 @@
    
 </template>
 <script>
+import postscribe from 'postscribe';
 import Axios from "axios";
 import firebase from "firebase";
 import db from "../../db.js";
@@ -36,6 +38,7 @@ import { Balloon } from 'vue-balloon';
 import Vue from 'vue';
 import VueYouTubeEmbed from 'vue-youtube-embed';
 Vue.use(VueYouTubeEmbed);
+//
 export default {
   name: "Dashboard",
   components: {
@@ -74,6 +77,9 @@ export default {
       }
     });
   },
+  mounted(){
+    postscribe('#mydiv', '<h1>Hello PostScribe</h1>');
+  }
 };
 
 </script>
