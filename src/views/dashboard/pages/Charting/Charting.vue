@@ -1,5 +1,4 @@
 <template>
-  
     <base-material-card color="#08182b" class="pa-0 my-10">
       <template v-slot:heading>
         <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
@@ -15,11 +14,18 @@
           <v-tab class="mr-3">
            Portfolio: 1 Year
           </v-tab>
+          
         </v-tabs>
       </template>
       <v-tabs-items v-model="tabs" class="transparent">
         <v-tab-item v-for="n in 4" :key="n">
           <div>
+            <v-card flat v-if='n==1 && count < 8000' style='position:absolute;height:100vh;width:100vw;z-index:10;'>
+              <div class="text-center" style='z-index:20;'>
+                <v-progress-circular value='20' color='rgba(255, 0, 0, 0.5)' :indeterminate='true'></v-progress-circular>
+                <p>Loading...</p>
+                </div>
+            </v-card>
             <v-card-text>
           <v-row v-if='n==1' style='height:95vh;'>
           <v-col cols="8" >
@@ -39,6 +45,7 @@
           </div>
         </v-col>
       </v-row>
+     
               <EquityGraph v-if="n == 4"></EquityGraph>
               <month-chart v-if="n == 3"></month-chart>
               <day-chart v-if="n == 2"></day-chart>
@@ -54,6 +61,7 @@
 import EquityGraph from "./EquityGraph.vue";
 import MonthChart from "./Month_Chart.vue";
 import DayChart from "./Day_chart.vue";
+
 export default {
   name: "Charting",
   components: {
@@ -64,8 +72,15 @@ export default {
   data(){
     return{
       tabs: 0,
+      count:0,
     }
   },
+  methods: {increaseCount(){
+    setInterval(() => {
+       this.count = this.count + 1000;
+    }, 1000);
+   
+  }},
   mounted() {
     new TradingView.widget({
       autosize: true,
@@ -125,7 +140,10 @@ export default {
       allow_symbol_change: true,
       container_id: "tradingview_9c"
     });
-
+    
+      this.increaseCount();
+    
+     
   }
 };
 </script>

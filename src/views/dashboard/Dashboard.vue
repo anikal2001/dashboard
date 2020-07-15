@@ -1,6 +1,7 @@
 <template>
-<div id='mydiv'></div>
+
   <v-container id="dashboard" fluid tag="section">
+  
     <v-row>
       <AccountUpdate></AccountUpdate>
       <v-row>
@@ -19,10 +20,11 @@
         <news-bar></news-bar>
       </v-col>
     </v-row>
-    
+    <div id='mydiv'></div>
   </v-container>
-   
 </template>
+<!-- Customerly Integration Code -->
+
 <script>
 import postscribe from 'postscribe';
 import Axios from "axios";
@@ -75,10 +77,14 @@ export default {
             console.log("Error getting documents", err);
           });
       }
+
+      let ckeditor = document.createElement('script');    
+      ckeditor.setAttribute('src',"//cdn.ckeditor.com/4.6.2/full/ckeditor.js");
+      document.head.appendChild(ckeditor);
     });
   },
   mounted(){
-    postscribe('#mydiv', '<h1>Hello PostScribe</h1>');
+    postscribe('#mydiv', '<script>'+ 'window.customerlySettings = {        app_id: "28f2fded"    };    !function(){function e(){var e=t.createElement("script");e.type="text/javascript",e.async=!0, e.src="https://widget.customerly.io/widget/28f2fded"; var r=t.getElementsByTagName("script")[0];r.parentNode.insertBefore(e,r)}var r=window,t=document,n=function(){n.c(arguments)};r.customerly_queue=[],n.c=function(e){r.customerly_queue.push(e)}, r.customerly=n,r.attachEvent?r.attachEvent("onload",e):r.addEventListener("load",e,!1)}();' + '<'+ '/' +'script>');
   }
 };
 
