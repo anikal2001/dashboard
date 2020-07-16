@@ -71,6 +71,8 @@
 
 <script>
 import Axios from "axios";
+import * as Cookies from "js-cookie";
+const base_link = Cookies.get("link");
 export default {
   name: "NewsBar",
   data: function() {
@@ -107,7 +109,7 @@ export default {
   },
   methods: {
     news(vm) {
-      Axios.get("https://rcsandbox.ca/info/news/")
+      Axios.get(base_link + "info/news/")
         .then(function(Response) {
           var count = Object.keys(Response.data).length;
           for (let i = 0; i < count; i++) {
@@ -139,7 +141,7 @@ export default {
         });
     },
     filings(vm) {
-      Axios.get("https://rcsandbox.ca/info/filings/")
+      Axios.get(base_link + "info/filings/")
         .then(function(Response) {
           var count = Object.keys(Response.data).length;
           for (let i = 0; i < count; i++) {

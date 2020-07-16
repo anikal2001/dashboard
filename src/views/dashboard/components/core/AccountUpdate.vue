@@ -42,7 +42,8 @@
 <script>
 import Axios from "axios";
 import * as Cookies from "js-cookie";
-const alpaca_key = Cookies.get('alpaca_key')
+const alpaca_key = Cookies.get('alpaca_key');
+const base_link = Cookies.get("link");
 var token = 'Token ' + alpaca_key
 let config = {
   headers: {
@@ -68,7 +69,7 @@ export default {
       this.list[index] = !this.list[index];
     },
     material_chart(details, vm) {
-      let link = "https://rcsandbox.ca/info/accountUpdate/";
+      let link =base_link + "info/accountUpdate/";
       Axios.get(link, config)
         .then((Response) =>{
           for (var key in Response.data) {

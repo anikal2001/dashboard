@@ -54,6 +54,7 @@
 import Axios from 'axios'
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get('alpaca_key')
+const base_link = Cookies.get("link");
 var token = 'Token ' + alpaca_key
 let config = {
   headers: {
@@ -73,12 +74,12 @@ export default {
       setInterval(() => {
        console.log('portfolio updated') ;
        this.get_values(this.portfolio_values);
-      }, 10000);
+      }, 30000);
       
     },
     methods:{
       get_values(values){
-        Axios.get('https://rcsandbox.ca/info/pos/', config)
+        Axios.get(base_link + 'info/pos/', config)
         .then((Response)=>{
           values.push(Response.data)
         })

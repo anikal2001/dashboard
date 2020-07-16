@@ -94,7 +94,7 @@ export default {
         to: "/"
       },
       {
-        title: "Single Stock Analysis",
+        title: "Security Analysis",
         icon: "fa-chart-area",
         to: "/pages/analysis"
       },

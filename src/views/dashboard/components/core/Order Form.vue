@@ -1,13 +1,13 @@
 <template>
 <div>
   <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px; margin-bottom: 10px;"
+    style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px; "
     color="#08182b"
     class="px-5 py-3"
+    icon="mdi-flare"
+  title="Trade"
   >
-    <template v-slot:heading>
-      <div class="display-2 font-weight-light">Trade</div>
-    </template>
+    
     <div style="max-height:100%;">
       <v-container>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -73,6 +73,7 @@
   </base-material-card>
   <base-material-card
   color="primary"
+  icon="mdi-rocket"
   title="Launchpad"
   style="max-height:100%;overflow-top:scroll;margin:50px 50px 0px 0px"
     class="px-5 py-3">
@@ -99,6 +100,7 @@
 <script>
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -132,9 +134,9 @@ export default {
           'icon': "fas fa-file-invoice"
           },
           {
-          'title':'Algo-Trading',
-          'link': 'pages/trading',
-          'icon': "fas fa-code"
+          'title':'Security Analysis',
+          'link': 'pages/analysis',
+          'icon': "fas fa-chart-area"
           },
           {
           'title':'Knowledge Base',
@@ -195,7 +197,7 @@ export default {
     Ordering() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-        let link = `https://rcsandbox.ca/info/order/${this.ticker.toUpperCase()}/${this.Quantity}/${this.position.toLowerCase()}/`
+        let link = base_link + `info/order/${this.ticker.toUpperCase()}/${this.Quantity}/${this.position.toLowerCase()}/`
         if (this.order == "Stop Limit") {
           link =
             link +

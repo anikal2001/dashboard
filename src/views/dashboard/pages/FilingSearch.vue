@@ -71,6 +71,8 @@
 
 <script>
 import Axios from "axios";
+import * as Cookies from "js-cookie";
+const base_link = Cookies.get("link");
 export default {
   name: "FilingSearch",
   data: () => ({
@@ -87,7 +89,7 @@ export default {
       this.items.length = 0
       this.loading = true
       let link =
-        "https://rcsandbox.ca/info/secSearch/" +
+        base_link + "info/secSearch/" +
         this.newTicker.toUpperCase() +
         "/" +
         this.type +
