@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "rcsandbox", 
     "public": "dist",
     "ignore": [
       "firebase.json",
