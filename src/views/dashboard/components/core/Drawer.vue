@@ -54,7 +54,7 @@
                   <v-list-group>
         <template v-slot:activator> 
           <v-list-item-content>
-            <v-list-item-title color="white" class="display-1">Security Analysis</v-list-item-title>
+            <h1 style="color:white;" class="display-1">Security Analysis</h1>
           </v-list-item-content>
         </template>
         <v-list-item v-for="(sub, i) in SubMenu2" :key="i" @click="$router.push(sub[2])">
@@ -158,6 +158,7 @@ export default {
 #core-navigation-drawer
   .v-list-group__header.v-list-item--active:before
     opacity: .24
+    color:white
 
   .v-list-item
     &__icon--text,
@@ -207,4 +208,12 @@ export default {
 
         +rtl()
         margin-left: 8px
+</style>
+<style scoped>
+.display-1{
+  color: white;
+}
+.v-icon.v-icons{
+  color: white;
+}
 </style>

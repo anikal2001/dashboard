@@ -3,7 +3,7 @@
     <v-row>
       <AccountUpdate></AccountUpdate>
       <v-row>
-        <v-col cols="12" md="8" class="mt-6">
+        <v-col style="min-height:90%" cols="12" md="8" class="mt-6">
           <Portfolio></Portfolio>
         </v-col>
         <v-col cols="12" md="4" class="mt-6">
