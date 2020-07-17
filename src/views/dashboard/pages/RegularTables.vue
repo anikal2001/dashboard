@@ -5,6 +5,7 @@
       icon="mdi-clipboard-plus"
       title="Open Orders"
       class="scroll px-5 py-3"
+      style='margin-top:20px;'
     >
       <v-simple-table>
         <thead>
@@ -46,6 +47,7 @@
       icon="mdi-clipboard-text"
       title="Transaction History"
       class="px-5 py-6"
+      style='margin-top:10px;'
     >
       <v-simple-table>
         <thead>
@@ -74,6 +76,7 @@
 <script>
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -96,7 +99,7 @@ export default {
   },
   methods: {
     get_values(transaction, orders) {
-      Axios.get("https://rcsandbox.ca/info/activity/", config)
+      Axios.get(base_link + "info/activity/", config)
         .then(function(Response) {
           console.log(Response.data);
           transaction.push(Response.data.transaction_history);

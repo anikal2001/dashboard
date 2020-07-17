@@ -296,20 +296,11 @@
           color="#08182b"
           class="mx-2 pa-5"
           v-if="test"
+          icon="mdi-glasses"
+  title="Analyst Recommendations"
         >
-          <template v-slot:heading>
-            <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-chart-pie</v-icon>Analyst Recommendations
-              </v-tab>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-target</v-icon>Price Targets
-              </v-tab>
-            </v-tabs>
-          </template>
-          <v-tabs-items v-model="tabs" class="transparent">
-            <v-tab-item v-for="n in 2" :key="n"> 
-              <div v-if="n==1" style='margin-left:0vw;width:100%;'>
+
+        <div   style='margin-left:0vw;width:100%;'>
                 
                   <v-row>
                     <v-col cols='6'>
@@ -369,35 +360,7 @@
                   </v-row>
                 
               </div>
-              <v-container>
-                <div v-if="n==2">
-                  <v-row style="justify-content:center;">
-                    <div style="align-self:center;justify:center;'margin: 0px 0px 0px 0px;">
-                      <h2 style="align-items: center;">Price Targets</h2>
-                      <div>
-                        Average Price Target: ${{price_target.priceTargetAverage}}
-                        <br />
-                        Highest Price Target: ${{price_target.priceTargetHigh}}
-                        <br />
-                        Lowest Price Target: ${{price_target.priceTargetLow}}
-                        <br />
-                        Number of Anlysts: {{price_target.numberOfAnalysts}}
-                        <br />
-                      </div>
-                    </div>
-                    <div>
-                      <apexchart
-                        type="rangeBar"
-                        width="500"
-                        :options="priceTargetChartOptions"
-                        :series="priceTargetSeries"
-                      ></apexchart>
-                    </div>
-                  </v-row>
-                </div>
-              </v-container>
-            </v-tab-item>
-          </v-tabs-items>
+          
         </base-material-card>
       </v-col>
       
