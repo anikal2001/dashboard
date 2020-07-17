@@ -83,11 +83,11 @@
   </v-col>
   <v-col cols = '5' >  
     <v-card v-if="test" style="height:95%" >
-      <v-container>
-    <div style='height:20vh'>
-    <trading-vue style="overflow-top:scroll;margin:25px 25px 25px 25px" colorTitle="#000000" colorGrid='#f0f0f0' HLcolorText='#000000' colorText='#000000' colorBack='#FFFFFF'   :titleTxt='chartHeader' :data="this.$data"></trading-vue>
+      
+    <div style='height:100%'>
+      <apexchart width="100%" height="100%" type="line" :options="priceChartOptions" :series="priceChartSeries"></apexchart>
     </div>
-      </v-container>
+     
     </v-card>
     
   
@@ -189,17 +189,19 @@
     </base-material-card>
     </v-col>
     <v-col cols='5'>
-        <v-card v-if="test" style="margin: 0px 25px 25px 25px;">
+        <v-card v-if="test" style="margin: 0px 0px 25px 0px;">
+          <v-row>
           <v-card-title class="display-2">Financial Statements</v-card-title>
           <v-text-field
             v-model="numPeriods"
             filled
             outlined
             :rules="annualRules"
-            style="border-radius:3px; margin: 10px 0px 10px 0px;"
+            style="border-radius:3px; width:10%; margin: 20px 0px 10px 10px;"
             label="Number of Periods"
             required
           />
+          </v-row> 
           <v-container style="display:flex;justify-content:space-around;">
             <v-btn :disabled="numPeriods < 1 || numPeriods > 4" color="primary" small @click="get_link('cash', Ticker)">Statement of Cash Flows</v-btn>
             <v-btn :disabled="numPeriods < 1 || numPeriods > 4 " color="primary" small @click="get_link('income', Ticker)">Income Statement</v-btn>
@@ -288,7 +290,7 @@
     </v-row>
     <v-row>
     
-      <v-col cols="7">
+      <v-col cols="12">
         <base-material-card
           style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
           color="#08182b"
@@ -308,9 +310,11 @@
           <v-tabs-items v-model="tabs" class="transparent">
             <v-tab-item v-for="n in 2" :key="n"> 
               <div v-if="n==1" style='margin-left:0vw;width:100%;'>
-                <v-container>
+                
                   <v-row>
-                    <div style="margin: 7vw 0px 25px 25px; justify:center;">
+                    <v-col cols='6'>
+
+                    <div style="margin: 0px 0px 25px 10px; justify:center;">
                       <h2>
                         Recommendations Distribution
                       </h2>
@@ -326,9 +330,8 @@
                         Strong Sell: {{analyst_recommendations.ratingSell}} analysts
                         <br />
                       </div>
-                    </div>
-                    <div>
-                      <v-container fluid>
+                    
+                    
                         <div style="justify:center;margin: 40px 0px 25px 25px;width:25vw;">
                           <apexchart
                             type="pie"
@@ -337,10 +340,34 @@
                             :series="series"
                           ></apexchart>
                         </div>
-                      </v-container>
+                     
                     </div>
+                    </v-col>
+                    <v-col cols='6'>
+                   <div style="align-self:center;justify:center;'margin: 0px 0px 0px 0px;">
+                      <h2 style="align-items: center;">Price Targets</h2>
+                      <div>
+                        Average Price Target: ${{price_target.priceTargetAverage}}
+                        <br />
+                        Highest Price Target: ${{price_target.priceTargetHigh}}
+                        <br />
+                        Lowest Price Target: ${{price_target.priceTargetLow}}
+                        <br />
+                        Number of Anlysts: {{price_target.numberOfAnalysts}}
+                        <br />
+                      </div>
+                    </div>
+                    <div>
+                      <apexchart
+                        type="rangeBar"
+                        width="500"
+                        :options="priceTargetChartOptions"
+                        :series="priceTargetSeries"
+                      ></apexchart>
+                    </div>
+                    </v-col>
                   </v-row>
-                </v-container>
+                
               </div>
               <v-container>
                 <div v-if="n==2">
@@ -403,6 +430,8 @@ export default {
   },
 
   data: () => ({
+    chartingTime:[],
+    chartingVals:[],
     multiples:[],
     capitalStats:[],
     keyStatsSearch:'',
@@ -516,6 +545,22 @@ export default {
         "month1ChangePercent": '1 Month Holding Period Return',
         "day30ChangePercent": '30 Day Holding Period Return',
         "day5ChangePercent": '5 Day Holding Period Return',
+        "debtToEquity": "Debt to Equity",
+        "enterpriseValueToRevenue": "Enterprise Value to Revenue",
+        "priceToSales": "Price to Sales",
+        "priceToBook": "Price to Book",
+        "forwardPERatio": "Forward PE Ratio",
+        "pegRatio": "PEG Ratio",
+        "peHigh" : "PE High",
+        "peLow" : "PE Low",
+        "putCallRatio": "Put Call Ratio",
+        "EV/EBITDA": "EV/EBITDA",
+        "MarketCap/Revenue":"Matket Capitalization to Revenue",
+        "marketcap": "Market Capitalization",
+        'beta':"Beta",
+        'totalCash': "Total Cash",
+        "currentDebt": "Current Debt",
+       
       },
     priceTargetSeries: [{
               data: [{
@@ -546,24 +591,19 @@ export default {
               decimalsInFloat: 2,
             }
           },
-        
-      
-    priceTargetChartOptions: {
-      chart: {
-        type: "rangeBar",
-        decimalsInFloat: 2
-      },
-      plotOptions: {
-        bar: {
-          decimalsInFloat: 2,
-          horizontal: true
+         
+        priceChartOptions: {
+        chart: {
+        },
+        xaxis: {
+          categories:[1,2,3],//chartingTime,
         }
       },
-      dataLabels: {
-        enabled: true,
-        decimalsInFloat: 2
-      }
-    }
+      priceChartSeries: [{
+        name: 'Closing Prices',
+        data: [1,2,3],
+      }],
+    
   }),
   methods: {
     get_filings() {
@@ -601,7 +641,7 @@ export default {
             
             else if (x == 'debtToEquity' || x == 'enterpriseValueToRevenue' || x == 'priceToSales' || x == 'priceToBook' || x == 'forwardPERatio' || x=='beta'
             || x=='pegRatio'|| x=='peHigh'|| x=='peLow'|| x=='putCallRatio'){
-            temp = {'name': x , "val": this.key_stats[x]};
+            temp = {'name':  this.cleanedNames[x] , "val": this.key_stats[x]};
             console.log(x);
             this.multiples.push(temp);
             } 
@@ -609,7 +649,7 @@ export default {
             
             
             if (x == 'totalCash' || x == 'currentDebt' || x == 'marketcap' || x == 'debtToEquity' || x == 'beta'){
-            temp = {'name': x , "val": this.key_stats[x]};
+            temp = {'name': this.cleanedNames[x] , "val": this.key_stats[x]};
             console.log(x);
             this.capitalStats.push(temp);
             } 
@@ -622,7 +662,25 @@ export default {
 
           temp = {'name': '52 Week Trading Range' , "val": this.key_stats['week52low']+ " - " + this.key_stats['week52high']};
           this.items.push(temp);
-          this.ohlcv = Response.data.charting_yearly;        
+          this.chartingVals =Response.data.charting_yearly_vals;
+          this.chartingTime =Response.data.charting_yearly_time;
+
+           this.priceChartOptions = {
+        chart: {
+        },
+        xaxis: {
+          categories:this.chartingTime,
+        }
+      };
+
+        this.priceChartSeries = [{
+        name: 'Closing Prices',
+        data: this.chartingVals,
+      }],
+
+
+
+          //this.ohlcv = Response.data.charting_yearly;        
           this.series = [this.analyst_recommendations.ratingSell, this.analyst_recommendations.ratingUnderweight, this.analyst_recommendations.ratingHold, this.analyst_recommendations.ratingOverweight, this.analyst_recommendations.ratingBuy,];
           var tradingRange =[Number(this.key_stats['week52low']).toFixed(2),  Number(this.key_stats['week52high']).toFixed(2)];
           var forecast = 
