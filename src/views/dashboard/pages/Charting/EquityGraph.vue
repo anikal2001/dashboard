@@ -16,6 +16,7 @@
 import DownloadButton from "./DownloadButton.vue";
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
+const base_link = Cookies.get("link");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -62,7 +63,7 @@ export default {
       return ret_date;
     },
     Year_equity() {
-      Axios.get("https://rcsandbox.ca/info/charting/1A/1D/", config).then(
+      Axios.get(base_link + "info/charting/1A/1D/", config).then(
         response => {
           var count = Object.keys(response.data).length;
           for (let i = 0; i < count; i++) {

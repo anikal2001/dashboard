@@ -17,6 +17,7 @@ import Axios from "axios";
 import DownloadButton from "./DownloadButton.vue";
 import Printable from './Printable.js'
 import * as Cookies from "js-cookie";
+const base_link = Cookies.get("link");
 const alpaca_key = Cookies.get("alpaca_key");
 var token = "Token " + alpaca_key;
 let config = {
@@ -36,7 +37,7 @@ export default {
     };
   },
   created() {
-    Axios.get("https://rcsandbox.ca/info/charting/1M/1D/", config).then(
+    Axios.get(base_link + "info/charting/1M/1D/", config).then(
       response => {
         var count = Object.keys(response.data).length;
         for (let i = 0; i < count; i++) {

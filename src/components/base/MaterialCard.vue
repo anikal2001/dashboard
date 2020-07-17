@@ -72,6 +72,17 @@
           v-text="title"
         />
       </div>
+
+      <div
+        v-else-if="icon && title2"
+        class="ml-4"
+      >
+        <div
+
+          class="card-title display-1 font-weight-light"
+          v-text="title2"
+        />
+      </div>
     </div>
 
     <slot />
@@ -112,6 +123,10 @@
         default: '',
       },
       title: {
+        type: String,
+        default: '',
+      },
+      title2: {
         type: String,
         default: '',
       },

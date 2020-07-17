@@ -18,7 +18,7 @@
     <v-row style="margin-top:10px;margin-bottom:10px;">
     <v-col cols='4'>
       <base-material-card  color="#08182b" style="margin-left:10px;height:65vh;" icon="mdi-calendar"
-  title="Upcoming Events & Podcasts">
+      title2="Upcoming Events & Podcast">
       
         <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height: 85%;">
         <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in upcomingEvents '>
@@ -26,11 +26,11 @@
         <v-container>
          <v-row style='padding:10px;width:100%'> 
            <v-col xl='2'lg='4' md='4'>
-          <h3>{{item.splitDate[2]}}</h3>
-          <h1>{{item.splitDate[1]}}</h1>
+          <h3 style='font-size:18px;'>{{item.splitDate[2]}}</h3>
+          <h1 style='font-size:25px;'>{{item.splitDate[1]}}</h1>
           </v-col>
           <v-col xl='10'lg='8' md='8'> 
-          <h3>{{item.title}}</h3>
+          <h3 style='font-size:15px;' >{{item.title}}</h3>
           </v-col>
           
          </v-row> 
@@ -43,7 +43,7 @@
     </v-col>
     <v-col cols='4'>
       <base-material-card  color="#08182b" style="height:65vh;" icon="mdi-graph"
-      title="Recent Economic Research" >
+      title2="Recent Economic Research" >
       <div style="padding:0.5vh;overflow-y: scroll; max-height: 85%;margin-left:10px;">
                 
         <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in econResearch'>
@@ -58,7 +58,7 @@
     </v-col>
     <v-col cols='4'>
       <base-material-card color="#08182b" style="height:65vh;" icon="mdi-book"
-      title="Finance Books & Journal Articles" >
+      title2="Finance Books & Journals" >
     
         <div style="margin-left:10px;">
         </div>
@@ -67,15 +67,15 @@
     </v-row>  
     <v-row >
     <v-col cols='4'>
-      <base-material-card  color="#08182b"  style="height:25vh;"  icon="mdi-cast"
-      title="Bloomberg Live Stream ">
+      <base-material-card  color="#08182b"  style="font-size:10px;height:30vh;"  icon="mdi-cast"
+      title2="Bloomberg Live Stream " >
      
         <div style="margin-left:10px;">
         
        <v-container>
     <v-row>
        <v-col cols='6' style='align-items:center;'>
-          
+        <a :href="'https://www.bloomberg.com/live/us'" target="_blank" style="color:white; text-decoration:none;">  
         <v-btn
             
             style='height:3vh;margin-bottom: 20%;color: white;justify:center;width:100%;'
@@ -83,35 +83,35 @@
             class="mr-4"
             
             justify='center'
-          ><a :href="'https://www.bloomberg.com/live/us'" target="_blank" style="color:white; text-decoration:none;">US Stream</a></v-btn>
+          >US Stream</v-btn></a>
     
-    
+          <a :href="'https://www.bloomberg.com/live/europe'" target="_blank" style="color:white;text-decoration:none;">
           <v-btn
           
             class="mr-4"
             style='height:3vh;width:100%;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
-          ><a :href="'https://www.bloomberg.com/live/europe'" target="_blank" style="color:white;text-decoration:none;">Europe Stream</a></v-btn>
+          >Europe Stream</v-btn></a>
     
   
    
       </v-col>
       <v-col cols='6' style='align-items:center;'>
  
-   
+   <a :href="'https://www.bloomberg.com/live/asia'" target="_blank" style="color:white; text-decoration:none;">
     <v-btn
             
             style='height:3vh;margin-bottom:20%;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
             class="mr-4"
-          ><a :href="'https://www.bloomberg.com/live/asia'" target="_blank" style="color:white; text-decoration:none;">Asia Stream</a></v-btn>
+          >Asia Stream</v-btn></a>
   
-   
+   <a :href="'https://www.youtube.com/watch?v=dp8PhLsUcFE'" target="_blank" style="color:white; text-decoration:none;">
     <v-btn
             style='height:3vh;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
             class="mr-4"
-          ><a :href="'https://www.youtube.com/watch?v=dp8PhLsUcFE'" target="_blank" style="color:white; text-decoration:none;">Global Stream</a></v-btn>
+          >Global Stream</v-btn></a>
     
         </v-col>
     
@@ -121,39 +121,42 @@
       </base-material-card>
     </v-col>
     <v-col cols='4'>
-      <base-material-card   color="#08182b" style="height:25vh;"  icon="mdi-laptop"
-      title="BMO Finance Lab Software">
+      <base-material-card   color="#08182b" style="height:30vh;"  icon="mdi-laptop"
+      title2="BMO Finance Lab Software">
     
       <div style=";margin-left:10px;">
      
         <v-row style='margin-left:2vw;justify-content:center'>
        <v-col cols='12' style='align-items:center;'>
         <v-row>  
+          <a :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'" target="_blank" style="color:white; text-decoration:none;justify:center;width:80%;">
         <v-btn
             
-            style='height:3vh;margin-bottom: 5%;color: white;justify:center;width:80%;'
+            style='height:3vh;margin-bottom: 5%;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
             class="mr-4"
             
             justify='center'
-          ><a :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'" target="_blank" style="color:white; text-decoration:none;">Capital IQ</a></v-btn>
+          > Capital IQ</v-btn></a>
     
         </v-row>
         <v-row>
+          <a :href="'https://login.factset.com/'" target="_blank" style="color:white; text-decoration:none;justify:center;width:100%;">
           <v-btn
           
             class="mr-4"
             style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;;'
             color="rgb(17, 25, 69)"
-          ><a :href="'https://login.factset.com/'" target="_blank" style="color:white;text-decoration:none;">FactSet</a></v-btn>
+          >FactSet</v-btn></a>
         </v-row>
         <v-row>
+          <a :href="'https://portal.bloombergforeducation.com/login'" target="_blank" style="color:white; text-decoration:none;justify:center;width:100%;">
           <v-btn
           
             class="mr-4"
             style='height:3vh;width:80%;color: white;self-align:center;'
             color="rgb(17, 25, 69)"
-          ><a :href="'https://portal.bloombergforeducation.com/login'" target="_blank" style="color:white;text-decoration:none;">Bloomberg Market Concepts</a></v-btn>
+          >Bloomberg Market Concepts</v-btn></a>
         </v-row>
   
    
@@ -166,7 +169,7 @@
     </v-col>
     <v-col cols='4'>
       <base-material-card  color="#08182b" icon="mdi-headset"
-      title="Get In Touch"  style="height:25vh;" >
+      title2="Get In Touch"  style="height:30vh;" >
         <div style="margin-left:10px;">
         
         </div>
