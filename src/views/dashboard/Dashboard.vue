@@ -5,10 +5,10 @@
     <v-row>
       <AccountUpdate></AccountUpdate>
       <v-row>
-        <v-col style="min-height:90%" cols="12" md="8" class="mt-6">
+        <v-col style="height:90%" cols="12" md="8" class="mt-6">
           <Portfolio></Portfolio>
         </v-col>
-        <v-col cols="12" md="4" class="mt-6">
+        <v-col style="height:80%" cols="12" md="4" class="mt-6">
           <order-form></order-form>
 
         </v-col>
@@ -68,13 +68,11 @@ export default {
         this.user = user;
         let uid = this.user.uid;
         db.collection("backups")
-        .doc (this.user.uid)
+          .doc(this.user.uid)
           .get()
           .then(doc => {
-            console.log('Bashaar is the best');
-            Cookies.set('alpaca_key', doc.data().terminal_key);
-            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/');
-            console.log(doc.data().terminal_key);
+            Cookies.set('alpaca_key', doc.data().terminal_key),
+            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
           })
           .catch(err => {
             console.log("Error getting documents", err);

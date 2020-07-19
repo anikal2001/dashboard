@@ -71,8 +71,8 @@ export default {
     created(){
       this.portfolio_values = []
       this.get_values(this.portfolio_values);
+      console.log(base_link)
       setInterval(() => {
-       console.log('portfolio updated') ;
        this.get_values(this.portfolio_values);
       }, 30000);
       
