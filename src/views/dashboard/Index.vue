@@ -1,3 +1,4 @@
+
 <template>
   <v-app>
     <dashboard-core-app-bar @logout="logout_mid()" />

@@ -181,10 +181,8 @@
   </v-col>
 <v-col cols='3' style='margin-top:20px;'>
   
-   <base-material-card  color="#08182b" style="align:center; padding: 20px;height:93vh;" >
-   <template v-slot:heading>
-      <div class="display-1 font-weight-light">The Uptick</div>
-    </template>
+   <base-material-card title='The Uptick' icon="mdi-glasses" color="#08182b" style="align:center; padding: 20px;height:98vh;" >
+  
      <div style="margin-left:0px;overflow-y: scroll; max-height: 90%;">
         
         <div style="padding:10px;"  v-for="article in uptick">

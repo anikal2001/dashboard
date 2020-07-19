@@ -1,5 +1,6 @@
 <template>
-  <base-material-card color="#08182b" class="px-5 py-3" style="height:600px;">
+  <base-material-card  icon="mdi-glasses"
+  title="Watchlist" color="#08182b" class="px-5 py-3" style="height:600px;">
     <v-form ref="form">
       <v-text-field v-model="newTicker" label="Add New Ticker" single-line hide-details>
         <template v-if="$vuetify.breakpoint.mdAndUp" v-slot:append-outer>
@@ -9,9 +10,7 @@
         </template>
       </v-text-field>
     </v-form>
-    <template v-slot:heading>
-      <div class="display-2 font-weight-light">Watchlist</div>
-    </template>
+
     <v-card-text style="padding-top:0px;">
       <v-data-table
         @page-count="pageCount = $event"
