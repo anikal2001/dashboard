@@ -21,6 +21,7 @@
       </v-col>
     </v-row>
     <div id='mydiv'></div>
+    <new-page></new-page>
   </v-container>
 </template>
 <!-- Customerly Integration Code -->
@@ -36,6 +37,7 @@ import NewsBar from "./components/core/NewsBar.vue";
 import Portfolio from "./components/core/Portfolio.vue";
 import AccountUpdate from "./components/core/AccountUpdate.vue";
 import OrderForm from "./components/core/Order Form.vue";
+import NewPage from "./pages/NewPage.vue"
 import { Balloon } from 'vue-balloon';
 import Vue from 'vue';
 import VueYouTubeEmbed from 'vue-youtube-embed';
@@ -50,6 +52,7 @@ export default {
     AccountUpdate,
     OrderForm,
     Balloon,
+    NewPage
   },
   data() {
     return {
