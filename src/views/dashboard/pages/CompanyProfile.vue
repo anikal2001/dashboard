@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card class="mx-2 pa-5" tile>
+    <v-card style=;margin-left:8px; class="pa-5" tile>
       <div v-if="!test">
         <v-card-title
           style="justify-content:center;font-size:48px"
@@ -82,7 +82,7 @@
   </base-material-card>
   </v-col>
   <v-col cols = '5' >  
-    <v-card v-if="test" style="height:95%" >
+    <v-card v-if="test" style="margin-top:5px;height:95%" >
       
     <div style='height:100%'>
       <apexchart width="100%" height="100%" type="line" :options="priceChartOptions" :series="priceChartSeries"></apexchart>
@@ -96,7 +96,7 @@
       <v-row> 
        <v-col cols='7'>
     <base-material-card
-  style="max-height:100%;overflow-top:scroll;margin:0px 0px 5% 0px"
+  style="margin:0px 0px 5% 0px"
     color="#08182b"
     class="mx-2 pa-5"
     v-if='test'>
@@ -602,8 +602,8 @@ export default {
             this.items.push(temp);
             }
             
-            else if (x == 'debtToEquity' || x == 'enterpriseValueToRevenue' || x == 'priceToSales' || x == 'priceToBook' || x == 'forwardPERatio' || x=='beta'
-            || x=='pegRatio'|| x=='peHigh'|| x=='peLow'|| x=='putCallRatio'){
+            else if (x == 'enterpriseValueToRevenue' || x == 'priceToSales' || x == 'priceToBook' || x == 'forwardPERatio' || x=='beta'
+            || x=='pegRatio'|| x=='peHigh'|| x=='peLow'){
             temp = {'name':  this.cleanedNames[x] , "val": this.key_stats[x]};
             console.log(x);
             this.multiples.push(temp);

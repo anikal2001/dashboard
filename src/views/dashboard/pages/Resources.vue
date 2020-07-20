@@ -1,35 +1,22 @@
 <template>
   <div >
-  <v-row >
-    <v-col cols='12' >
-    <v-container>
-      <div >
-         <v-card-title
-        style="justify-content:center;font-size:18px"
-        align="center"
-        class="display-2"
-      ><p style="font:source-sans">  Looking for help? Open Sandbox Documentation here </p></v-card-title>
-       </div> 
-    </v-container>
-    </v-col>
-  </v-row>
   <v-row>
-  <v-col style="margin-left:0px;" cols='9'>
+  <v-col style="margin-left:0px;" cols='8'>
     <v-row style="margin-top:10px;margin-bottom:10px;">
-    <v-col cols='4'>
-      <base-material-card  color="#08182b" style="margin-left:10px;height:65vh;" icon="mdi-calendar"
+    <v-col cols='5'>
+      <base-material-card  color="#08182b" style="margin-left:10px;" icon="mdi-calendar"
       title2="Upcoming Events & Podcast">
       
-        <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height: 85%;">
+        <div style="padding:0.25vh;margin-left:10px;overflow-y: scroll; max-height: 57vh;">
         <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in upcomingEvents '>
          <a  style=" text-decoration:none;" :href="item.link" target="_blank">
         <v-container>
-         <v-row style='padding:10px;width:100%'> 
-           <v-col xl='2'lg='4' md='4'>
+         <v-row style='padding:0px;width:100%'> 
+           <v-col xl='2'lg='2' md='4'>
           <h3 style='font-size:18px;'>{{item.splitDate[2]}}</h3>
           <h1 style='font-size:25px;'>{{item.splitDate[1]}}</h1>
           </v-col>
-          <v-col xl='10'lg='8' md='8'> 
+          <v-col xl='10'lg='10' md='8'> 
           <h3 style='font-size:15px;' >{{item.title}}</h3>
           </v-col>
           
@@ -40,13 +27,28 @@
         
         </div>
       </base-material-card>
+      
     </v-col>
-    <v-col cols='4'>
-      <base-material-card  color="#08182b" style="height:65vh;" icon="mdi-graph"
-      title2="Recent Economic Research" >
-      <div style="padding:0.5vh;overflow-y: scroll; max-height: 85%;margin-left:10px;">
+   
+    <v-col cols='7'>
+      <base-material-card color="#08182b"
+      title2="Finance Books & Journals" >
+    
+    <template v-slot:heading>
+            <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
+              <v-tab class="mr-3">
+                <v-icon class="mr-2">mdi-graph</v-icon>Finance Books & Journals
+              </v-tab>
+              <v-tab>
+                <v-icon class="mr-2">mdi-book</v-icon>Recent Economic Research
+              </v-tab>
+            </v-tabs>
+          </template>
+          <v-tabs-items v-model="tabs" style='height:55vh;margin-bottom:0px' class="transparent">
+            <v-tab-item v-for="n in 2" :key='n'>
+              <div style="padding:0.5vh;overflow-y: scroll;height:55vh;margin-left:10px;">
                 
-        <div style= 'margin-top:5px;border-bottom:thin solid' v-for='item in econResearch'>
+        <div v-if='n==1' style= 'margin-top:10px;border-bottom:thin solid' v-for='item in econResearch'>
         <a  style="text-decoration:none;" :href="item.link" target="_blank">
         <h3>{{item.title}}</h3>
         <p>{{item.summary}}</p>
@@ -54,22 +56,15 @@
         </div>
        
       </div>
-      </base-material-card>
-    </v-col>
-    <v-col cols='4'>
-      <base-material-card color="#08182b" style="height:65vh;" icon="mdi-book"
-      title2="Finance Books & Journals" >
-    
-        <div style="margin-left:10px;">
-        </div>
+            </v-tab-item>
+          </v-tabs-items>
       </base-material-card>
     </v-col>
     </v-row>  
-    <v-row >
-    <v-col cols='4'>
-      <base-material-card  color="#08182b"  style="font-size:10px;height:30vh;"  icon="mdi-cast"
-      title2="Bloomberg Live Stream " >
-     
+    <v-row style = 'margin-top:10px;'>
+    <v-col cols='5'>
+      
+      <base-material-card  color="#08182b"  style="font-size:10px;height:30vh;" title2='Bloomberg Live Streams' icon='mdi-cast'>
         <div style="margin-left:10px;">
         
        <v-container>
@@ -167,19 +162,11 @@
       </div>
       </base-material-card>
     </v-col>
-    <v-col cols='4'>
-      <base-material-card  color="#08182b" icon="mdi-headset"
-      title2="Get In Touch"  style="height:30vh;" >
-        <div style="margin-left:10px;">
-        
-        </div>
-      </base-material-card>
-    </v-col>
     </v-row>
     
     
   </v-col>
-<v-col cols='3' style='margin-top:20px;'>
+<v-col cols='4' style='margin-top:20px;'>
   
    <base-material-card title='The Uptick' icon="mdi-glasses" color="#08182b" style="align:center; padding: 20px;height:98vh;" >
   
@@ -214,6 +201,8 @@ export default {
   },
   data() {
     return {
+      tabs:2,
+      tabs2:2,
       uptick:null,
       upcomingEvents: null,
       econResearch: null,
