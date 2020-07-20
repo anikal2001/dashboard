@@ -169,7 +169,9 @@
 <v-col cols='4' style='margin-top:20px;'>
   
    <base-material-card title='The Uptick' icon="mdi-glasses" color="#08182b" style="align:center; padding: 20px;height:98vh;" >
-  
+      <v-btn @click="" class="mx-2" fab dark small color="primary">
+      <v-icon dark>mdi-arrow-top-right</v-icon>
+    </v-btn>
      <div style="margin-left:0px;overflow-y: scroll; max-height: 90%;">
         
         <div style="padding:10px;"  v-for="article in uptick">
