@@ -8,7 +8,7 @@
         <v-col style="height:90%" cols="12" md="8" class="mt-6">
           <Portfolio></Portfolio>
         </v-col>
-        <v-col style="height:80%" cols="12" md="4" class="mt-6">
+        <v-col style="height:90%" cols="12" md="4" class="mt-6">
           <order-form></order-form>
 
         </v-col>
@@ -74,6 +74,7 @@ export default {
             Cookies.set('alpaca_key', doc.data().terminal_key),
             Cookies.set('uid', uid),
             Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
+            console.log(Cookies.get('link'))
           })
           .catch(err => {
             console.log("Error getting documents", err);
