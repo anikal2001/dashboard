@@ -1,6 +1,6 @@
 <template>
   <div class="ticker-form">
-    <v-card width="100%" height="50%">
+    <v-card flat width="100%" height="50%">
       <v-card-title
         style="justify-content:center"
         align="center"
@@ -78,15 +78,7 @@
                 @click="Ordering()"
               >Get</v-btn>
             </v-col>
-            <v-col v-if="show" class="d-flex" cols="12" md="2">
-              <v-btn
-                :disabled="!valid"
-                color="#08182b"
-                class="white--text"
-                large
-                @click="$emit('export')"
-              >Export CSV</v-btn>
-            </v-col>
+            
           </v-row>
         </v-container>
       </v-form>
@@ -170,6 +162,15 @@ export default {
     }
   }
 };
+/**<v-col v-if="false" class="d-flex" cols="12" md="2">
+              <v-btn
+                :disabled="!valid"
+                color="#08182b"
+                class="white--text"
+                large
+                @click="$emit('export')"
+              >Export CSV</v-btn>
+            </v-col> */
 </script>
 <style scoped>
 .ticker-form {

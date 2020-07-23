@@ -10,12 +10,14 @@
  /* eslint-disable */ 
   import LoginForm from './components/core/LoginForm.vue'
   import Firebase from 'firebase'
-  import db from '../../db.js'
+  import db from "./pages/db.js";
+   
   
   export default {
     name: 'LoginPage',
     components: {
-      LoginForm
+      LoginForm,
+      
     },
   }
 </script>
