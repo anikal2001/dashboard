@@ -11,6 +11,7 @@
     temporary
     width="360"
     v-bind="$attrs"
+    style='z-index:25;'
   >
     <v-divider class="mb-1" />
 
@@ -98,6 +99,11 @@ export default {
         title: "Security Analysis",
         icon: "fa-chart-area",
         to: "/pages/analysis"
+      },
+      {
+        title: "Standings",
+        icon: "fa-trophy",
+        to: "/pages/standings"
       },
       {
         title: "Algo-Trading",
