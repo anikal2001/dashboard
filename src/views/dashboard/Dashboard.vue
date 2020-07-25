@@ -81,8 +81,21 @@ export default {
       if (user) {
         this.user = user;
         let uid = this.user.uid;
-        getData();
+        // this.getData();
       }
+
+       db.collection("backups")
+          .doc(this.user.uid)
+          .get()
+          .then(doc => {
+            Cookies.set('alpaca_key', doc.data().terminal_key),
+            Cookies.set('uid', uid),
+            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
+            console.log(Cookies.get('link'))
+          })
+          .catch(err => {
+            console.log("Error getting documents", err);
+          });
 
       let ckeditor = document.createElement('script');    
       ckeditor.setAttribute('src',"//cdn.ckeditor.com/4.6.2/full/ckeditor.js");
