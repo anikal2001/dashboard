@@ -4,11 +4,11 @@
   
     <v-row>
       <AccountUpdate></AccountUpdate>
-      <v-row>
-        <v-col style="height:90%" cols="12" md="8" class="mt-6">
+      <v-row style="height:90vh">
+        <v-col cols="12" md="7" class="mt-6">
           <Portfolio></Portfolio>
         </v-col>
-        <v-col style="height:90%" cols="12" md="4" class="mt-6">
+        <v-col  cols="12" md="5" class="mt-6">
           <order-form></order-form>
 
         </v-col>

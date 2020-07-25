@@ -4,7 +4,7 @@
       title="My Portfolio"
       color="#08182b"
       class=" scroll px-5 py-3"
-      style="height:100%;margin-left:15px;"
+      style="height:81%;margin-left:15px;"
     >
     <div style="overflow-y:auto;max-height:89%;">
       <v-simple-table>
