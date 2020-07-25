@@ -20,7 +20,7 @@
         <news-bar></news-bar>
       </v-col>
     </v-row>
-    <div id='mydiv'></div>
+    <div id='mydiv2'></div>
     <new-page></new-page>
   </v-container>
 </template>
@@ -30,7 +30,7 @@
 import postscribe from 'postscribe';
 import Axios from "axios";
 import firebase from "firebase";
-import db from "../../db.js";
+import db from "./pages/db.js";
 import * as Cookies from "js-cookie";
 import Watchlist from "./components/core/Watchlist.vue";
 import NewsBar from "./components/core/NewsBar.vue";
@@ -60,6 +60,20 @@ export default {
       videoID: "5qap5aO4i9A",
     };
   },
+  async getData() {
+      db.collection("backups")
+          .doc(this.user.uid)
+          .get()
+          .then(doc => {
+            Cookies.set('alpaca_key', doc.data().terminal_key),
+            Cookies.set('uid', uid),
+            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
+            console.log(Cookies.get('link'))
+          })
+          .catch(err => {
+            console.log("Error getting documents", err);
+          });
+      },
   created() {
     firebase.auth().onAuthStateChanged(user => {
       var backup = false; 
@@ -67,17 +81,7 @@ export default {
       if (user) {
         this.user = user;
         let uid = this.user.uid;
-        db.collection("backups")
-          .doc(this.user.uid)
-          .get()
-          .then(doc => {
-            Cookies.set('alpaca_key', doc.data().terminal_key),
-            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
-            console.log(Cookies.get('link'))
-          })
-          .catch(err => {
-            console.log("Error getting documents", err);
-          });
+        getData();
       }
 
       let ckeditor = document.createElement('script');    
@@ -86,6 +90,7 @@ export default {
     });
   },
   mounted(){
+
     postscribe('#mydiv2', "<script type='application/javascript'>  window.tiledeskSettings = { projectid: '5f121a789cf1b20012044108' }; (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://widget.tiledesk.com/v4/launch.js';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'tiledesk-jssdk'));<" + "/script>");
     //postscribe('#mydiv2', '<!-- Customerly Live Chat Snippet Code --> <script> !function(){var e=window,i=document,t="customerly",n="queue",o="load",r="settings",u=e[t]=e[t]||[];if(u.t){return void u.i("[customerly] SDK already initialized. Snippet included twice.")}u.t=!0;u.loaded=!1;u.o=["event","attribute","update","show","hide","open","close"];u[n]=[];u.i=function(t){e.console&&!u.debug&&console.error&&console.error(t)};u.u=function(e){return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(e),u[n].push(t),u}};u[o]=function(t){u[r]=t||{};if(u.loaded){return void u.i("[customerly] SDK already loaded. Use customerly.update to change settings.")}u.loaded=!0;var e=i.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://messenger.customerly.io/launcher.js";var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};u.o.forEach(function(t){u[t]=u.u(t)})}(); customerly.load({ "app_id": "28f2fded" }); <' +'/script> <!-- End of Customerly Live Chat Snippet Code -->');
 

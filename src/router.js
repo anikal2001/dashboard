@@ -54,7 +54,7 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/Fundamentals.vue'),
         },
         {
-          name: 'Single Stock Analysis',
+          name: 'Security Analysis',
           path: 'pages/analysis',
           component: () => import('@/views/dashboard/pages/CompanyProfile.vue'),
         },
@@ -67,6 +67,11 @@ export default new Router({
           name: 'Algo-Trading',
           path: 'pages/trading',
           component: () => import('@/views/dashboard/pages/ComingSoon'),
+        },
+        {
+          name: 'Standings',
+          path: 'pages/standings',
+          component: () => import('@/views/dashboard/pages/Standings.vue'),
         },
       ],
       beforeEnter: ifAuthenticated,

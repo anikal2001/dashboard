@@ -1,6 +1,6 @@
 <template>
   <div class="ticker-form">
-    <v-card width="100%" height="50%">
+    <v-card flat width="100%" height="50%">
       <v-card-title
         style="justify-content:center"
         align="center"
@@ -9,7 +9,7 @@
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-container fluid>
           <v-row align-content="center" justify="center">
-            <v-col class="d-flex" cols="12" sm="2">
+            <v-col class="d-flex" cols="12" sm="3" xl='2'>
               <v-select
                 v-model="statement"
                 :items="income_items"
@@ -80,7 +80,7 @@
                 required
               />
             </v-col>
-            <v-col class="d-flex" cols="12" md="2">
+            <v-col class="d-flex" cols="12" md="1">
               <v-btn
                 :disabled="!valid"
                 color="#08182b"
@@ -89,15 +89,7 @@
                 @click="Ordering()"
               >Get</v-btn>
             </v-col>
-            <v-col v-if="show" class="d-flex" cols="12" md="2">
-              <v-btn
-                :disabled="!valid"
-                color="#08182b"
-                class="white--text"
-                large
-                @click="$emit('export')"
-              >Export CSV</v-btn>
-            </v-col>
+            
           </v-row>
         </v-container>
       </v-form>
@@ -125,7 +117,7 @@ export default {
     income_items: ["Statement of Cash Flows", "Income Statement", "Balance Sheet"],
     Ticker: "",
     statement: null,
-    period: null,
+    period: 'Annual',
     numPeriods: null,
     alert: false,
     nameRules: [v => !!v || "Ticker is required"],
@@ -181,6 +173,15 @@ export default {
     }
   }
 };
+/**<v-col v-if="false" class="d-flex" cols="12" md="2">
+              <v-btn
+                :disabled="!valid"
+                color="#08182b"
+                class="white--text"
+                large
+                @click="$emit('export')"
+              >Export CSV</v-btn>
+            </v-col> */
 </script>
 <style scoped>
 .ticker-form {

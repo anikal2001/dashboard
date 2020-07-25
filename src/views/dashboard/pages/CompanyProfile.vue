@@ -578,19 +578,20 @@ export default {
 
     priceChartOptions: {
       chart: {},
-      xaxis: {
-        categories: [1, 2, 3] //chartingTime,
+      dataLabels: {
+        enabled: false,
       }
     },
     priceChartSeries: [
       {
-        name: "Closing Prices",
+        name: "Closing Price",
         data: [1, 2, 3]
       }
     ]
   }),
   methods: {
     get_filings() {
+      this.alert = false;
       this.items.length = 0;
       this.loading = true;
       console.log(config);
@@ -736,7 +737,30 @@ export default {
         //   link: Response.data.filings[i].lin
 
         // });
-      });
+      }).catch(error => {
+          this.alert = true
+          this.loading=false
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log("Error", error.message);
+            console.log("BOI")
+            console.log(error)
+          }
+          console.log(error.config);
+          
+        }); 
+        
     },
     get_link(value, ticker) {
       let link =

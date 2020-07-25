@@ -20,9 +20,9 @@
       <v-tabs-items v-model="tabs" class="transparent">
         <v-tab-item v-for="n in 4" :key="n">
           <div>
-            <v-card flat v-if='n==1 && count < 8000' style='position:absolute;height:100vh;width:100vw;z-index:10;'>
+            <v-card flat v-if='n==1 && count < 10000' style='position:absolute;height:100vh;width:100vw;z-index:10;'>
               <div class="text-center" style='z-index:20;'>
-                <v-progress-circular value='20' color='rgba(255, 0, 0, 0.5)' :indeterminate='true'></v-progress-circular>
+                <v-progress-circular value='20' color="#08182b" :indeterminate='true'></v-progress-circular>
                 <p>Loading...</p>
                 </div>
             </v-card>

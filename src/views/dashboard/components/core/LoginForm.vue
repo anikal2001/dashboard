@@ -30,6 +30,12 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
+              <div>
+              <vue-recaptcha sitekey="6Lcma7QZAAAAAA1w84ghKFveQdO2H93YH6bNriy-" :loadRecaptchaScript="true" @verify="onVerify"
+            @expired="onExpired">
+              </vue-recaptcha>
+              </div>
+              <v-spacer />
               <v-spacer />
                 <v-btn
                   style="color: white; font-size: 1.2rem;"
@@ -47,14 +53,18 @@
 </template>
 
 <script>
+import VueRecaptcha from 'vue-recaptcha';
+import Axios from "axios";
 export default {
   name: "LoginForm",
+  components:{VueRecaptcha},
   data() {
     return {
       email: "",
       password: "",
       snackbar: false,
-      error: null
+      error: null,
+      verified:false,
     };
   },
   computed: {
@@ -78,6 +88,50 @@ export default {
       }
       this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
     },
+     onSubmit: function () {
+      this.$refs.invisibleRecaptcha.execute();
+    },
+    onVerify: function (response) {
+      console.log('Verify: ' + response);
+      this.checkToken(response);
+    },
+
+     async checkToken(token){
+       try{
+        let result = await Axios({
+            method: 'post',
+            url: 'https://www.google.com/recaptcha/api/siteverify',
+            params: {
+                secret: '6Lcma7QZAAAAAI-O0Io6RBcZcNRkDsNrWPNm_Cdi',
+                response: token
+            },
+            headers: {
+                        "Content-Type": "application/json"
+                    }
+        });
+        console.log(result);
+
+        let data = result.data || {};
+        if(!data.success){
+            throw({
+                success: false,
+                error: 'response not valid'
+            })
+        } else if(data.success){
+          this.verified = true; 
+          console.log("YAAAHOOOOO");
+        }
+    }catch(err){
+        console.log(err);
+        throw err.response ? err.response.data : {success: false, error: 'captcha_error'}
+    }
+    },
+    onExpired: function () {
+      console.log('Expired');
+    },
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset() // Direct call reset method
+    }
   }
 };
 </script>

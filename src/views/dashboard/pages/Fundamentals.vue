@@ -1,9 +1,12 @@
 <template>
   <div>
-    <v-card class="px-5 py-10">
+    <v-card class="px-5 py-10" style='margin:1vw;'>
+      <p> Available Statements: {{statements}}</p>
       <v-container>
-        <ticker @export="get_csv" @send_link="get_link"></ticker>
-        <v-data-table v-if="items.length > 0" :disable-pagination='true'  :hide-default-footer='true' :loading="loading" :headers="headers" :items="items"></v-data-table>
+        <ticker v-if='statements> 0' @export="get_csv" @send_link="get_link"></ticker>
+        
+        <v-card-text v-if='statements == 0' style='text-align:center;font-size:25px'> <v-container><p>You have exceeded you statement exports</p></v-container> </v-card-text>
+        
       </v-container>
     </v-card>
   </div>
@@ -12,8 +15,11 @@
 <script>
 const createCsvStringifier = require("csv-writer").createArrayCsvStringifier;
 import Axios from "axios";
+import firebase from "firebase";
 import * as Cookies from "js-cookie";
+import db from "./db.js";
 const alpaca_key = Cookies.get("alpaca_key");
+const uid = Cookies.get("uid");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -34,6 +40,8 @@ export default {
       csv_link: null,
       items: [],
       headers: [],
+      statements:null,
+      statementDocId:null, 
       url: "https://78.media.tumblr.com/tumblr_m39nv7PcCU1r326q7o1_500.png"
     };
   },
@@ -45,10 +53,14 @@ export default {
       this.csv_link = value[0] + "/csv/";
       this.items.length = 0;
       this.headers.length = 0;
-      Axios.get(this.link, config).then(Response => {
-        this.populate_table(Response.data);
-        console.log(this.link)
+      this.get_csv();
+      db.collection('limits').doc(this.statementDocId).update({
+        'statements':  firebase.firestore.FieldValue.increment(-1),
       });
+      //Axios.get(this.link, config).then(Response => {
+      //  this.populate_table(Response.data);
+    //    console.log(this.link)
+     // });
     },
     forceFileDownload(data) {
       const blob = new Blob([data], { type: "text/csv" });
@@ -109,6 +121,15 @@ export default {
       key = key.substring(0, 1).toUpperCase() + key.substring(1);
       return key;
     }
+  },
+  mounted(){
+    var temp;
+    db.collection("limits").where('id', 'array-contains', uid )
+    .onSnapshot((response) => {
+        console.log("Current data: ", response.docs[0].data());
+        this.statements = response.docs[0].data().statements;
+        this.statementDocId = response.docs[0].id;
+    });
   }
 };
 </script>
