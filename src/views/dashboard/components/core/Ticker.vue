@@ -9,7 +9,7 @@
       <v-form ref="form" v-model="valid" lazy-validation>
         <v-container fluid>
           <v-row align-content="center" justify="center">
-            <v-col class="d-flex" cols="12" sm="2">
+            <v-col class="d-flex" cols="12" sm="3" xl='2'>
               <v-select
                 v-model="statement"
                 :items="income_items"
@@ -69,7 +69,7 @@
                 required
               />
             </v-col>
-            <v-col class="d-flex" cols="12" md="2">
+            <v-col class="d-flex" cols="12" md="1">
               <v-btn
                 :disabled="!valid"
                 color="#08182b"
@@ -106,7 +106,7 @@ export default {
     income_items: ["Statement of Cash Flows", "Income Statement", "Balance Sheet"],
     Ticker: "",
     statement: null,
-    period: null,
+    period: 'Annual',
     numPeriods: null,
     alert: false,
     nameRules: [v => !!v || "Ticker is required"],

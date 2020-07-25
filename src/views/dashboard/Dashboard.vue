@@ -20,7 +20,7 @@
         <news-bar></news-bar>
       </v-col>
     </v-row>
-    <div id='mydiv'></div>
+    <div id='mydiv2'></div>
     <new-page></new-page>
   </v-container>
 </template>
@@ -60,14 +60,8 @@ export default {
       videoID: "5qap5aO4i9A",
     };
   },
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      var backup = false; 
-
-      if (user) {
-        this.user = user;
-        let uid = this.user.uid;
-        db.collection("backups")
+  async getData() {
+      db.collection("backups")
           .doc(this.user.uid)
           .get()
           .then(doc => {
@@ -79,6 +73,15 @@ export default {
           .catch(err => {
             console.log("Error getting documents", err);
           });
+      },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      var backup = false; 
+
+      if (user) {
+        this.user = user;
+        let uid = this.user.uid;
+        getData();
       }
 
       let ckeditor = document.createElement('script');    

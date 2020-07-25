@@ -1,18 +1,31 @@
 <template>
-  <div class="bgimg">
-    <div class="middle">
+  <div>
+    <div>
     </div>
     <div class="text-center" v-if='loading' style='z-index:20;'>
-                <v-progress-circular value='20' color="#08182b" :indeterminate='true'></v-progress-circular>
+                <v-progress-circular color="#08182b" :indeterminate='true'></v-progress-circular>
                 <p>Loading...</p>
     </div>
+    <div  v-if='!loading' style='margin-left:5vw;margin-right:5vw;'>
+     
+                    <v-text-field
+                      v-model="team"
+                      append-icon="mdi-magnify"
+                      label="Team Name"
+                      single-line
+                      hide-details
+                    ></v-text-field>
+            
     <v-data-table
-    v-if='!loading'
+    
     :headers="headers"
     :items="items"
-    :items-per-page="5"
-    class="elevation-1"
+    :disable-pagination='true'
+    :hide-default-footer='true'
+    :search="team"
+    style='font-size:16px;'
   ></v-data-table>
+  </div>
     </div>
   </div>
 </template>
@@ -32,6 +45,7 @@ export default {
   name: "ComingSoon",
   data(){
       return{
+        team:"",
         items: [],
         loading:true, 
         headers: [
@@ -39,6 +53,11 @@ export default {
             text: 'Rank',
             sortable: false,
             value: 'rank',
+          },
+          {
+            text: 'Name',
+            sortable: false,
+            value: 'name',
           },
           { text: 'Portfolio Equity', value: 'equity', sortable: true },
           { text: 'Sharpe', value: 'sharpe', sortable:true },
@@ -64,27 +83,6 @@ html {
   margin: 0;
 }
 
-.bgimg {
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  position: relative;
-  color: white;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 25px;
-}
-
-.topleft {
-  position: absolute;
-  top: 0;
-  left: 16px;
-}
-
-.bottomleft {
-  position: absolute;
-  bottom: 0;
-  left: 16px;
-}
 
 .middle {
   position: absolute;

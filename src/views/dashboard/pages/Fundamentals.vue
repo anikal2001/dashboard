@@ -3,8 +3,10 @@
     <v-card class="px-5 py-10" style='margin:1vw;'>
       <p> Available Statements: {{statements}}</p>
       <v-container>
-        <ticker @export="get_csv" @send_link="get_link"></ticker>
-        <v-data-table v-if="items.length > 0" :disable-pagination='true'  :hide-default-footer='true' :loading="loading" :headers="headers" :items="items"></v-data-table>
+        <ticker v-if='statements> 0' @export="get_csv" @send_link="get_link"></ticker>
+        
+        <v-card-text v-if='statements == 0' style='text-align:center;font-size:25px'> <v-container><p>You have exceeded you statement exports</p></v-container> </v-card-text>
+        
       </v-container>
     </v-card>
   </div>
