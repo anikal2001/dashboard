@@ -13,7 +13,7 @@
               <v-select
                 v-model="statement"
                 :items="income_items"
-                label="Income Statement"
+                label="Statement Type"
                 :rules="[v => !!v || 'Item is required']"
                 filled
                 outlined
@@ -43,6 +43,17 @@
                 outlined
                 required
                 style="border-radius:3px;"
+              />
+            </v-col>
+            <v-col v-if="period === null" class="d-flex" cols="12" md="2">
+              <v-text-field
+                v-model="numPeriods"
+                filled
+                outlined
+                :rules="annualRules"
+                style="border-radius:3px;"
+                label="Number of Periods"
+                required
               />
             </v-col>
 

@@ -16,12 +16,12 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col style="margin-left:0px; height:110vh;" cols="9">
+      <v-col style="margin-left:0px; height:100%;" cols="9">
         <v-row style="margin-top:10px;margin-bottom:10px;">
           <v-col cols="4">
             <base-material-card
               color="#08182b"
-              style="margin-left:10px;height:65vh;"
+              style="margin-left:10px;height:70vh;"
               icon="mdi-calendar"
               title2="Upcoming Events & Podcast"
             >
@@ -29,6 +29,7 @@
                 <div
                   style="margin-top:5px;border-bottom:thin solid"
                   v-for="item in upcomingEvents "
+                  :key="item"
                 >
                   <a style=" text-decoration:none;" :href="item.link" target="_blank">
                     <v-container>
@@ -47,44 +48,107 @@
               </div>
             </base-material-card>
           </v-col>
-          <v-col cols="4">
-            <base-material-card
-              color="#08182b"
-              style="height:65vh;"
-              icon="mdi-graph"
-              title2="Recent Economic Research"
-            >
-              <div style="padding:0.5vh;overflow-y: scroll; max-height: 85%;margin-left:10px;">
-                <div style="margin-top:5px;border-bottom:thin solid" v-for="item in econResearch">
-                  <a style="text-decoration:none;" :href="item.link" target="_blank">
-                    <h3>{{item.title}}</h3>
-                    <p>{{item.summary}}</p>
-                  </a>
-                </div>
-              </div>
-            </base-material-card>
-          </v-col>
-          <v-col cols="4">
-            <base-material-card
-              color="#08182b"
-              style="height:65vh;"
-              icon="mdi-book"
-              title2="Finance Books & Journals"
-            >
-              <div style="margin-left:10px;"></div>
+          <v-col cols="8">
+            <base-material-card color="#08182b" style="height:70vh;" title2="Finance Books & Journals">
+              <template v-slot:heading>
+                <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
+                  <v-tab class="mr-3">
+                    <v-icon class="mr-2">mdi-graph</v-icon>Finance Books & Journals
+                  </v-tab>
+                  <v-tab>
+                    <v-icon class="mr-2">mdi-book</v-icon>Recent Economic Research
+                  </v-tab>
+                </v-tabs>
+              </template>
+              <v-tabs-items
+                v-model="tabs"
+                style="height:55vh;margin-bottom:0px"
+                class="transparent"
+              >
+                <v-tab-item v-for="n in 2" :key="n">
+                  <div v-if="n===1" style="padding:0.5vh;overflow-y: scroll;height:55vh;margin-left:10px;">
+                    <div
+                      style="margin-top:10px;border-bottom:thin solid"
+                      v-for="item in econResearch" :key="item"
+                    >
+                      <a style="text-decoration:none;" :href="item.link" target="_blank">
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.summary}}</p>
+                      </a>
+                    </div>
+                  </div>
+                  <div v-if="n===2"> 
+                  </div>
+                </v-tab-item>
+              </v-tabs-items>
             </base-material-card>
           </v-col>
         </v-row>
-        <v-row style="width:100%;" >
-          <base-material-card
-            color="#08182b"
-            style="font-size:10px;width:100%;height:17vh;margin: 10px;"
-            icon="mdi-cast"
-            title2="Bloomberg Live Stream "
-          >
-            <div style="margin-left:10px;">
-              <v-container >
-                <v-row style="display:flex;flex-direction:row;justify-content:space-evenly;">
+      </v-col>
+      <v-col cols="3" style="height:90vh;margin-top:20px;">
+        <base-material-card
+          color="#08182b"
+          style="height:30vh;margin-right:0.5rem;"
+          icon="mdi-laptop"
+          title2="BMO Finance Lab Software"
+        >
+          <div style=";margin-left:10px;">
+            <v-row style="margin-left:2vw;justify-content:center">
+              <v-col cols="12" style="align-items:center;">
+                <v-row>
+                  <a
+                    :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'"
+                    target="_blank"
+                    style="color:white; text-decoration:none;justify:center;width:80%;"
+                  >
+                    <v-btn
+                      style="height:3vh;margin-bottom: 5%;color: white;justify:center;width:100%;"
+                      color="rgb(17, 25, 69)"
+                      class="mr-4"
+                      justify="center"
+                    >Capital IQ</v-btn>
+                  </a>
+                </v-row>
+                <v-row>
+                  <a
+                    :href="'https://login.factset.com/'"
+                    target="_blank"
+                    style="color:white; text-decoration:none;justify:center;width:100%;"
+                  >
+                    <v-btn
+                      class="mr-4"
+                      style="height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;;"
+                      color="rgb(17, 25, 69)"
+                    >FactSet</v-btn>
+                  </a>
+                </v-row>
+                <v-row>
+                  <a
+                    :href="'https://portal.bloombergforeducation.com/login'"
+                    target="_blank"
+                    style="color:white; text-decoration:none;justify:center;width:100%;"
+                  >
+                    <v-btn
+                      class="mr-4"
+                      style="height:3vh;width:80%;color: white;self-align:center;"
+                      color="rgb(17, 25, 69)"
+                    >Bloomberg Market Concepts</v-btn>
+                  </a>
+                </v-row>
+              </v-col>
+            </v-row>
+          </div>
+        </base-material-card>
+        <base-material-card
+          color="#08182b"
+          style="font-size:10px;height:30vh;margin-top:5.8rem;margin-right:0.5rem;"
+          title2="Bloomberg Live Streams"
+          icon="mdi-cast"
+        >
+          <div style="margin-left:10px;">
+            <v-container>
+              <v-row>
+                <v-col cols="6" style="align-items:center;">
                   <a
                     :href="'https://www.bloomberg.com/live/us'"
                     target="_blank"
@@ -109,7 +173,8 @@
                       color="rgb(17, 25, 69)"
                     >Europe Stream</v-btn>
                   </a>
-
+                </v-col>
+                <v-col cols="6" style="align-items:center;">
                   <a
                     :href="'https://www.bloomberg.com/live/asia'"
                     target="_blank"
@@ -133,93 +198,50 @@
                       class="mr-4"
                     >Global Stream</v-btn>
                   </a>
-                </v-row>
-              </v-container>
-            </div>
-          </base-material-card>
-          <v-row style="width:100%;">
-            <base-material-card
-              color="#08182b"
-              style="width:100%;height:17vh;margin: 10px;"
-              icon="mdi-laptop"
-              title2="BMO Finance Lab Software"
-            >
-              <div style="display:flex;flex-direction:row;margin-left:10px;">
-                <v-row style="margin-left:2vw;justify-content:center">
-                    <v-row>
-                      <a
-                        :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'"
-                        target="_blank"
-                        style="color:white; text-decoration:none;justify:center;width:80%;"
-                      >
-                        <v-btn
-                          style="height:3vh;margin-bottom: 5%;color: white;justify:center;width:100%;"
-                          color="rgb(17, 25, 69)"
-                          class="mr-2"
-                          justify="center"
-                        >Capital IQ</v-btn>
-                      </a>
-                    </v-row>
-                    <v-row>
-                      <a
-                        :href="'https://login.factset.com/'"
-                        target="_blank"
-                        style="color:white; text-decoration:none;justify:center;width:100%;"
-                      >
-                        <v-btn
-                          class="mr-4"
-                          style="height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;;"
-                          color="rgb(17, 25, 69)"
-                        >FactSet</v-btn>
-                      </a>
-                    </v-row>
-                    <v-row>
-                      <a
-                        :href="'https://portal.bloombergforeducation.com/login'"
-                        target="_blank"
-                        style="color:white; text-decoration:none;justify:center;width:100%;"
-                      >
-                        <v-btn
-                          class="mr-4"
-                          style="height:3vh;width:80%;color: white;self-align:center;"
-                          color="rgb(17, 25, 69)"
-                        >Bloomberg Market Concepts</v-btn>
-                      </a>
-                    </v-row>
-                </v-row>
-              </div>
-            </base-material-card>
-          </v-row>
-        </v-row>
-      </v-col>
-      <v-col cols="3" style="height:90vh;margin-top:20px;">
-        <base-material-card
-          title="The Uptick"
-          icon="mdi-glasses"
-          color="#08182b"
-          style="align:center; padding: 20px;height:100vh;"
-        >
-          <v-btn @click class="mx-2" fab dark small color="primary">
-            <v-icon dark>mdi-arrow-top-right</v-icon>
-          </v-btn>
-          <div style="margin-left:0px;overflow-y: scroll; max-height: 80%;">
-            <div style="padding:10px;" v-for="article in uptick">
-              <a style=" text-decoration:none;" :href="article.link" target="_blank">
-                <div>
-                  <img
-                    style="width:100%;height:20%"
-                    :src="article.media_content[0].url"
-                    alt="Italian Trulli"
-                  />
-                </div>
-                <h2>{{article.title}}</h2>
-                <h3>{{article.summary}}</h3>
-                <p>{{article.published}}</p>
-              </a>
-            </div>
+                </v-col>
+              </v-row>
+            </v-container>
           </div>
         </base-material-card>
       </v-col>
+    </v-row>
+    <v-row style="margin: 0px 20px 20px 20px;">
+      <h1>The Uptick</h1>
+      <v-btn class="mx-2" fab dark small color="primary">
+        <a href="http://uptk.ca" style="color:white;text-decoration:none;" target="_blank">
+          <v-icon dark>mdi-arrow-top-right</v-icon>
+        </a>
+      </v-btn>
+      <div class="news">
+        <div
+          style="display:inline-block;width:500px;height:95%"
+          v-for="article in uptick"
+          :key="article"
+        >
+          <v-card class="mx-5 my-10" max-width="400" height="94%">
+            <v-img
+              class="black--text align-end"
+              height="200px"
+              style="opacity:0.95"
+              :src="article.media_content[0].url"
+            ></v-img>
+            <v-card-title class="display-2">
+              <b>{{article.title}}</b>
+            </v-card-title>
+
+            <v-card-subtitle class="pb-0">{{article.published}}</v-card-subtitle>
+
+            <v-card-text style="font-size:1rem">
+              <div>{{article.summary}}</div>
+            </v-card-text>
+            <v-card-actions style="position:absolute;bottom:0;left:0;">
+              <a target="_blank" style="text-decoration:none;" :href="article.link">
+                <v-btn color="primary" text>Read More</v-btn>
+              </a>
+            </v-card-actions>
+          </v-card>
+        </div>
+      </div>
     </v-row>
   </div>
 </template>
@@ -235,7 +257,8 @@ export default {
     return {
       uptick: null,
       upcomingEvents: null,
-      econResearch: null
+      econResearch: null,
+      tabs:null
     };
   },
 
@@ -250,7 +273,7 @@ export default {
       });
     }
   },
-  mounted() {
+  created() {
     this.getUptick();
   }
 };
@@ -262,6 +285,15 @@ html {
   height: 100%;
   margin: 0;
 }
+.news {
+  margin-left: 0px;
+  overflow-x: scroll;
+  white-space: nowrap;
+  overflow-y: hidden;
+  max-height: 450px;
+  display: flex;
+  flex-direction: row;
+}
 
 .bgimg {
   height: 100%;
@@ -269,7 +301,7 @@ html {
   background-size: cover;
   position: relative;
   color: white;
-  font-family: "Courier New", Courier, monospace;
+  font-family: Courier New, Courier, monospace;
   font-size: 25px;
 }
 
