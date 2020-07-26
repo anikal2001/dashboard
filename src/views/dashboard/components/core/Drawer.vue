@@ -39,33 +39,6 @@
 
         <base-item v-else :key="`item-${i}`" :item="item" />
       </template>
-            <v-list-group>
-        <template v-slot:activator>
-          <v-list-item-content color="white">
-            <v-list-item-title  class="display-1">Dashboard</v-list-item-title>
-          </v-list-item-content>
-        </template>
-        <v-list-item v-for="(sub, i) in SubMenu" :key="i" @click="$router.push(sub[2])" >
-          <!-- <v-list-item-title class="display-1" v-text="sub[0]"></v-list-item-title>
-          <v-list-item-action>
-            <v-icon v-text="sub[1]"></v-icon>
-          </v-list-item-action> -->
-          <base-item :item="sub[0]"/>
-        </v-list-item>
-      </v-list-group>
-                  <v-list-group>
-        <template v-slot:activator> 
-          <v-list-item-content>
-            <h1 style="color:white;" class="display-1">Security Analysis</h1>
-          </v-list-item-content>
-        </template>
-        <v-list-item v-for="(sub, i) in SubMenu2" :key="i" @click="$router.push(sub[2])">
-          <v-list-item-title class="display-1" v-text="sub[0]"></v-list-item-title>
-          <v-list-item-action>
-            <v-icon v-text="sub[1]"></v-icon>
-          </v-list-item-action>
-        </v-list-item>
-      </v-list-group>
 
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
@@ -114,7 +87,40 @@ export default {
         title: "Knowledge Base",
         icon: "fa-book",
         to: "/pages/resources"
-      }
+      },
+      {
+        title: "Dashboard",
+        text: true,
+        avatar: "fa-trophy",
+        children:[
+          {
+            title: "Transaction History",
+            icon: "fa-chart-line",
+            to: 'tables/transactions'
+          },
+          {
+            title: "Charting",
+            icon: "fa-chart-line",
+            to: 'components/charting'
+          }
+        ]
+      },
+      {
+        title: "Security Analysis",
+        avatar: "fa-trophy",
+        children:[
+          {
+            title: "Filing Search",
+            icon: "fa-chart-line",
+            to: 'tables/transactions'
+          },
+          {
+            title: "Statement Wizard",
+            icon: "fa-chart-line",
+            to: 'components/charting'
+          }
+        ]
+      },
     ],
     SubMenu: [
       ["Transaction History", "fas fa-chart-line", 'tables/transactions'],

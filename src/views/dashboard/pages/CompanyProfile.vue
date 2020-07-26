@@ -66,6 +66,7 @@
         <base-material-card
           style="height:90%;overflow-top:scroll;margin:25px 10px 25px 0px"
           color="#08182b"
+          icon="fas fa-building"
           title="Company Profile"
           class="mx-2 pa-5"
           v-if="test"
@@ -105,7 +106,7 @@
         </base-material-card>
       </v-col>
       <v-col cols="5">
-        <v-card v-if="test" style="height:95%">
+        <v-card v-if="test" style="height:67%">
           <div style="height:100%">
             <apexchart
               width="100%"
@@ -116,6 +117,15 @@
             ></apexchart>
           </div>
         </v-card>
+                <base-material-card v-if="test" color="#08182b" style="margin-top:20px;" icon="mdi-calendar" title="Upcoming Events">
+                        <p>
+                  <b>Next Earnings Date:</b>
+                  {{key_stats.nextEarningsDate}}
+                  <br />
+                  <b>Next Dividend Date:</b>
+                  {{key_stats.nextDividendDate}}
+                </p>
+        </base-material-card>
       </v-col>
     </v-row>
     <v-row>
@@ -132,7 +142,7 @@
                 <v-icon class="mr-2">mdi-chart-pie</v-icon>Key Stats
               </v-tab>
               <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-target</v-icon>Multiples
+                <v-icon class="mr-2">mdi-calculator</v-icon>Multiples
               </v-tab>
               <v-tab class="mr-3">
                 <v-icon class="mr-2">mdi-wallet</v-icon>Capital Stucture
@@ -206,15 +216,13 @@
         </base-material-card>
       </v-col>
       <v-col cols="5">
-        <v-card v-if="test" style="margin: 0px 0px 25px 0px;">
+        <base-material-card color="#08182b" icon="fa-file-invoice" title="Financial Statements" v-if="test" style="margin: 0px 0px 25px 0px;">
           <v-row style="display:flex;flex-direction:column;">
-            <v-card-title class="mx-2 display-2">Financial Statements</v-card-title>
             <v-text-field
               v-model="numPeriods"
-              filled
-              outlined
+              height="20px"
               :rules="annualRules"
-              style="border-radius:3px; width:90%; margin: 20px 0px 0px 20px;"
+              style="border-radius:3px;justify-content:center;width:90%; margin: 20px 0px 0px 20px;"
               label="Number of Periods"
               required
             />
@@ -239,7 +247,7 @@
               @click="get_link('balance', Ticker)"
             >Balance Sheet</v-btn>
           </v-container>
-        </v-card>
+        </base-material-card>
 
         <base-material-card
           style="overflow-top:scroll;margin:50px 0px 5% 0px"
@@ -254,9 +262,6 @@
               </v-tab>
               <v-tab>
                 <v-icon class="mr-2">mdi-archive</v-icon>Filings
-              </v-tab>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-calendar</v-icon>Upcoming Events
               </v-tab>
             </v-tabs>
           </template>
@@ -304,15 +309,6 @@
                     </template>
                   </v-card-text>
                 </div>
-              </div>
-              <div v-if="n==3">
-                <p>
-                  <b>Next Earnings Date:</b>
-                  {{key_stats.nextEarningsDate}}
-                  <br />
-                  <b>Next Dividend Date:</b>
-                  {{key_stats.nextDividendDate}}
-                </p>
               </div>
             </v-tab-item>
           </v-tabs-items>
