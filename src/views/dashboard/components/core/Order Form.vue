@@ -58,6 +58,7 @@
             <v-col class="pt-0" v-if="order== 'Stop Limit' || order== 'Stop'">
               <v-text-field v-model="stopPrice" :rules="floatRules" label="Stop Price" required></v-text-field>
             </v-col>
+            
           </v-row>
 
           <v-btn
@@ -68,6 +69,25 @@
             @click="Ordering()"
           >Order</v-btn>
         </v-form>
+         <v-snackbar
+          v-model="snackbar"
+          :top="true"
+          :right="true"
+    >
+      <p style='font-size:16px;'>{{message}}</p>
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+          :bottom="true"
+          :left="true"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
       </v-container>
     </div>
   </base-material-card>
@@ -91,7 +111,6 @@
       </template>
     </v-row>
   </v-container>
-
   </base-material-card>
 
 </div> 
@@ -100,7 +119,7 @@
 <script>
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -112,6 +131,7 @@ export default {
   name: "OrderForm",
   data() {
     return {
+      snackbar:false,
       button_list: [
         {
           'title':'Charting',
@@ -236,6 +256,8 @@ export default {
         }
         this.order_stock(link);
       }
+      this.message =this.order + " " + this.position + " order for " + this.Quantity + " shares of " + this.ticker.toUpperCase() +" has been submitted!";
+      this.snackbar = true;
     }
   }
 };

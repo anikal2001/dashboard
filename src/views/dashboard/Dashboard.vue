@@ -4,7 +4,7 @@
   
     <v-row>
       <AccountUpdate></AccountUpdate>
-      <v-row style="height:90vh">
+      <v-row >
         <v-col cols="12" md="7" class="mt-6">
           <Portfolio></Portfolio>
         </v-col>
@@ -61,7 +61,7 @@ export default {
     };
   },
   async getData() {
-      db.collection("backups")
+      db.collection("user-info")
           .doc(this.user.uid)
           .get()
           .then(doc => {
@@ -89,9 +89,9 @@ export default {
           .get()
           .then(doc => {
             Cookies.set('alpaca_key', doc.data().terminal_key),
-            Cookies.set('uid', uid),
-            Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
-            console.log(Cookies.get('link'))
+            Cookies.set('uid', this.user.uid),
+            //Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
+            console.log(Cookies.get('alpaca_key'))
           })
           .catch(err => {
             console.log("Error getting documents", err);

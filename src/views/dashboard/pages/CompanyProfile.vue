@@ -70,11 +70,19 @@
           class="mx-2 pa-5"
           v-if="test"
         >
+        
           <v-card flat style="height:inherit">
+            <v-row style='margin-left:15px;'>
+            <span style='float:left; margin-top:15px'>
+              <img style='vertical-align:middle;' :src='logo'></img>
+            </span>
+            <span style='vertical-align:middle;float:left'>
+            
             <v-card-title
               style="padding-bottom:20px;font-size:2.10rem;"
             >{{this.company.companyName}}</v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle style="margin-left:2px;">
+              
               {{this.company.exchange}}: {{this.company.symbol}}
               <br />
               {{this.company.website}}
@@ -85,9 +93,14 @@
               <br />
               CEO: {{this.company.CEO}}
             </v-card-subtitle>
+            </span>
+            </span>
+            </v-row>
+            
             <v-card-subtitle>Number of Employees: {{this.company.employees}}</v-card-subtitle>
             <v-card-text>{{this.company.description}}</v-card-text>
             <v-card-subtitle>Peer Group: {{this.peers}}</v-card-subtitle>
+            
           </v-card>
         </base-material-card>
       </v-col>
@@ -122,7 +135,7 @@
                 <v-icon class="mr-2">mdi-target</v-icon>Multiples
               </v-tab>
               <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-target</v-icon>Capital Stucture
+                <v-icon class="mr-2">mdi-wallet</v-icon>Capital Stucture
               </v-tab>
             </v-tabs>
           </template>
@@ -387,7 +400,7 @@ import * as Cookies from "js-cookie";
 import Axios from "axios";
 import { hello } from "./CSV-writing.js";
 const alpaca_key = Cookies.get("alpaca_key");
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -600,13 +613,16 @@ export default {
       Axios.get(link, config).then(Response => {
         //stuff = Object;
         console.log(Response);
-
+        this.items = [];
+        this.multiples = [];
+        this.capitalStats = [];
         this.company = Response.data.company;
         this.key_stats = Response.data.stats;
         this.analyst_recommendations = Response.data.analyst_recommendations;
         this.price_target = Response.data.price_target;
         this.filings = Response.data.filings;
         this.news = Response.data.news;
+        this.logo = Response.data.logo.url;
         for (var i = 0; i < Response.data.peers.length; i++) {
           this.peers = this.peers + Response.data.peers[i] + " ";
         }

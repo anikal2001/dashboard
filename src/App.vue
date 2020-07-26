@@ -10,7 +10,8 @@ export default {
   name: "App",
   data() {
     return {
-      name: null
+      name: null,
+	  apiLink:"https://sandboxapi.ca/", 
     };
   },
   methods: {

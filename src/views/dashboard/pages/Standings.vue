@@ -35,7 +35,7 @@ import Axios from "axios";
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
 var token = "Token " + alpaca_key;
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 let config = {
   headers: {
     Authorization: token
