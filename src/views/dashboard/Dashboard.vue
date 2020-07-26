@@ -6,9 +6,9 @@
       <AccountUpdate></AccountUpdate>
       <v-row>
         <v-col :height="this.computed_height" cols="12" md="7" class="mt-6">
-          <Portfolio></Portfolio>
+          <Portfolio :height="this.computed_height"></Portfolio>
         </v-col>
-        <v-col id="orderform" cols="12" md="5" class="mt-6">
+        <v-col style="display:flex;flex-direction:column;" id="orderform" cols="12" md="5" class="mt-6">
           <v-row>
           <order-form></order-form>
           </v-row>
@@ -99,7 +99,7 @@ export default {
   },
   methods:{
     computed_height(){
-      var h = document.getElementById('orderform').offsetHeight
+      var h = document.getElementById('orderform').clientHeight
       return h
     }
   },
