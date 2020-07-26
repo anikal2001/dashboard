@@ -4,12 +4,17 @@
   
     <v-row>
       <AccountUpdate></AccountUpdate>
-      <v-row style="height:90vh">
-        <v-col cols="12" md="7" class="mt-6">
+      <v-row>
+        <v-col :height="this.computed_height" cols="12" md="7" class="mt-6">
           <Portfolio></Portfolio>
         </v-col>
-        <v-col  cols="12" md="5" class="mt-6">
+        <v-col id="orderform" cols="12" md="5" class="mt-6">
+          <v-row>
           <order-form></order-form>
+          </v-row>
+          <v-row>
+            <Launchpad></Launchpad>
+          </v-row>
 
         </v-col>
       </v-row>
@@ -40,6 +45,7 @@ import OrderForm from "./components/core/Order Form.vue";
 import NewPage from "./pages/NewPage.vue"
 import { Balloon } from 'vue-balloon';
 import Vue from 'vue';
+import Launchpad from './components/core/Launchpad'
 import VueYouTubeEmbed from 'vue-youtube-embed';
 Vue.use(VueYouTubeEmbed);
 //
@@ -52,12 +58,14 @@ export default {
     AccountUpdate,
     OrderForm,
     Balloon,
-    NewPage
+    NewPage,
+    Launchpad
   },
   data() {
     return {
       user: null,
       videoID: "5qap5aO4i9A",
+      orderHeight: null
     };
   },
   async getData() {
@@ -89,7 +97,14 @@ export default {
       document.head.appendChild(ckeditor);
     });
   },
+  methods:{
+    computed_height(){
+      var h = document.getElementById('orderform').offsetHeight
+      return h
+    }
+  },
   mounted(){
+    this.orderHeight = this.computed_height()
 
     postscribe('#mydiv2', "<script type='application/javascript'>  window.tiledeskSettings = { projectid: '5f121a789cf1b20012044108' }; (function(d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) return; js = d.createElement(s); js.id = id; js.src = 'https://widget.tiledesk.com/v4/launch.js';fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'tiledesk-jssdk'));<" + "/script>");
     //postscribe('#mydiv2', '<!-- Customerly Live Chat Snippet Code --> <script> !function(){var e=window,i=document,t="customerly",n="queue",o="load",r="settings",u=e[t]=e[t]||[];if(u.t){return void u.i("[customerly] SDK already initialized. Snippet included twice.")}u.t=!0;u.loaded=!1;u.o=["event","attribute","update","show","hide","open","close"];u[n]=[];u.i=function(t){e.console&&!u.debug&&console.error&&console.error(t)};u.u=function(e){return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(e),u[n].push(t),u}};u[o]=function(t){u[r]=t||{};if(u.loaded){return void u.i("[customerly] SDK already loaded. Use customerly.update to change settings.")}u.loaded=!0;var e=i.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://messenger.customerly.io/launcher.js";var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};u.o.forEach(function(t){u[t]=u.u(t)})}(); customerly.load({ "app_id": "28f2fded" }); <' +'/script> <!-- End of Customerly Live Chat Snippet Code -->');

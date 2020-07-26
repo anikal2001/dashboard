@@ -293,6 +293,7 @@ html {
   max-height: 450px;
   display: flex;
   flex-direction: row;
+  scroll-behavior: smooth;
 }
 
 .bgimg {
@@ -329,5 +330,28 @@ html {
 hr {
   margin: auto;
   width: 40%;
+}
+/* width */
+html *::-webkit-scrollbar {
+  width: 5px;
+  height:10px;
+}
+
+/* Track */
+html *::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+html *::-webkit-scrollbar-thumb {
+  background: #08182b; 
+  border-radius: 10px;
+  height:20px;
+}
+
+/* Handle on hover */
+html *::-webkit-scrollbar-thumb:hover {
+  background: #08182b; 
 }
 </style>
