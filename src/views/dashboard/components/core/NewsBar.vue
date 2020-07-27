@@ -181,9 +181,11 @@ export default {
 .news {
   overflow-y: scroll;
   max-height: 420px;
+  overflow-x:hidden;
 }
 .filings {
   overflow-y: scroll;
   max-height: 400px;
+  overflow-x:hidden;
 }
 </style>
