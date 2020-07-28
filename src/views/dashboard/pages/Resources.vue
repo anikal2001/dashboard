@@ -6,11 +6,11 @@
           <v-col cols="4">
             <base-material-card
               color="#08182b"
-              style="margin-left:10px;height:70vh;"
+              style="margin-left:10px;height:35rem;"
               icon="mdi-calendar"
               title2="Upcoming Events & Webcasts"
             >
-              <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height: 85%;">
+              <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height:28rem;">
                 <div
                   style="margin-top:5px;border-bottom:thin solid"
                   v-for="item in upcomingEvents "
@@ -34,7 +34,7 @@
             </base-material-card>
           </v-col>
           <v-col cols="8">
-            <base-material-card color="#08182b" style="height:70vh;" title2="Finance Books & Journals">
+            <base-material-card color="#08182b" style="height:35rem;" title2="Finance Books & Journals">
             <v-dialog
       v-model="dialog"
       width="500"
@@ -50,6 +50,7 @@
                 fab
                  v-bind="attrs"
                   v-on="on"
+                  style='margin-top:2%;margin-right:2%;'
               >
                 <v-icon>mdi-tools</v-icon>
               </v-btn>
@@ -60,11 +61,11 @@
           BMO Finance Lab Software
         </v-card-title>
 
-        <v-card-text>
-          <v-row style='margin-left:2vw;justify-content:center'>
-       <v-col cols='12' style='align-items:center;'>
-        <v-row>  
-          <a :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'" target="_blank" style="color:white; text-decoration:none;justify:center;width:80%;">
+        <v-card-text style='margin-top:20px;'>
+          <v-row style='justify-content:center'>
+       <v-col cols='12' style='justify-content:center'>
+        <v-row style='justify-content:center'>  
+          <a :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'" target="_blank" style="color:white; text-decoration:none;justify:center;width:300px;">
         <v-btn
             
             style='height:3vh;margin-bottom: 5%;color: white;justify:center;width:100%;'
@@ -75,21 +76,21 @@
           > Capital IQ</v-btn></a>
     
         </v-row>
-        <v-row>
-          <a :href="'https://login.factset.com/'" target="_blank" style="color:white; text-decoration:none;justify:center;width:100%;">
+        <v-row style='justify-content:center'>
+          <a :href="'https://login.factset.com/'" target="_blank" style="color:white; text-decoration:none;justify:center;width:300px;">
           <v-btn
           
             class="mr-4"
-            style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;;'
+            style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
           >FactSet</v-btn></a>
         </v-row>
-        <v-row>
-          <a :href="'https://portal.bloombergforeducation.com/login'" target="_blank" style="color:white; text-decoration:none;justify:center;width:100%;">
+        <v-row style='justify-content:center'>
+          <a :href="'https://portal.bloombergforeducation.com/login'" target="_blank" style="color:white; text-decoration:none;justify:center;width:300px;">
           <v-btn
           
             class="mr-4"
-            style='height:3vh;width:80%;color: white;self-align:center;'
+            style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;width:100%;'
             color="rgb(17, 25, 69)"
           >Bloomberg Market Concepts</v-btn></a>
         </v-row>
@@ -130,7 +131,7 @@
                 class="transparent"
               >
                 <v-tab-item v-for="n in 2" :key="n">
-                  <div v-if="n===1" style="padding:0.5vh;overflow-y: scroll;height:55vh;margin-left:10px;">
+                  <div v-if="n===1" style="padding:0.5vh;overflow-y: scroll;height:28rem;margin-left:10px;">
                     <div
                       style="margin-top:10px;border-bottom:thin solid"
                       v-for="item in econResearch" :key="item"
