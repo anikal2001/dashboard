@@ -1,8 +1,9 @@
 <template>
 <div>
   <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0px 75px 0px 0px; "
+    style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px; "
     color="#08182b"
+    :width=p_width
     class="px-5 py-3"
     icon="mdi-flare"
   title="Trade"
@@ -108,6 +109,9 @@ let config = {
 import Axios from "axios";
 export default {
   name: "OrderForm",
+  props:{
+    p_width: Number,
+  },
   data() {
     return {
       valid: true,
