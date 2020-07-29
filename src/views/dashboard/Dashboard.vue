@@ -75,6 +75,8 @@ export default {
           .get()
           .then(doc => {
             Cookies.set('alpaca_key', doc.data().terminal_key),
+            Vue.prototype.$termina_key = doc.data().terminal_key;
+            Vue.prototype.$globalValue = 'Global Scope!';
             Cookies.set('uid', uid),
             Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
             console.log(Cookies.get('link'))
@@ -101,6 +103,8 @@ export default {
             Cookies.set('uid', this.user.uid),
             //Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
             console.log(Cookies.get('alpaca_key'))
+            Vue.prototype.$terminal_key = doc.data().terminal_key;
+            Vue.prototype.$globalValue = 'Global Scope!';
           })
           .catch(err => {
             console.log("Error getting documents", err);

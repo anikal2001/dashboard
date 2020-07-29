@@ -154,7 +154,7 @@
     <v-row>
       <v-col md="8" xl="7">
         <base-material-card
-          :style="statsStyle"
+          style="min-height:62rem;overflow-top:scroll;margin:10px 0px 5% 0px"
           color="#08182b"
           
           v-if="test"
@@ -178,6 +178,57 @@
           <v-tabs-items v-model="tabs3" class="transparent">
             <v-tab-item v-for="w in 4">
               <div v-if="w==1">
+                <div style='justify-content: center;align-items:center;width:100%;'>
+                  <v-container>
+                <v-btn
+          v-if="w==1"
+          style="color: white;width:8rem"
+          small
+          dark
+          color="rgb(17, 25, 69)"
+           @click='statsTable=0'
+        >All Stats</v-btn>
+        <v-btn
+          v-if="w==1"
+          style="margin:10px;width:8rem"
+          small
+          dark
+          color="rgb(17, 25, 69)"
+          @click='statsTable=1'
+        >Basic</v-btn>
+        <v-btn
+          v-if="w==1"
+          small
+          style="color: white;width:8rem"
+          color="rgb(17, 25, 69)"
+           @click='statsTable=2'
+        >Financials</v-btn>
+        <v-btn
+          v-if="w==1"
+          style="color: white;margin:10px;width:8rem"
+          small
+          dark
+          color="rgb(17, 25, 69)"
+           @click='statsTable=4'
+        >Dividends</v-btn>
+        <v-btn
+          v-if="w==1"
+          style="margin-right:10px;color: white;width:8rem"
+          small
+          dark
+          color="rgb(17, 25, 69)"
+           @click='statsTable=3'
+        >Corporate Events</v-btn>
+        <v-btn
+          v-if="w==1"
+          small
+          style='color: white;width:8rem'
+          color="rgb(17, 25, 69)"
+           @click='statsTable=5'
+        >Price & Volume</v-btn>
+        </v-container>
+        </div>
+        
                 <v-card-title>
                   <v-text-field
                     v-model="keyStatsSearch"
@@ -188,13 +239,69 @@
                   ></v-text-field>
                 </v-card-title>
                 <v-data-table
+                v-if='statsTable==0'
                   :loading="loading"
                   :headers="headers"
+                  :dense='true'
                   :items="items"
+                  :items-per-page="15"
+                  :hide-default-footer="false"
+                  :search="keyStatsSearch"
+                ></v-data-table>
+                
+                <v-data-table
+                v-if='statsTable==1'
+                  :loading="loading"
+                  :headers="headers"
+                  :items="basicStats"
                   :disable-pagination="true"
                   :hide-default-footer="true"
                   :search="keyStatsSearch"
                 ></v-data-table>
+                
+                <v-data-table
+                v-if='statsTable==2'
+                  :loading="loading"
+                  :headers="headers"
+                  :items="financialStats"
+                  :disable-pagination="true"
+                  :hide-default-footer="true"
+                  :search="keyStatsSearch"
+                ></v-data-table v-if='statsTable==3'>
+                
+                <v-data-table
+                v-if='statsTable==3'
+                  :loading="loading"
+                  :headers="headers"
+                  :items="eventsStats"
+                  :disable-pagination="true"
+                  :hide-default-footer="true"
+                  :search="keyStatsSearch"
+                ></v-data-table>
+                
+               
+                <v-data-table
+                v-if='statsTable==4'
+                  :loading="loading"
+                  :headers="headers"
+                  :items="dividendStats"
+                  :disable-pagination="true"
+                  :hide-default-footer="true"
+                  :search="keyStatsSearch"
+                ></v-data-table>
+               
+                
+                <v-data-table
+                v-if='statsTable==5'
+                  :loading="loading"
+                  :headers="headers"
+                  :items="priceStats"
+                  :dense='true'
+                  hide-default-footer
+                  disable-pagination
+                  :search="keyStatsSearch"
+                ></v-data-table>
+
               </div>
               <v-container>
                 <div v-if="w==2">
@@ -292,7 +399,7 @@
         
 
         <base-material-card
-          style="overflow-top:scroll;margin:10px 8px 5% 0px;height:52rem"
+          style="overflow-top:scroll;margin:10px 8px 5% 0px;height:62rem"
           color="#08182b"
           v-if="test"
         >
@@ -308,7 +415,7 @@
           </template>
           <v-tabs-items v-model="tabs2" class="transparent" >
             <v-tab-item v-for="n in 3" :key="n" style='height:100%;'>
-              <div style="overflow-y:scroll;max-height:45rem" v-if="n==1">
+              <div style="overflow-y:scroll;max-height:55rem" v-if="n==1">
                 <div>
                   <v-card-text>
                     <template v-for="item in news">
@@ -328,7 +435,7 @@
                   </v-card-text>
                 </div>
               </div>
-              <div :style="newsInner" v-if="n==2">
+              <div style="overflow-y:scroll;max-height:55rem" v-if="n==2">
                 <div>
                   <v-card-text>
                    <v-card-text>
@@ -368,6 +475,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import TradingVue from "trading-vue-js";
 const createCsvStringifier = require("csv-writer").createArrayCsvStringifier;
 import fundamentals from "../components/core/StatementExtractor.vue";
@@ -392,14 +500,20 @@ export default {
   },
 
   data: () => ({
-    statsStyle:"height:52rem;overflow-top:scroll;margin:10px 0px 5% 0px",
+    statsTable:0,
+    statsStyle:"min-height:60rem;overflow-top:scroll;margin:10px 0px 5% 0px",
     newsOuterStyle:"overflow-top:scroll;margin:10px 0px 5% 0px;height:52rem",
-    newsInner: "overflow-y:scroll;max-height:45rem",
+    newsInner: "overflow-y:scroll;max-height:53rem",
     size:"55",
     chartingTime: [],
     chartingVals: [],
     multiples: [],
     capitalStats: [],
+    basicStats:[],
+    financialStats:[],
+    priceStats:[],
+    dividendStats:[],
+    eventsStats:[],
     keyStatsSearch: "",
     styles: {
       width: "80%",
@@ -478,7 +592,7 @@ export default {
     logo: null,
     tabs: 4,
     tabs2: 1,
-    tabs3: 3,
+    tabs3: 0,
     key_stats: null,
     analyst_recommendations: null,
     price_target: null,
@@ -532,8 +646,42 @@ export default {
       marketcap: "Market Capitalization",
       beta: "Beta",
       totalCash: "Total Cash",
-      currentDebt: "Current Debt"
+      currentDebt: "Current Debt",
+      revenue:"Revenue",
+revenuePerShare:"Revenue Per Share",
+revenuePerEmployee:"Revenue Per Employee",
+grossProfit:"Gross Profit",
+EBITDA:"EBITDA",
+profitMargin:"Profit Margin",
     },
+    keyStatsOrder: {marketcap:"Market Capitlization ",		
+week52high:"52 Week High",		
+week52low:"52 Week Low",		
+week52change:"52 Week Change",		
+sharesOutstanding:"Shares Outstanding",		
+avg30Volume:"Average 30 Day Volume",		
+avg10Volume:"Average 10 Day Volume",		
+float:"float ",		
+ttmEPS:"TTM EPS",		
+ttmDividendRate:"TTM Dividend Rate",		
+dividendYield:"Dividend Yield",		
+nextDividendDate:"Next Divident Date",		
+exDividendDate:"Ex Dividend Date",		
+nextEarningsDate:"Next Earnings Date",		
+peRatio:"PE Ratio",		
+beta:"beta",		
+day200MovingAvg:"200 Day Moving Average",		
+day50MovingAvg:"50 Day Moving Average",		
+maxChangePercent:"Max Change Percentage",		
+year5ChangePercent:"5 Year Change Percentage",		
+year2ChangePercent:"2 Year Change Percentage",		
+year1ChangePercent:"1 Year Change Percentage",		
+ytdChangePercent:"YTD Change Percentage",		
+month6ChangePercent:"6 Month Change Percentage",		
+month3ChangePercent:"3 Month Change Percentage",		
+month1ChangePercent:"1 Month Change Percentage",		
+day30ChangePercent:"30 Day Change Percentage",		
+day5ChangePercent:"5 Day Change Percentage"},
     priceTargetSeries: [
       {
         data: [
@@ -610,8 +758,10 @@ export default {
         //stuff = Object;
         console.log(Response);
         this.items = [];
+        this.items.length = 27; 
         this.multiples = [];
         this.capitalStats = [];
+        this.peers=[];
         this.company = Response.data.company;
         this.key_stats = Response.data.stats;
         this.analyst_recommendations = Response.data.analyst_recommendations;
@@ -626,26 +776,72 @@ export default {
         this.loading = false;
         this.test = true;
         var temp = {};
-        for (var x in this.key_stats) {
-          if (
-            x == "marketcap" ||
-            x == "sharesOutstanding" ||
-            x == "ttmEPS" ||
-            x == "dividendYield" ||
-            x == "peRatio" ||
-            x == "beta" ||
-            x == "week52high" ||
-            x == "week52low" ||
-            x == "float" ||
-            x == "sharesOutstanding" ||
-            x == "week52Change"
-          ) {
-            temp = { name: this.cleanedNames[x], val: this.key_stats[x] };
-            console.log(x);
-            this.items.push(temp);
-            }
-            
-            else if (x == 'enterpriseValueToRevenue' || x == 'priceToSales' || x == 'priceToBook' || x == 'forwardPERatio' || x=='beta'
+        this.financialStats = [{name:this.cleanedNames["revenue"] , val: this.key_stats["revenue"]},
+{name:this.cleanedNames["revenuePerShare"] , val: this.key_stats["revenuePerShare"]},
+{name:this.cleanedNames["revenuePerEmployee"] , val: this.key_stats["revenuePerEmployee"]},
+{name:this.cleanedNames["grossProfit"] , val: this.key_stats["grossProfit"]},
+{name:this.cleanedNames["EBITDA"] , val: this.key_stats["EBITDA"]},
+{name:this.cleanedNames["profitMargin"] , val: this.key_stats["profitMargin"]}];
+        this.basicStats = [{name:this.cleanedNames["currentPrice"] , val: this.key_stats["currentPrice"]},
+{name:this.cleanedNames["marketcap"] , val: this.key_stats["marketcap"]},
+{name:this.cleanedNames["sharesOutstanding"] , val: this.key_stats["sharesOutstanding"]},
+{name:this.cleanedNames["float"] , val: this.key_stats["float"]},
+{name:this.cleanedNames["beta"] , val: this.key_stats["beta"]},
+{name:this.cleanedNames["peRatio"] , val: this.key_stats["peRatio"]},
+{name:this.cleanedNames["putCallRatio"] , val: this.key_stats["putCallRatio"]},];
+this.priceStats = [{name:this.cleanedNames["week52high"] , val: this.key_stats["week52high"]},
+{name:this.cleanedNames["week52low"] , val: this.key_stats["week52low"]},
+{name:this.cleanedNames["week52change"] , val: this.key_stats["week52change"]},
+{name:this.cleanedNames["maxChangePercent"] , val: this.key_stats["maxChangePercent"]},
+{name:this.cleanedNames["year5ChangePercent"] , val: this.key_stats["year5ChangePercent"]},
+{name:this.cleanedNames["year1ChangePercent"] , val: this.key_stats["year1ChangePercent"]},
+{name:this.cleanedNames["ytdChangePercent"] , val: this.key_stats["ytdChangePercent"]},
+{name:this.cleanedNames["month6ChangePercent"] , val: this.key_stats["month6ChangePercent"]},
+{name:this.cleanedNames["month1ChangePercent"] , val: this.key_stats["month1ChangePercent"]},
+{name:this.cleanedNames["day5ChangePercent"] , val: this.key_stats["day5ChangePercent"]},
+{name:this.cleanedNames["avg30Volume"] , val: this.key_stats["avg30Volume"]},
+{name:this.cleanedNames["avg10Volume"] , val: this.key_stats["avg10Volume"]},];
+this.dividendStats = [{name:this.cleanedNames["ttmEPS"] , val: this.key_stats["ttmEPS"]},
+{name:this.cleanedNames["ttmDividendRate"] , val: this.key_stats["ttmDividendRate"]},
+{name:this.cleanedNames["dividendYield"] , val: this.key_stats["dividendYield"]}];
+this.eventsStats = [{name:this.cleanedNames["nextDividendDate"] , val: this.key_stats["nextDividendDate"]},
+{name:this.cleanedNames["exDividendDate"] , val: this.key_stats["exDividendDate"]},
+{name:this.cleanedNames["nextEarningsDate"] , val: this.key_stats["nextEarningsDate"]},
+{name:"52 Week High Date" , val: this.key_stats["week52highDate"]},
+{name:"52 Week Low Date", val: this.key_stats["week52lowDate"]}];
+
+this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marketcap"]},
+{name:this.cleanedNames["week52high"] ,val: this.key_stats["week52high"]},
+{name:this.cleanedNames["week52low"] ,val: this.key_stats["week52low"]},
+{name:this.cleanedNames["week52change"] ,val: this.key_stats["week52change"]},
+{name:this.cleanedNames["sharesOutstanding"] ,val: this.key_stats["sharesOutstanding"]},
+{name:this.cleanedNames["avg30Volume"] ,val: this.key_stats["avg30Volume"]},
+{name:this.cleanedNames["avg10Volume"] ,val: this.key_stats["avg10Volume"]},
+{name:this.cleanedNames["float"] ,val: this.key_stats["float"]},
+{name:this.cleanedNames["ttmEPS"] ,val: this.key_stats["ttmEPS"]},
+{name:this.cleanedNames["ttmDividendRate"] ,val: this.key_stats["ttmDividendRate"]},
+{name:this.cleanedNames["dividendYield"] ,val: this.key_stats["dividendYield"]},
+{name:this.cleanedNames["nextDividendDate"] ,val: this.key_stats["nextDividendDate"]},
+{name:this.cleanedNames["exDividendDate"] ,val: this.key_stats["exDividendDate"]},
+{name:this.cleanedNames["nextEarningsDate"] ,val: this.key_stats["nextEarningsDate"]},
+{name:this.cleanedNames["peRatio"] ,val: this.key_stats["peRatio"]},
+{name:this.cleanedNames["beta"] ,val: this.key_stats["beta"]},
+{name:this.cleanedNames["day200MovingAvg"] ,val: this.key_stats["day200MovingAvg"]},
+{name:this.cleanedNames["day50MovingAvg"] ,val: this.key_stats["day50MovingAvg"]},
+{name:this.cleanedNames["maxChangePercent"] ,val: this.key_stats["maxChangePercent"]},
+{name:this.cleanedNames["year5ChangePercent"] ,val: this.key_stats["year5ChangePercent"]},
+{name:this.cleanedNames["year2ChangePercent"] ,val: this.key_stats["year2ChangePercent"]},
+{name:this.cleanedNames["year1ChangePercent"] ,val: this.key_stats["year1ChangePercent"]},
+{name:this.cleanedNames["ytdChangePercent"] ,val: this.key_stats["ytdChangePercent"]},
+{name:this.cleanedNames["month6ChangePercent"] ,val: this.key_stats["month6ChangePercent"]},
+{name:this.cleanedNames["month3ChangePercent"] ,val: this.key_stats["month3ChangePercent"]},
+{name:this.cleanedNames["month1ChangePercent"] ,val: this.key_stats["month1ChangePercent"]},]
+;
+
+
+        for (var x in this.key_stats) 
+            {            
+            if (x == 'enterpriseValueToRevenue' || x == 'priceToSales' || x == 'priceToBook' || x == 'forwardPERatio' || x=='beta'
             || x=='pegRatio'|| x=='peHigh'|| x=='peLow'){
             temp = {'name':  this.cleanedNames[x] , "val": this.key_stats[x]};
             console.log(x);
@@ -657,7 +853,8 @@ export default {
             x == "currentDebt" ||
             x == "marketcap" ||
             x == "debtToEquity" ||
-            x == "beta"
+            x == "beta"||
+            x == 'sharesOutstanding'
           ) {
             temp = { name: this.cleanedNames[x], val: this.key_stats[x] };
             console.log(x);
