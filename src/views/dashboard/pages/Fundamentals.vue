@@ -38,6 +38,8 @@ export default {
       link: null,
       loading: false,
       csv_link: null,
+      Ticker: null,
+      statement_type: null,
       items: [],
       headers: [],
       statements:null,
@@ -47,10 +49,11 @@ export default {
   },
   methods: {
     get_link(value) {
-      console.log('buenos dias muchachiladas');
       this.loading = true;
       this.link = value[0] + "/json/";
       this.csv_link = value[0] + "/csv/";
+      this.Ticker = value[3]
+      this.statement_type = value[2]
       this.items.length = 0;
       this.headers.length = 0;
       this.get_csv();
@@ -68,7 +71,8 @@ export default {
       const a = document.createElement("a");
       a.setAttribute("hidden", "");
       a.setAttribute("href", url); //or any other extension
-      a.setAttribute("download", "download.csv");
+      var filename = this.Ticker + "_" + this.statement_type+ ".csv";
+      a.setAttribute("download", filename);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);

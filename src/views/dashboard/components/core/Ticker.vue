@@ -169,7 +169,7 @@ export default {
           "/" +
           this.numPeriods
       }
-      this.$emit("send_link", [link, type]);
+      this.$emit("send_link", [link, type, this.statement, this.Ticker]);
     }
   }
 };

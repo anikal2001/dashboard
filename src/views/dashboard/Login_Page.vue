@@ -16,9 +16,9 @@
   export default {
     name: 'LoginPage',
     components: {
-      LoginForm,
-      
+      LoginForm,   
     },
+    
   }
 </script>
 <style scoped>

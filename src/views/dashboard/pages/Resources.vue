@@ -279,7 +279,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 body,
 html {
   height: 100%;

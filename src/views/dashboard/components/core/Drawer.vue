@@ -11,7 +11,7 @@
     temporary
     width="360"
     v-bind="$attrs"
-    style='z-index:25;'
+    style="z-index:25;"
   >
     <v-divider class="mb-1" />
 
@@ -64,9 +64,31 @@ export default {
   data: () => ({
     items: [
       {
-        icon: "mdi-view-dashboard",
-        title: "dashboard",
-        to: "/"
+        title: "Dashboard",
+        text: true,
+        avatar: "fa-trophy",
+        children: [
+          {
+            title: "Transaction History",
+            icon: "fas fa-money-check-alt",
+            to: "tables/transactions"
+          },
+          {
+            title: "Charting",
+            icon: "fa-chart-line",
+            to: "components/charting"
+          },
+          {
+            title: "Filing Search",
+            icon: "fas fa-archive",
+            to: "tables/transactions"
+          },
+          {
+            title: "Statement Wizard",
+            icon: "fa-chart-line",
+            to: "fas fa-file-invoice"
+          }
+        ]
       },
       {
         title: "Security Analysis",
@@ -87,48 +109,7 @@ export default {
         title: "Knowledge Base",
         icon: "fa-book",
         to: "/pages/resources"
-      },
-      {
-        title: "Dashboard",
-        text: true,
-        avatar: "fa-trophy",
-        children:[
-          {
-            title: "Transaction History",
-            icon: "fa-chart-line",
-            to: 'tables/transactions'
-          },
-          {
-            title: "Charting",
-            icon: "fa-chart-line",
-            to: 'components/charting'
-          }
-        ]
-      },
-      {
-        title: "Security Analysis",
-        avatar: "fa-trophy",
-        children:[
-          {
-            title: "Filing Search",
-            icon: "fa-chart-line",
-            to: 'tables/transactions'
-          },
-          {
-            title: "Statement Wizard",
-            icon: "fa-chart-line",
-            to: 'components/charting'
-          }
-        ]
-      },
-    ],
-    SubMenu: [
-      ["Transaction History", "fas fa-chart-line", 'tables/transactions'],
-      ["Charting", "fas fa-money-check-alt", 'components/charting'],
-    ],
-    SubMenu2:[
-      ["Filing Search", "fas fa-archive", 'components/filings'],
-      ["Statement Wizard", "fas fa-file-invoice", 'components/fundamentals'],
+      }
     ]
   }),
 
@@ -171,7 +152,7 @@ export default {
 #core-navigation-drawer
   .v-list-group__header.v-list-item--active:before
     opacity: .24
-    color:white
+    color: white
 
   .v-list-item
     &__icon--text,
@@ -221,12 +202,4 @@ export default {
 
         +rtl()
         margin-left: 8px
-</style>
-<style scoped>
-.display-1{
-  color: white;
-}
-.v-icon.v-icons{
-  color: white;
-}
 </style>

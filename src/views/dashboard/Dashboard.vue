@@ -10,9 +10,7 @@
         </v-col>
         <v-col style="display:flex;flex-direction:column;" id="orderform" cols="12" md="4" class="mt-6">
           <v-row>
-          <order-form :p_width= "orderwidth" ></order-form>
-          </v-row>
-          <v-row>
+          <order-form></order-form>
             <Launchpad id="launch"></Launchpad>
           </v-row>
 

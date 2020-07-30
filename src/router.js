@@ -49,7 +49,7 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/RegularTables'),
         },
         {
-          name: 'Financial Fundamentals',
+          name: 'Statement Wizard',
           path: 'components/fundamentals',
           component: () => import('@/views/dashboard/pages/Fundamentals.vue'),
         },
