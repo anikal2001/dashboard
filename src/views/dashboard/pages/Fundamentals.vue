@@ -5,7 +5,7 @@
       <v-container>
         <ticker v-if='statements> 0' @export="get_csv" @send_link="get_link"></ticker>
         
-        <v-card-text v-if='statements == 0' style='text-align:center;font-size:25px'> <v-container><p>You have exceeded you statement exports</p></v-container> </v-card-text>
+        <v-card-text v-if='statements == 0' style='text-align:center;font-size:25px'> <v-container><p>You have exceeded your statement exports</p></v-container> </v-card-text>
         
       </v-container>
     </v-card>
@@ -19,6 +19,7 @@ import firebase from "firebase";
 import * as Cookies from "js-cookie";
 import db from "./db.js";
 const alpaca_key = Cookies.get("alpaca_key");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 const uid = Cookies.get("uid");
 var token = "Token " + alpaca_key;
 let config = {

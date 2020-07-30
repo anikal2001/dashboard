@@ -76,7 +76,7 @@
 <script>
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -141,7 +141,7 @@ export default {
       return ret_date;
     },
     deleteItem(id, index) {
-      let link = "https://rcsandbox.ca/info/cancelOrder/" + id + "/";
+      let link = base_link + "info/cancelOrder/" + id + "/";
       Axios.get(link, config)
         .then(response => {
           this.open_orders.splice(index, 1);

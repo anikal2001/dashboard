@@ -63,6 +63,7 @@
 
 <script>
 import Axios from "axios";
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 const config = {
   headers: {
     Authorization: "Token 417f59ad885874647d9cc51c5a1834f30d955162"
@@ -113,7 +114,7 @@ export default {
       this.$refs.form.validate();
       let type = null;
       this.show = true
-      let link = "https://rcsandbox.ca/info/financials/";
+      let link = base_link + "info/financials/";
       if (this.statement === "Statement of Cash Flows") {
         type = "cash";
         link =

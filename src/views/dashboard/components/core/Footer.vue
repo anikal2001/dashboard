@@ -25,7 +25,9 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-
+        <a :href="'https://rcsandbox.ca/#docs'" target="_blank" >
+        <v-btn color="primary" style='margin-left:15px;'dark v-on="on">Documentation</v-btn>
+        </a>
         <v-spacer class="hidden-sm-and-down" />
 
         <v-col cols="12" md="auto">

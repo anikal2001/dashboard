@@ -68,11 +68,13 @@ export default {
     };
   },
   async getData() {
-      db.collection("backups")
+      db.collection("user-info")
           .doc(this.user.uid)
           .get()
           .then(doc => {
             Cookies.set('alpaca_key', doc.data().terminal_key),
+            Vue.prototype.$termina_key = doc.data().terminal_key;
+            Vue.prototype.$globalValue = 'Global Scope!';
             Cookies.set('uid', uid),
             Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
             console.log(Cookies.get('link'))
@@ -88,8 +90,23 @@ export default {
       if (user) {
         this.user = user;
         let uid = this.user.uid;
-        getData();
+        // this.getData();
       }
+
+       db.collection("backups")
+          .doc(this.user.uid)
+          .get()
+          .then(doc => {
+            Cookies.set('alpaca_key', doc.data().terminal_key),
+            Cookies.set('uid', this.user.uid),
+            //Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
+            console.log(Cookies.get('alpaca_key'))
+            Vue.prototype.$terminal_key = doc.data().terminal_key;
+            Vue.prototype.$globalValue = 'Global Scope!';
+          })
+          .catch(err => {
+            console.log("Error getting documents", err);
+          });
 
       let ckeditor = document.createElement('script');    
       ckeditor.setAttribute('src',"//cdn.ckeditor.com/4.6.2/full/ckeditor.js");

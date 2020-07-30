@@ -30,12 +30,6 @@
               </v-form>
             </v-card-text>
             <v-card-actions>
-              <div>
-              <vue-recaptcha sitekey="6Lcma7QZAAAAAA1w84ghKFveQdO2H93YH6bNriy-" :loadRecaptchaScript="true" @verify="onVerify"
-            @expired="onExpired">
-              </vue-recaptcha>
-              </div>
-              <v-spacer />
               <v-spacer />
                 <v-btn
                   style="color: white; font-size: 1.2rem;"

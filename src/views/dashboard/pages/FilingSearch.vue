@@ -72,7 +72,7 @@
 <script>
 import Axios from "axios";
 import * as Cookies from "js-cookie";
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 export default {
   name: "FilingSearch",
   data: () => ({

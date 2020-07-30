@@ -1,31 +1,16 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="12">
-        <v-container>
-          <div>
-            <v-card-title
-              style="justify-content:center;font-size:18px"
-              align="center"
-              class="display-2"
-            >
-              <p style="font:source-sans">Looking for help? Open Sandbox Documentation here</p>
-            </v-card-title>
-          </div>
-        </v-container>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col style="margin-left:0px; height:100%;" cols="9">
+      <v-col style="margin-left:0px; height:100%;" cols="12">
         <v-row style="margin-top:10px;margin-bottom:10px;">
           <v-col cols="4">
             <base-material-card
               color="#08182b"
-              style="margin-left:10px;height:70vh;"
+              style="margin-left:10px;height:35rem;"
               icon="mdi-calendar"
-              title2="Upcoming Events & Podcast"
+              title2="Upcoming Events & Webcasts"
             >
-              <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height: 85%;">
+              <div style="padding:0.5vh;margin-left:10px;overflow-y: scroll; max-height:28rem;">
                 <div
                   style="margin-top:5px;border-bottom:thin solid"
                   v-for="item in upcomingEvents "
@@ -49,14 +34,94 @@
             </base-material-card>
           </v-col>
           <v-col cols="8">
-            <base-material-card color="#08182b" style="height:70vh;" title2="Finance Books & Journals">
+            <base-material-card color="#08182b" style="height:35rem;" title2="Finance Books & Journals">
+            <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+                v-show="!hidden"
+                color="#FF8C00"
+                dark
+                absolute
+                top
+                right
+                fab
+                 v-bind="attrs"
+                  v-on="on"
+                  style='margin-top:2%;margin-right:2%;'
+              >
+                <v-icon>mdi-tools</v-icon>
+              </v-btn>
+      </template>
+
+      <v-card>
+        <v-card-title class="headline grey lighten-2">
+          BMO Finance Lab Software
+        </v-card-title>
+
+        <v-card-text style='margin-top:20px;'>
+          <v-row style='justify-content:center'>
+       <v-col cols='12' style='justify-content:center'>
+        <v-row style='justify-content:center'>  
+          <a :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'" target="_blank" style="color:white; text-decoration:none;justify:center;width:300px;">
+        <v-btn
+            
+            style='height:3vh;margin-bottom: 5%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+            class="mr-4"
+            
+            justify='center'
+          > Capital IQ</v-btn></a>
+    
+        </v-row>
+        <v-row style='justify-content:center'>
+          <a :href="'https://login.factset.com/'" target="_blank" style="color:white; text-decoration:none;justify:center;width:300px;">
+          <v-btn
+          
+            class="mr-4"
+            style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+          >FactSet</v-btn></a>
+        </v-row>
+        <v-row style='justify-content:center'>
+          <a :href="'https://portal.bloombergforeducation.com/login'" target="_blank" style="color:white; text-decoration:none;justify:center;width:300px;">
+          <v-btn
+          
+            class="mr-4"
+            style='height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;width:100%;'
+            color="rgb(17, 25, 69)"
+          >Bloomberg Market Concepts</v-btn></a>
+        </v-row>
+  
+   
+      </v-col>
+    
+    </v-row>
+          </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="dialog = false"
+          >
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
               <template v-slot:heading>
                 <v-tabs v-model="tabs" background-color="transparent" slider-color="white">
                   <v-tab class="mr-3">
-                    <v-icon class="mr-2">mdi-graph</v-icon>Finance Books & Journals
+                    <v-icon class="mr-2">mdi-graph</v-icon>Recent Economic Research
                   </v-tab>
                   <v-tab>
-                    <v-icon class="mr-2">mdi-book</v-icon>Recent Economic Research
+                    <v-icon class="mr-2">mdi-book</v-icon>Finance Books & Journals
                   </v-tab>
                 </v-tabs>
               </template>
@@ -66,7 +131,7 @@
                 class="transparent"
               >
                 <v-tab-item v-for="n in 2" :key="n">
-                  <div v-if="n===1" style="padding:0.5vh;overflow-y: scroll;height:55vh;margin-left:10px;">
+                  <div v-if="n===1" style="padding:0.5vh;overflow-y: scroll;height:28rem;margin-left:10px;">
                     <div
                       style="margin-top:10px;border-bottom:thin solid"
                       v-for="item in econResearch" :key="item"
@@ -79,130 +144,13 @@
                   </div>
                   <div v-if="n===2"> 
                   </div>
+                   
+                 
                 </v-tab-item>
               </v-tabs-items>
             </base-material-card>
           </v-col>
         </v-row>
-      </v-col>
-      <v-col cols="3" style="height:90vh;margin-top:20px;">
-        <base-material-card
-          color="#08182b"
-          style="height:30vh;margin-right:0.5rem;"
-          icon="mdi-laptop"
-          title2="BMO Finance Lab Software"
-        >
-          <div style=";margin-left:10px;">
-            <v-row style="margin-left:2vw;justify-content:center">
-              <v-col cols="12" style="align-items:center;">
-                <v-row>
-                  <a
-                    :href="'https://www.capitaliq.com/ciqdotnet/login.aspx'"
-                    target="_blank"
-                    style="color:white; text-decoration:none;justify:center;width:80%;"
-                  >
-                    <v-btn
-                      style="height:3vh;margin-bottom: 5%;color: white;justify:center;width:100%;"
-                      color="rgb(17, 25, 69)"
-                      class="mr-4"
-                      justify="center"
-                    >Capital IQ</v-btn>
-                  </a>
-                </v-row>
-                <v-row>
-                  <a
-                    :href="'https://login.factset.com/'"
-                    target="_blank"
-                    style="color:white; text-decoration:none;justify:center;width:100%;"
-                  >
-                    <v-btn
-                      class="mr-4"
-                      style="height:3vh;margin-bottom: 5%;width:80%;color: white;justify:center;;"
-                      color="rgb(17, 25, 69)"
-                    >FactSet</v-btn>
-                  </a>
-                </v-row>
-                <v-row>
-                  <a
-                    :href="'https://portal.bloombergforeducation.com/login'"
-                    target="_blank"
-                    style="color:white; text-decoration:none;justify:center;width:100%;"
-                  >
-                    <v-btn
-                      class="mr-4"
-                      style="height:3vh;width:80%;color: white;self-align:center;"
-                      color="rgb(17, 25, 69)"
-                    >Bloomberg Market Concepts</v-btn>
-                  </a>
-                </v-row>
-              </v-col>
-            </v-row>
-          </div>
-        </base-material-card>
-        <base-material-card
-          color="#08182b"
-          style="font-size:10px;height:30vh;margin-top:5.8rem;margin-right:0.5rem;"
-          title2="Bloomberg Live Streams"
-          icon="mdi-cast"
-        >
-          <div style="margin-left:10px;">
-            <v-container>
-              <v-row>
-                <v-col cols="6" style="align-items:center;">
-                  <a
-                    :href="'https://www.bloomberg.com/live/us'"
-                    target="_blank"
-                    style="color:white; text-decoration:none;"
-                  >
-                    <v-btn
-                      style="height:3vh;margin-bottom: 20%;color: white;justify:center;width:100%;"
-                      color="rgb(17, 25, 69)"
-                      class="mr-4"
-                      justify="center"
-                    >US Stream</v-btn>
-                  </a>
-
-                  <a
-                    :href="'https://www.bloomberg.com/live/europe'"
-                    target="_blank"
-                    style="color:white;text-decoration:none;"
-                  >
-                    <v-btn
-                      class="mr-4"
-                      style="height:3vh;width:100%;color: white;justify:center;width:100%;"
-                      color="rgb(17, 25, 69)"
-                    >Europe Stream</v-btn>
-                  </a>
-                </v-col>
-                <v-col cols="6" style="align-items:center;">
-                  <a
-                    :href="'https://www.bloomberg.com/live/asia'"
-                    target="_blank"
-                    style="color:white; text-decoration:none;"
-                  >
-                    <v-btn
-                      style="height:3vh;margin-bottom:20%;color: white;justify:center;width:100%;"
-                      color="rgb(17, 25, 69)"
-                      class="mr-4"
-                    >Asia Stream</v-btn>
-                  </a>
-
-                  <a
-                    :href="'https://www.youtube.com/watch?v=dp8PhLsUcFE'"
-                    target="_blank"
-                    style="color:white; text-decoration:none;"
-                  >
-                    <v-btn
-                      style="height:3vh;color: white;justify:center;width:100%;"
-                      color="rgb(17, 25, 69)"
-                      class="mr-4"
-                    >Global Stream</v-btn>
-                  </a>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
-        </base-material-card>
       </v-col>
     </v-row>
     <v-row style="margin: 0px 20px 20px 20px;">
@@ -249,12 +197,13 @@
 <script>
 import Axios from "axios";
 import * as Cookies from "js-cookie";
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 export default {
   name: "Resources",
   components: {},
   data() {
     return {
+      dialog:false,
       uptick: null,
       upcomingEvents: null,
       econResearch: null,
