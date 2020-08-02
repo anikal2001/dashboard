@@ -118,7 +118,7 @@ export default {
           {
             title: "Statement Wizard",
             icon: "fa-chart-line",
-            to: "fas fa-file-invoice"
+            to: "components/fundamentals"
           },
         ]
       },
