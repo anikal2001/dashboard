@@ -5,7 +5,7 @@
       <v-container>
         <ticker v-if='statements> 0' @export="get_csv" @send_link="get_link"></ticker>
         
-        <v-card-text v-if='statements == 0' style='text-align:center;font-size:25px'> <v-container><p>You have exceeded your statement exports</p></v-container> </v-card-text>
+        <v-card-text v-if='statements == 0' style='text-align:center;font-size:25px'> <v-container>You have exceeded your statement exports. Contact admin@rcfta.ca to get more.</v-container> </v-card-text>
         
       </v-container>
     </v-card>

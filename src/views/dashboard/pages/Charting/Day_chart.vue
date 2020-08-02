@@ -17,7 +17,7 @@ import DownloadButton from "./DownloadButton.vue";
 import Printable from './Printable.js'
 import Axios from "axios";
 import * as Cookies from "js-cookie";
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 const alpaca_key = Cookies.get("alpaca_key");
 var token = "Token " + alpaca_key;
 let config = {

@@ -1,5 +1,5 @@
 <template>
-  <v-row md="6" style="margin: 20px 20px 20px 20px">
+  <v-row md="6" style="margin: 20px 5px 20px 5px">
     <v-col cols="12" sm="6" lg="3">
       <base-material-stats-card
         color="#08182b"

@@ -62,7 +62,7 @@
       icon="mdi-alert"
     >You have entered an invalid ticker</v-alert>
     <v-row>
-      <v-col cols="7">
+      <v-col cols="7" >
         <base-material-card
           style="overflow-top:scroll;margin:25px 0px 25px 0px; height:40rem;"
           color="#08182b"
@@ -100,24 +100,26 @@
             
             <v-card-subtitle>Number of Employees: {{this.company.employees}}</v-card-subtitle>
             <v-card-text>{{this.company.description}}</v-card-text>
-            <v-card-subtitle>Peer Group: {{this.peers}}</v-card-subtitle>
+            <v-card-subtitle><b>Peer Group: {{this.peers}}</b></v-card-subtitle>
             
           
         </base-material-card>
       </v-col>
       <v-col cols="5">
-        <base-material-card color="#08182b" icon="fa-file-invoice" title="Financial Statements" v-if="test" style="height:15rem;margin:25px 8px 1rem 0px;">
-          <v-row style="display:flex;flex-direction:column;">
+        <base-material-card color="#08182b" icon="fa-file-invoice" title="Financial Statements" v-if="test" style="height:16rem;margin:25px 8px 1rem 0px;">
+          <p style='margin-left:5px;'>Available Statements: {{statements}}</p>
+        <v-card-text v-if='statements == 0' style='text-align:center;font-size:20px'> <v-container>You have exceeded your statement exports. Contact admin@rcfta.ca to get more.</v-container> </v-card-text>
+          <v-row v-if='statements>0' style="display:flex;flex-direction:column;">
             <v-text-field
               v-model="numPeriods"
               height="20px"
               :rules="annualRules"
-              style="border-radius:3px;justify-content:center;width:90%; margin: 20px 0px 0px 20px;"
+              style="border-radius:3px;justify-content:center;width:90%; margin: 0px 0px 0px 20px;"
               label="Number of Years"
               required
             />
           </v-row>
-          <v-container style="display:flex;justify-content:space-around;">
+          <v-container v-if='statements>0'  style="display:flex;justify-content:space-around;">
             <v-btn
               :disabled="numPeriods < 1 || numPeriods > 4"
               color="primary"
@@ -138,7 +140,7 @@
             >Balance Sheet</v-btn>
           </v-container>
         </base-material-card>
-        <v-card v-if="test" style="height:24rem;margin-right:8px;">
+        <v-card v-if="test" style="height:23rem;margin-right:8px;">
           <div style="height:100%">
             <apexchart
               width="100%"
@@ -182,7 +184,7 @@
                   <v-container>
                 <v-btn
           v-if="w==1"
-          style="color: white;width:8rem"
+          style="color: white;width:9rem"
           small
           dark
           color="rgb(17, 25, 69)"
@@ -190,7 +192,7 @@
         >All Stats</v-btn>
         <v-btn
           v-if="w==1"
-          style="margin:10px;width:8rem"
+          style="margin:10px;width:9rem"
           small
           dark
           color="rgb(17, 25, 69)"
@@ -199,21 +201,21 @@
         <v-btn
           v-if="w==1"
           small
-          style="color: white;width:8rem"
+          style="color: white;width:9rem"
           color="rgb(17, 25, 69)"
            @click='statsTable=2'
         >Financials</v-btn>
         <v-btn
           v-if="w==1"
-          style="color: white;margin:10px;width:8rem"
+          style="color: white;margin:10px;width:9rem"
           small
           dark
           color="rgb(17, 25, 69)"
            @click='statsTable=4'
-        >Dividends</v-btn>
+        >Dividends & Earnings</v-btn>
         <v-btn
           v-if="w==1"
-          style="margin-right:10px;color: white;width:8rem"
+          style="margin-right:10px;color: white;width:9rem"
           small
           dark
           color="rgb(17, 25, 69)"
@@ -222,7 +224,7 @@
         <v-btn
           v-if="w==1"
           small
-          style='color: white;width:8rem'
+          style='color: white;width:9rem'
           color="rgb(17, 25, 69)"
            @click='statsTable=5'
         >Price & Volume</v-btn>
@@ -257,6 +259,7 @@
                   :disable-pagination="true"
                   :hide-default-footer="true"
                   :search="keyStatsSearch"
+                  :dense='true'
                 ></v-data-table>
                 
                 <v-data-table
@@ -267,6 +270,7 @@
                   :disable-pagination="true"
                   :hide-default-footer="true"
                   :search="keyStatsSearch"
+                  :dense='true'
                 ></v-data-table v-if='statsTable==3'>
                 
                 <v-data-table
@@ -277,6 +281,7 @@
                   :disable-pagination="true"
                   :hide-default-footer="true"
                   :search="keyStatsSearch"
+                  :dense='true'
                 ></v-data-table>
                 
                
@@ -288,6 +293,7 @@
                   :disable-pagination="true"
                   :hide-default-footer="true"
                   :search="keyStatsSearch"
+                  :dense='true'
                 ></v-data-table>
                
                 
@@ -300,6 +306,7 @@
                   hide-default-footer
                   disable-pagination
                   :search="keyStatsSearch"
+                
                 ></v-data-table>
 
               </div>
@@ -376,7 +383,7 @@
                     <br />
                     Lowest Price Target: ${{price_target.priceTargetLow}}
                     <br />
-                    Number of Anlysts: {{price_target.numberOfAnalysts}}
+                    Number of Analysts: {{price_target.numberOfAnalysts}}
                     <br />
                   </div>
                 </div>
@@ -475,6 +482,7 @@
 </template>
 
 <script>
+import firebase from "firebase";
 import Vue from 'vue';
 import TradingVue from "trading-vue-js";
 const createCsvStringifier = require("csv-writer").createArrayCsvStringifier;
@@ -482,9 +490,11 @@ import fundamentals from "../components/core/StatementExtractor.vue";
 import VueApexCharts from "vue-apexcharts";
 import * as Cookies from "js-cookie";
 import Axios from "axios";
+import db from "./db.js";
 import { hello } from "./CSV-writing.js";
 const alpaca_key = Cookies.get("alpaca_key");
 const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
+const uid = Cookies.get("uid");
 var token = "Token " + alpaca_key;
 let config = {
   headers: {
@@ -500,6 +510,8 @@ export default {
   },
 
   data: () => ({
+    statements:null,
+    statementDocId:null,
     statsTable:0,
     statsStyle:"min-height:60rem;overflow-top:scroll;margin:10px 0px 5% 0px",
     newsOuterStyle:"overflow-top:scroll;margin:10px 0px 5% 0px;height:52rem",
@@ -622,16 +634,16 @@ export default {
       nextEarningsDate: "Next Earnings Date",
       peRatio: "PE Ratio",
       beta: "Beta",
-      maxChangePercent: "Max Change Percentage",
-      year5ChangePercent: "5 Year Holding Period Return",
-      year2ChangePercent: "2 Year Holding Period Return",
-      year1ChangePercent: "1 Year Holding Period Return",
+      maxChangePercent: "Max Change Percentage"+ (" (%)"),
+      year5ChangePercent: "5 Year Holding Period Return"+ (" (%)"),
+      year2ChangePercent: "2 Year Holding Period Return"+ (" (%)"),
+      year1ChangePercent: "1 Year Holding Period Return"+ (" (%)"),
       ytdChangePercent: "Year to Date Return",
-      month6ChangePercent: "6 Month Holding Period Return",
-      month3ChangePercent: "3 Month Holding Period Return",
-      month1ChangePercent: "1 Month Holding Period Return",
-      day30ChangePercent: "30 Day Holding Period Return",
-      day5ChangePercent: "5 Day Holding Period Return",
+      month6ChangePercent: "6 Month Holding Period Return"+ (" (%)"),
+      month3ChangePercent: "3 Month Holding Period Return"+ (" (%)"),
+      month1ChangePercent: "1 Month Holding Period Return"+ (" (%)"),
+      day30ChangePercent: "30 Day Holding Period Return"+ (" (%)"),
+      day5ChangePercent: "5 Day Holding Period Return"+ (" (%)"),
       debtToEquity: "Debt to Equity",
       enterpriseValueToRevenue: "Enterprise Value to Revenue",
       priceToSales: "Price to Sales",
@@ -789,18 +801,20 @@ day5ChangePercent:"5 Day Change Percentage"},
 {name:this.cleanedNames["beta"] , val: this.key_stats["beta"]},
 {name:this.cleanedNames["peRatio"] , val: this.key_stats["peRatio"]},
 {name:this.cleanedNames["putCallRatio"] , val: this.key_stats["putCallRatio"]},];
+
 this.priceStats = [{name:this.cleanedNames["week52high"] , val: this.key_stats["week52high"]},
 {name:this.cleanedNames["week52low"] , val: this.key_stats["week52low"]},
-{name:this.cleanedNames["week52change"] , val: this.key_stats["week52change"]},
-{name:this.cleanedNames["maxChangePercent"] , val: this.key_stats["maxChangePercent"]},
-{name:this.cleanedNames["year5ChangePercent"] , val: this.key_stats["year5ChangePercent"]},
-{name:this.cleanedNames["year1ChangePercent"] , val: this.key_stats["year1ChangePercent"]},
-{name:this.cleanedNames["ytdChangePercent"] , val: this.key_stats["ytdChangePercent"]},
-{name:this.cleanedNames["month6ChangePercent"] , val: this.key_stats["month6ChangePercent"]},
-{name:this.cleanedNames["month1ChangePercent"] , val: this.key_stats["month1ChangePercent"]},
-{name:this.cleanedNames["day5ChangePercent"] , val: this.key_stats["day5ChangePercent"]},
+{name:this.cleanedNames["week52change"] , val: this.key_stats["week52change"]*100},
+{name:this.cleanedNames["maxChangePercent"] , val: this.key_stats["maxChangePercent"]*100},
+{name:this.cleanedNames["year5ChangePercent"], val: this.key_stats["year5ChangePercent"]*100},
+{name:this.cleanedNames["year1ChangePercent"], val: this.key_stats["year1ChangePercent"]*100},
+{name:this.cleanedNames["ytdChangePercent"] , val: this.key_stats["ytdChangePercent"]*100},
+{name:this.cleanedNames["month6ChangePercent"] , val: this.key_stats["month6ChangePercent"]*100},
+{name:this.cleanedNames["month1ChangePercent"], val: this.key_stats["month1ChangePercent"]*100},
+{name:this.cleanedNames["day5ChangePercent"] , val: this.key_stats["day5ChangePercent"]*100},
 {name:this.cleanedNames["avg30Volume"] , val: this.key_stats["avg30Volume"]},
 {name:this.cleanedNames["avg10Volume"] , val: this.key_stats["avg10Volume"]},];
+
 this.dividendStats = [{name:this.cleanedNames["ttmEPS"] , val: this.key_stats["ttmEPS"]},
 {name:this.cleanedNames["ttmDividendRate"] , val: this.key_stats["ttmDividendRate"]},
 {name:this.cleanedNames["dividendYield"] , val: this.key_stats["dividendYield"]}];
@@ -837,7 +851,14 @@ this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marke
 {name:this.cleanedNames["month3ChangePercent"] ,val: this.key_stats["month3ChangePercent"]},
 {name:this.cleanedNames["month1ChangePercent"] ,val: this.key_stats["month1ChangePercent"]},]
 ;
-
+this.capitalStats = [{ name: this.cleanedNames["totalCash"], val: this.key_stats["totalCash"] },
+{ name: this.cleanedNames['currentDebt'], val: this.key_stats['currentDebt'] },
+{ name: this.cleanedNames["marketcap" ], val: this.key_stats["marketcap" ] },
+{ name: this.cleanedNames['sharesOutstanding'], val: this.key_stats['sharesOutstanding'] },
+{ name: this.cleanedNames["beta"], val: this.key_stats["beta"] },
+{ name: this.cleanedNames['debtToEquity'], val: this.key_stats['debtToEquity'] }
+  
+]
 
         for (var x in this.key_stats) 
             {            
@@ -848,18 +869,6 @@ this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marke
             this.multiples.push(temp);
           }
 
-          if (
-            x == "totalCash" ||
-            x == "currentDebt" ||
-            x == "marketcap" ||
-            x == "debtToEquity" ||
-            x == "beta"||
-            x == 'sharesOutstanding'
-          ) {
-            temp = { name: this.cleanedNames[x], val: this.key_stats[x] };
-            console.log(x);
-            this.capitalStats.push(temp);
-          }
         }
 
         temp = {
@@ -984,6 +993,9 @@ this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marke
         "/Annual/" +
         this.numPeriods +
         "/csv/";
+      db.collection('limits').doc(this.statementDocId).update({
+        'statements':  firebase.firestore.FieldValue.increment(-1),
+      });
       this.get_csv(link, value);
     },
     forceFileDownload(data, type) {
@@ -1032,6 +1044,15 @@ this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marke
     key = key.replace(/([A-Z])/g, " $1").trim();
     key = key.substring(0, 1).toUpperCase() + key.substring(1);
     return key;
+  },
+   mounted(){
+    var temp;
+    db.collection("limits").where('id', 'array-contains', uid )
+    .onSnapshot((response) => {
+        console.log("Current data: ", response.docs[0].data());
+        this.statements = response.docs[0].data().statements;
+        this.statementDocId = response.docs[0].id;
+    });
   }
 };
 

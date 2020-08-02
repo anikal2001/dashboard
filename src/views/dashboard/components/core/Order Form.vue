@@ -1,12 +1,11 @@
 <template>
 <div>
   <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0px 50px 0px 0px; "
+    style="max-height:100%;overflow-top:scroll;margin:0px 15px 0px 0px;height:28rem "
     color="#08182b"
-    :width=p_width
     class="px-5 py-3"
     icon="mdi-flare"
-  title="Trade"
+    title="Trade"
   >
     
     <div style="max-height:100%;">
@@ -138,10 +137,12 @@ export default {
   },
   methods: {
     order_stock(link) {
+      this.message =this.order + " " + this.position + " order for " + this.Quantity + " shares of " + this.ticker.toUpperCase() +" has been submitted!";
       Axios.get(link, config)
         .then(Response => {
           this.loading = false;
           this.$refs.form.reset();
+          this.snackbar = true;
         })
         .catch(error => {
           this.loading = false;
@@ -151,6 +152,7 @@ export default {
             console.log(error.response.data);
             console.log(error.response.status);
             console.log(error.response.headers);
+            this.message="Insufficient Buying Power or Invalid Ticker!";
           } else if (error.request) {
             // The request was made but no response was received
             // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -161,6 +163,7 @@ export default {
             console.log("Error", error.message);
           }
           console.log(error.config);
+          this.snackbar = true;
         });
     },
     Ordering() {
@@ -205,8 +208,7 @@ export default {
         }
         this.order_stock(link);
       }
-      this.message =this.order + " " + this.position + " order for " + this.Quantity + " shares of " + this.ticker.toUpperCase() +" has been submitted!";
-      this.snackbar = true;
+      
     }
   }
 };

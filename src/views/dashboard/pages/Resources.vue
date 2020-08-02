@@ -123,6 +123,7 @@
                   <v-tab>
                     <v-icon class="mr-2">mdi-book</v-icon>Finance Books & Journals
                   </v-tab>
+                 
                 </v-tabs>
               </template>
               <v-tabs-items
@@ -130,7 +131,7 @@
                 style="height:55vh;margin-bottom:0px"
                 class="transparent"
               >
-                <v-tab-item v-for="n in 2" :key="n">
+                <v-tab-item v-for="n in 3" :key="n">
                   <div v-if="n===1" style="padding:0.5vh;overflow-y: scroll;height:28rem;margin-left:10px;">
                     <div
                       style="margin-top:10px;border-bottom:thin solid"
@@ -142,9 +143,30 @@
                       </a>
                     </div>
                   </div>
-                  <div v-if="n===2"> 
+                  
+
+                  <div v-if="n===2" style="padding:0.5vh;overflow-y: scroll;overflow-x: hidden;height:28rem;margin-left:10px;">
+                    <div
+                      style="margin-top:10px;border-bottom:thin solid"
+                      v-for="item in books" :key="item"
+                    >
+                      
+                      <a style="text-decoration:none;" :href="item.link" target="_blank">
+                        <v-row> >
+                          <v-col xl='1' md='2' class='column' style='float:left;'>
+                        <img style='margin-top:5px;width:5rem;':src='item.imageLink' :alt="item.imageLink"></img>
+                        </v-col>
+                        <v-col md='9' xl='10'>
+                        <h3>{{item.title}}</h3>
+                        <p>{{item.description}}</p>
+
+                        </v-col>
+                        
+                        </v-row>
+                      </a>
+                    </div>
                   </div>
-                   
+
                  
                 </v-tab-item>
               </v-tabs-items>
@@ -170,11 +192,11 @@
             <v-img
               class="black--text align-end"
               height="200px"
-              style="opacity:0.95"
+              style="opacity:0.95; word-wrap: normal;"
               :src="article.media_content[0].url"
             ></v-img>
-            <v-card-title class="display-2">
-              <b>{{article.title}}</b>
+            <v-card-title class="display-2" style = 'word-break: normal;'>
+              <b style = 'word-wrap: normal;'>{{article.title}}</b>
             </v-card-title>
 
             <v-card-subtitle class="pb-0">{{article.published}}</v-card-subtitle>
@@ -207,7 +229,8 @@ export default {
       uptick: null,
       upcomingEvents: null,
       econResearch: null,
-      tabs:null
+      tabs:null,
+      books:null,
     };
   },
 
@@ -217,6 +240,7 @@ export default {
         this.uptick = Response.data.uptick.entries;
         this.econResearch = Response.data.research;
         this.upcomingEvents = Response.data.upcomingEvents;
+        this.books = Response.data.books_journals
 
         console.log(this.uptick);
       });

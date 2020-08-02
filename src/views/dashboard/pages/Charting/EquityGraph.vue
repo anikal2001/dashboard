@@ -16,7 +16,7 @@
 import DownloadButton from "./DownloadButton.vue";
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get("alpaca_key");
-const base_link = Cookies.get("link");
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 var token = "Token " + alpaca_key;
 let config = {
   headers: {

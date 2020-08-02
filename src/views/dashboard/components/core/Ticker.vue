@@ -33,7 +33,7 @@
               />
             </v-col>
 
-            <v-col class="d-flex" cols="12" sm="2">
+            <v-col class="d-flex" cols="12" md="2">
               <v-select
                 v-model="period"
                 :items="period_items"

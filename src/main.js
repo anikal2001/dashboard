@@ -21,6 +21,7 @@ import './plugins/vee-validate'
 import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import firebase from 'firebase'
+import VueAnalytics from 'vue-analytics'
 
 Vue.config.productionTip = false
 
@@ -38,3 +39,11 @@ new Vue({
   },
   render: h => h(App),
 }).$mount('#app')
+
+Vue.use(VueAnalytics, {
+  id: 'UA-173983456-1',
+  router,
+  autoTracking: {
+    screenview: true,
+  },
+})

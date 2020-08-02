@@ -3,7 +3,7 @@
     color="primary"
     icon="mdi-rocket"
     title="Launchpad"
-    style="max-height:100%;overflow-top:scroll;margin:50px 50px 0px 0px"
+    style="height:17.5rem;overflow-top:scroll;margin:2.5rem 25px 0px 10px"
     class="px-5 py-3"
   >
     <v-container>

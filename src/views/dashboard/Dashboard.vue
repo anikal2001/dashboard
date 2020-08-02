@@ -8,9 +8,10 @@
         <v-col :height="orderHeight" cols="12" md="8" class="mt-6">
           <Portfolio :height="orderHeight"></Portfolio>
         </v-col>
-        <v-col style="display:flex;flex-direction:column;" id="orderform" cols="12" md="4" class="mt-6">
-          <v-row>
+        <v-col style="display:flex;flex-direction:column;" id="orderform" cols="12" sm='5' md="4" xl='4' class="mt-6">
           <order-form></order-form>
+          <v-row>
+          
             <Launchpad id="launch"></Launchpad>
           </v-row>
 
