@@ -84,36 +84,6 @@ export default {
             console.log("Error getting documents", err);
           });
       },
-  created() {
-    firebase.auth().onAuthStateChanged(user => {
-      var backup = false; 
-
-      if (user) {
-        this.user = user;
-        let uid = this.user.uid;
-        // this.getData();
-      }
-
-       db.collection("backups")
-          .doc(this.user.uid)
-          .get()
-          .then(doc => {
-            Cookies.set('alpaca_key', doc.data().terminal_key),
-            Cookies.set('uid', this.user.uid),
-            //Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
-            console.log(Cookies.get('alpaca_key'))
-            Vue.prototype.$terminal_key = doc.data().terminal_key;
-            Vue.prototype.$globalValue = 'Global Scope!';
-          })
-          .catch(err => {
-            console.log("Error getting documents", err);
-          });
-
-      let ckeditor = document.createElement('script');    
-      ckeditor.setAttribute('src',"//cdn.ckeditor.com/4.6.2/full/ckeditor.js");
-      document.head.appendChild(ckeditor);
-    });
-  },
   methods:{
     computed_height(){
       var h = document.getElementById('orderform').clientHeight

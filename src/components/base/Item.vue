@@ -1,8 +1,5 @@
 <template>
   <v-list-item
-    :href="href"
-    :rel="href && href !== '#' ? 'noopener' : undefined"
-    :target="href && href !== '#' ? '_blank' : undefined"
     :to="item.to"
     :active-class="`primary ${!isDark ? 'black' : 'white'}--text`"
   >
@@ -30,7 +27,6 @@
       item: {
         type: Object,
         default: () => ({
-          href: undefined,
           icon: undefined,
           subtitle: undefined,
           title: undefined,
@@ -54,9 +50,6 @@
         })
 
         return text
-      },
-      href () {
-        return this.item.href || (!this.item.to ? '#' : undefined)
       },
     },
   }
