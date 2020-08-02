@@ -63,35 +63,8 @@ export default {
 
   data: () => ({
     items: [
-      {
-        title: "Dashboard",
-        text: true,
-        avatar: "fa-trophy",
-        children: [
-          {
-            title: "Transaction History",
-            icon: "fas fa-money-check-alt",
-            to: "tables/transactions"
-          },
-          {
-            title: "Charting",
-            icon: "fa-chart-line",
-            to: "components/charting"
-          },
-          {
-            title: "Filing Search",
-            icon: "fas fa-archive",
-            to: "tables/transactions"
-          },
-          {
-            title: "Statement Wizard",
-            icon: "fa-chart-line",
-            to: "fas fa-file-invoice"
-          }
-        ]
-      },
-      {
-        title: "Security Analysis",
+            {
+        title: "Equity Analysis",
         icon: "fa-chart-area",
         to: "/pages/analysis"
       },
@@ -109,7 +82,46 @@ export default {
         title: "Knowledge Base",
         icon: "fa-book",
         to: "/pages/resources"
-      }
+      },
+      {
+        title: "Trading Terminal",
+        text: true,
+        avatar: "fa-trophy",
+        children: [
+          {
+            title:"Dashboard",
+            icon: "mdi-view-dashboard",
+            to: "/"
+          },
+          {
+            title: "Transaction History",
+            icon: "fas fa-money-check-alt",
+            to: "tables/transactions"
+          },
+          {
+            title: "Charting",
+            icon: "fa-chart-line",
+            to: "components/charting"
+          },
+        ]
+      },
+      {
+        title: "Security Analysis",
+        text: true,
+        avatar: "fa-trophy",
+        children: [
+          {
+            title: "Filing Search",
+            icon: "fas fa-archive",
+            to: "tables/transactions"
+          },
+          {
+            title: "Statement Wizard",
+            icon: "fa-chart-line",
+            to: "fas fa-file-invoice"
+          },
+        ]
+      },
     ]
   }),
 
