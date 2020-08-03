@@ -10,7 +10,9 @@
         </v-col>
         <v-col style="display:flex;flex-direction:column;" id="orderform" cols="12" md="4" class="mt-6">
           <v-row>
-          <order-form></order-form>
+          <order-form ></order-form>
+          </v-row>
+          <v-row>
             <Launchpad id="launch"></Launchpad>
           </v-row>
 
@@ -83,6 +85,8 @@ export default {
             console.log("Error getting documents", err);
           });
       },
+  created() {
+  },
   methods:{
     computed_height(){
       var h = document.getElementById('orderform').clientHeight

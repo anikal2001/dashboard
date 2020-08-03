@@ -3,7 +3,7 @@
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
         <v-col>
-          <v-alert color="red" dismissible v-if="error" type="error">{{error}}</v-alert>
+          <v-alert color="red" dismissible  v-if="error" type="error">{{error}}</v-alert>
           <v-card class="elevation-12">
             <v-toolbar dark color="rgb(17, 25, 69)">
               <v-toolbar-title>RCFTA Portal Login</v-toolbar-title>
@@ -11,7 +11,7 @@
               <v-tooltip bottom />
             </v-toolbar>
             <v-card-text>
-              <v-form @submit.prevent="login">
+              <v-form  @submit.prevent="login">
                 <v-text-field
                   v-model="email"
                   prepend-icon="person"
@@ -31,12 +31,13 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer />
-              <v-btn
-                style="color: white; font-size: 1.2rem;"
-                large
-                color="rgb(17, 25, 69)"
-                @click="login"
-              >Login</v-btn>
+                <v-btn
+                  style="color: white; font-size: 1.2rem;"
+                  large
+                  color="rgb(17, 25, 69)"
+                  @click="login"
+                >Login</v-btn>
+
             </v-card-actions>
           </v-card>
         </v-col>
@@ -46,121 +47,86 @@
 </template>
 
 <script>
-import VueRecaptcha from "vue-recaptcha";
+import VueRecaptcha from 'vue-recaptcha';
 import Axios from "axios";
-import firebase from "firebase";
 export default {
   name: "LoginForm",
-  components: { VueRecaptcha },
+  components:{VueRecaptcha},
   data() {
     return {
       email: "",
       password: "",
       snackbar: false,
       error: null,
-      verified: false
+      verified:false,
     };
   },
   computed: {
-    user() {
-      return this.$store.getters.user;
-    }
-  },
-  watch: {
-    user(value) {
-      if (value !== null && value !== undefined) {
-        this.$router.push("/");
+      user () {
+        return this.$store.getters.user
       }
-    }
-  },
-  methods: {
-    login: function() {
-      const info = {
+    },
+    watch: {
+      user (value) {
+        if (value !== null && value !== undefined) {
+          setTimeout(()=> {
+            this.$router.push('/')
+          }, 3500);
+        }
+      }
+    },
+  methods:{
+    login: function(){
+      const info ={
         email: this.email,
         password: this.password,
         error: this.error
-      };
-      this.$store.dispatch("signUserIn", {
-        email: this.email,
-        password: this.password
-      });
+      }
+      this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
     },
-    onSubmit: function() {
+     onSubmit: function () {
       this.$refs.invisibleRecaptcha.execute();
-      firebase.auth().onAuthStateChanged(user => {
-        var backup = false;
-
-        if (user) {
-          this.user = user;
-          let uid = this.user.uid;
-          // this.getData();
-        }
-
-        db.collection("backups")
-          .doc(this.user.uid)
-          .get()
-          .then(doc => {
-            Cookies.set("alpaca_key", doc.data().terminal_key),
-              Cookies.set("uid", this.user.uid),
-              //Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
-              console.log(Cookies.get("alpaca_key"));
-            Vue.prototype.$terminal_key = doc.data().terminal_key;
-            Vue.prototype.$globalValue = "Global Scope!";
-          })
-          .catch(err => {
-            console.log("Error getting documents", err);
-          });
-
-        let ckeditor = document.createElement("script");
-        ckeditor.setAttribute(
-          "src",
-          "//cdn.ckeditor.com/4.6.2/full/ckeditor.js"
-        );
-        document.head.appendChild(ckeditor);
-      });
     },
-    onVerify: function(response) {
-      console.log("Verify: " + response);
+    onVerify: function (response) {
+      console.log('Verify: ' + response);
       this.checkToken(response);
     },
 
-    async checkToken(token) {
-      try {
+     async checkToken(token){
+       try{
         let result = await Axios({
-          method: "post",
-          url: "https://www.google.com/recaptcha/api/siteverify",
-          params: {
-            secret: "6Lcma7QZAAAAAI-O0Io6RBcZcNRkDsNrWPNm_Cdi",
-            response: token
-          },
-          headers: {
-            "Content-Type": "application/json"
-          }
+            method: 'post',
+            url: 'https://www.google.com/recaptcha/api/siteverify',
+            params: {
+                secret: '6Lcma7QZAAAAAI-O0Io6RBcZcNRkDsNrWPNm_Cdi',
+                response: token
+            },
+            headers: {
+                        "Content-Type": "application/json"
+                    }
         });
         console.log(result);
 
         let data = result.data || {};
-        if (!data.success) {
-          throw {
-            success: false,
-            error: "response not valid"
-          };
-        } else if (data.success) {
-          this.verified = true;
+        if(!data.success){
+            throw({
+                success: false,
+                error: 'response not valid'
+            })
+        } else if(data.success){
+          this.verified = true; 
           console.log("YAAAHOOOOO");
         }
-      } catch (err) {
+    }catch(err){
         console.log(err);
-        throw err.response
-          ? err.response.data
-          : { success: false, error: "captcha_error" };
-      }
+        throw err.response ? err.response.data : {success: false, error: 'captcha_error'}
+    }
     },
-    onExpired: function() {
-      console.log("Expired");
+    onExpired: function () {
+      console.log('Expired');
     },
-    resetRecaptcha() {
-      this.$refs.recaptcha.reset(); // Direct call reset method
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset() // Direct call reset method
     }
   }
 };
