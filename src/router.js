@@ -54,7 +54,7 @@ export default new Router({
           component: () => import('@/views/dashboard/pages/Fundamentals.vue'),
         },
         {
-          name: 'Security Analysis',
+          name: 'Company Data',
           path: 'pages/analysis',
           component: () => import('@/views/dashboard/pages/CompanyProfile.vue'),
         },

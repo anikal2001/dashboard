@@ -32,6 +32,7 @@
 
 <script>
 import postscribe from 'postscribe';
+import VueAnalytics from 'vue-analytics'
 import Axios from "axios";
 import firebase from "firebase";
 import db from "./pages/db.js";
@@ -46,6 +47,7 @@ import { Balloon } from 'vue-balloon';
 import Vue from 'vue';
 import Launchpad from './components/core/Launchpad'
 import VueYouTubeEmbed from 'vue-youtube-embed';
+
 Vue.use(VueYouTubeEmbed);
 //
 export default {
@@ -95,6 +97,40 @@ export default {
     }
   },
   mounted(){
+    this.$ga.page('/');
+    firebase.auth().onAuthStateChanged(user => {
+        var backup = false;
+
+        if (user) {
+          this.user = user;
+          let uid = user.uid;
+          // this.getData();
+        }
+
+        db.collection("backups")
+          .doc(this.user.uid)
+          .get()
+          .then(doc => {
+            console.log("Key ", doc.data().terminal_key );
+
+            Cookies.set("alpaca_key", doc.data().terminal_key),
+              Cookies.set("uid", this.user.uid),
+              //Cookies.set('link', 'https://tranquil-beyond-74281.herokuapp.com/')
+              console.log(Cookies.get("alpaca_key"));
+            Vue.prototype.$terminal_key = doc.data().terminal_key;
+            Vue.prototype.$globalValue = "Global Scope!";
+          })
+          .catch(err => {
+            console.log("Error getting documents", err);
+          });
+
+        let ckeditor = document.createElement("script");
+        ckeditor.setAttribute(
+          "src",
+          "//cdn.ckeditor.com/4.6.2/full/ckeditor.js"
+        );
+        document.head.appendChild(ckeditor);
+      });
     this.orderHeight = this.computed_height()
     this.orderwidth = this.computed_width()
 

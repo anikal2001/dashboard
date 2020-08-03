@@ -8,7 +8,7 @@
 
 <script>
  /* eslint-disable */ 
-  import LoginForm from './components/core/LoginForm.vue'
+  import LoginForm from './pages/LoginForm.vue'
   import Firebase from 'firebase'
   import db from "./pages/db.js";
    

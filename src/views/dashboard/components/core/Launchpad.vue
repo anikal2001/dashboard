@@ -54,7 +54,7 @@ export default {
         },
         {
           title: "Knowledge Base",
-          link: "pages/trading",
+          link: "/pages/resources",
           icon: "fas fa-book"
         }
       ]

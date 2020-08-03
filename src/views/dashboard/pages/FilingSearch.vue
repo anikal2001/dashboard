@@ -71,6 +71,8 @@
 
 <script>
 import Axios from "axios";
+import VueAnalytics from 'vue-analytics';
+
 import * as Cookies from "js-cookie";
 const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 export default {
@@ -86,6 +88,7 @@ export default {
   }),
   methods: {
     get_filings() {
+      this.$ga.page('/FilingsSearch');
       this.items.length = 0
       this.loading = true
       let link =

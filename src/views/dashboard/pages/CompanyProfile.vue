@@ -64,7 +64,7 @@
     <v-row>
       <v-col cols="7" >
         <base-material-card
-          style="overflow-top:scroll;margin:25px 0px 25px 0px; height:40rem;"
+          style="margin:25px 0px 25px 0px; height:42rem;"
           color="#08182b"
           icon="fas fa-building"
           title="Company Profile"
@@ -72,7 +72,7 @@
           v-if="test"
         >
         
-          
+            <div style='overflow-y:auto;overflow-x:hidden;height:35rem;'>
             <v-row style='margin-left:15px;'>
             <span style='float:left; margin-top:15px'>
               <img style='vertical-align:middle;' :src='logo'></img>
@@ -102,7 +102,7 @@
             <v-card-text>{{this.company.description}}</v-card-text>
             <v-card-subtitle><b>Peer Group: {{this.peers}}</b></v-card-subtitle>
             
-          
+          </div>
         </base-material-card>
       </v-col>
       <v-col cols="5">
@@ -140,7 +140,7 @@
             >Balance Sheet</v-btn>
           </v-container>
         </base-material-card>
-        <v-card v-if="test" style="height:23rem;margin-right:8px;">
+        <v-card v-if="test" style="height:25rem;margin-right:8px;">
           <div style="height:100%">
             <apexchart
               width="100%"
@@ -189,7 +189,7 @@
           dark
           color="rgb(17, 25, 69)"
            @click='statsTable=0'
-        >All Stats</v-btn>
+        >Price & Volume</v-btn>
         <v-btn
           v-if="w==1"
           style="margin:10px;width:9rem"
@@ -221,13 +221,6 @@
           color="rgb(17, 25, 69)"
            @click='statsTable=3'
         >Corporate Events</v-btn>
-        <v-btn
-          v-if="w==1"
-          small
-          style='color: white;width:9rem'
-          color="rgb(17, 25, 69)"
-           @click='statsTable=5'
-        >Price & Volume</v-btn>
         </v-container>
         </div>
         
@@ -240,16 +233,7 @@
                     hide-details
                   ></v-text-field>
                 </v-card-title>
-                <v-data-table
-                v-if='statsTable==0'
-                  :loading="loading"
-                  :headers="headers"
-                  :dense='true'
-                  :items="items"
-                  :items-per-page="15"
-                  :hide-default-footer="false"
-                  :search="keyStatsSearch"
-                ></v-data-table>
+                
                 
                 <v-data-table
                 v-if='statsTable==1'
@@ -298,7 +282,7 @@
                
                 
                 <v-data-table
-                v-if='statsTable==5'
+                v-if='statsTable==0'
                   :loading="loading"
                   :headers="headers"
                   :items="priceStats"
@@ -422,12 +406,12 @@
           </template>
           <v-tabs-items v-model="tabs2" class="transparent" >
             <v-tab-item v-for="n in 3" :key="n" style='height:100%;'>
-              <div style="overflow-y:scroll;max-height:55rem" v-if="n==1">
+              <div style="overflow-y:auto;max-height:55rem" v-if="n==1">
                 <div>
                   <v-card-text>
                     <template v-for="item in news">
-                      <v-row style="border-bottom:thin solid" :key="item" align="center">
-                        <v-col>
+                      <v-row  v-if='item.hasPaywall == false && item.lang == "en"' style="border-bottom:thin solid" :key="item" align="center">
+                        <v-col >
                           <a style="text-decoration:none;" target="_blank" :href="item.url">
                             <h3
                               class="font-weight-dark"
@@ -491,6 +475,8 @@ import VueApexCharts from "vue-apexcharts";
 import * as Cookies from "js-cookie";
 import Axios from "axios";
 import db from "./db.js";
+import VueAnalytics from 'vue-analytics';
+
 import { hello } from "./CSV-writing.js";
 const alpaca_key = Cookies.get("alpaca_key");
 const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
@@ -603,7 +589,7 @@ export default {
     company: null,
     logo: null,
     tabs: 4,
-    tabs2: 1,
+    tabs2: 4,
     tabs3: 0,
     key_stats: null,
     analyst_recommendations: null,
@@ -638,7 +624,7 @@ export default {
       year5ChangePercent: "5 Year Holding Period Return"+ (" (%)"),
       year2ChangePercent: "2 Year Holding Period Return"+ (" (%)"),
       year1ChangePercent: "1 Year Holding Period Return"+ (" (%)"),
-      ytdChangePercent: "Year to Date Return",
+      ytdChangePercent: "Year to Date Return" + " (%) ",
       month6ChangePercent: "6 Month Holding Period Return"+ (" (%)"),
       month3ChangePercent: "3 Month Holding Period Return"+ (" (%)"),
       month1ChangePercent: "1 Month Holding Period Return"+ (" (%)"),
@@ -664,7 +650,7 @@ revenuePerShare:"Revenue Per Share",
 revenuePerEmployee:"Revenue Per Employee",
 grossProfit:"Gross Profit",
 EBITDA:"EBITDA",
-profitMargin:"Profit Margin",
+profitMargin:"Profit Margin (%) ",
     },
     keyStatsOrder: {marketcap:"Market Capitlization ",		
 week52high:"52 Week High",		
@@ -694,6 +680,7 @@ month3ChangePercent:"3 Month Change Percentage",
 month1ChangePercent:"1 Month Change Percentage",		
 day30ChangePercent:"30 Day Change Percentage",		
 day5ChangePercent:"5 Day Change Percentage"},
+
     priceTargetSeries: [
       {
         data: [
@@ -760,6 +747,9 @@ day5ChangePercent:"5 Day Change Percentage"},
   },
   methods: {
     get_filings() {
+      db.collection("limits").document(uid).update({
+        'company profile calls':  firebase.firestore.FieldValue.increment(1),
+      });
       this.alert = false;
       this.items.length = 0;
       this.loading = true;
@@ -793,7 +783,8 @@ day5ChangePercent:"5 Day Change Percentage"},
 {name:this.cleanedNames["revenuePerEmployee"] , val: this.key_stats["revenuePerEmployee"]},
 {name:this.cleanedNames["grossProfit"] , val: this.key_stats["grossProfit"]},
 {name:this.cleanedNames["EBITDA"] , val: this.key_stats["EBITDA"]},
-{name:this.cleanedNames["profitMargin"] , val: this.key_stats["profitMargin"]}];
+{name:this.cleanedNames["profitMargin"] , val: this.key_stats["profitMargin"]*100},
+{name:"Gross Margin (%) " , val: this.key_stats["grossMargin"]}];
         this.basicStats = [{name:this.cleanedNames["currentPrice"] , val: this.key_stats["currentPrice"]},
 {name:this.cleanedNames["marketcap"] , val: this.key_stats["marketcap"]},
 {name:this.cleanedNames["sharesOutstanding"] , val: this.key_stats["sharesOutstanding"]},
@@ -804,14 +795,14 @@ day5ChangePercent:"5 Day Change Percentage"},
 
 this.priceStats = [{name:this.cleanedNames["week52high"] , val: this.key_stats["week52high"]},
 {name:this.cleanedNames["week52low"] , val: this.key_stats["week52low"]},
-{name:this.cleanedNames["week52change"] , val: this.key_stats["week52change"]*100},
-{name:this.cleanedNames["maxChangePercent"] , val: this.key_stats["maxChangePercent"]*100},
-{name:this.cleanedNames["year5ChangePercent"], val: this.key_stats["year5ChangePercent"]*100},
-{name:this.cleanedNames["year1ChangePercent"], val: this.key_stats["year1ChangePercent"]*100},
-{name:this.cleanedNames["ytdChangePercent"] , val: this.key_stats["ytdChangePercent"]*100},
-{name:this.cleanedNames["month6ChangePercent"] , val: this.key_stats["month6ChangePercent"]*100},
-{name:this.cleanedNames["month1ChangePercent"], val: this.key_stats["month1ChangePercent"]*100},
-{name:this.cleanedNames["day5ChangePercent"] , val: this.key_stats["day5ChangePercent"]*100},
+{name:this.cleanedNames["week52change"] , val: this.key_stats["week52change"]},
+{name:this.cleanedNames["maxChangePercent"] , val: this.key_stats["maxChangePercent"]},
+{name:this.cleanedNames["year5ChangePercent"], val: this.key_stats["year5ChangePercent"]},
+{name:this.cleanedNames["year1ChangePercent"], val: this.key_stats["year1ChangePercent"]},
+{name:this.cleanedNames["ytdChangePercent"] , val: (parseFloat(this.key_stats["ytdChangePercent"]))},
+{name:this.cleanedNames["month6ChangePercent"] , val: this.key_stats["month6ChangePercent"]},
+{name:this.cleanedNames["month1ChangePercent"], val: this.key_stats["month1ChangePercent"]},
+{name:this.cleanedNames["day5ChangePercent"] , val: this.key_stats["day5ChangePercent"]},
 {name:this.cleanedNames["avg30Volume"] , val: this.key_stats["avg30Volume"]},
 {name:this.cleanedNames["avg10Volume"] , val: this.key_stats["avg10Volume"]},];
 
@@ -824,7 +815,7 @@ this.eventsStats = [{name:this.cleanedNames["nextDividendDate"] , val: this.ke
 {name:"52 Week High Date" , val: this.key_stats["week52highDate"]},
 {name:"52 Week Low Date", val: this.key_stats["week52lowDate"]}];
 
-this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marketcap"]},
+/*this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marketcap"]},
 {name:this.cleanedNames["week52high"] ,val: this.key_stats["week52high"]},
 {name:this.cleanedNames["week52low"] ,val: this.key_stats["week52low"]},
 {name:this.cleanedNames["week52change"] ,val: this.key_stats["week52change"]},
@@ -846,11 +837,11 @@ this.items = [{name:this.cleanedNames["marketcap"] ,val: this.key_stats["marke
 {name:this.cleanedNames["year5ChangePercent"] ,val: this.key_stats["year5ChangePercent"]},
 {name:this.cleanedNames["year2ChangePercent"] ,val: this.key_stats["year2ChangePercent"]},
 {name:this.cleanedNames["year1ChangePercent"] ,val: this.key_stats["year1ChangePercent"]},
-{name:this.cleanedNames["ytdChangePercent"] ,val: this.key_stats["ytdChangePercent"]},
+{name:this.cleanedNames["ytdChangePercent"] ,val: (this.key_stats["ytdChangePercent"])},
 {name:this.cleanedNames["month6ChangePercent"] ,val: this.key_stats["month6ChangePercent"]},
 {name:this.cleanedNames["month3ChangePercent"] ,val: this.key_stats["month3ChangePercent"]},
 {name:this.cleanedNames["month1ChangePercent"] ,val: this.key_stats["month1ChangePercent"]},]
-;
+;*/
 this.capitalStats = [{ name: this.cleanedNames["totalCash"], val: this.key_stats["totalCash"] },
 { name: this.cleanedNames['currentDebt'], val: this.key_stats['currentDebt'] },
 { name: this.cleanedNames["marketcap" ], val: this.key_stats["marketcap" ] },
@@ -891,7 +882,7 @@ this.capitalStats = [{ name: this.cleanedNames["totalCash"], val: this.key_stats
           val:
             this.key_stats["week52low"] + " - " + this.key_stats["week52high"]
         };
-        this.items.push(temp);
+        this.priceStats.push(temp);
         this.chartingVals = Response.data.charting_yearly_vals;
         this.chartingTime = Response.data.charting_yearly_time;
 

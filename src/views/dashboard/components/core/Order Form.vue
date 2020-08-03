@@ -1,7 +1,7 @@
 <template>
 <div>
   <base-material-card
-    style="max-height:100%;overflow-top:scroll;margin:0px 15px 0px 0px;height:28rem "
+    style="max-height:100%;overflow-top:scroll;margin:0px 15px 0px 0px;min-height:28rem "
     color="#08182b"
     class="px-5 py-3"
     icon="mdi-flare"

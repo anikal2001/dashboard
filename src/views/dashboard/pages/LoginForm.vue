@@ -49,9 +49,6 @@
 import VueRecaptcha from "vue-recaptcha";
 import Axios from "axios";
 import firebase from "firebase";
-import db from "./db.js";
-import * as Cookies from "js-cookie";
-const db = db;
 export default {
   name: "LoginForm",
   components: { VueRecaptcha },
@@ -92,7 +89,6 @@ export default {
     },
     onSubmit: function() {
       //this.$refs.invisibleRecaptcha.execute();
-      console.log(db);
       console.log('HIIIIIIIIIII');
       firebase.auth().onAuthStateChanged(user => {
         var backup = false;

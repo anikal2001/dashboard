@@ -18,6 +18,8 @@ import Axios from "axios";
 import firebase from "firebase";
 import * as Cookies from "js-cookie";
 import db from "./db.js";
+import VueAnalytics from 'vue-analytics';
+
 const alpaca_key = Cookies.get("alpaca_key");
 const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 const uid = Cookies.get("uid");
@@ -129,6 +131,7 @@ export default {
   },
   mounted(){
     var temp;
+    this.$ga.page('/statementWizard');
     db.collection("limits").where('id', 'array-contains', uid )
     .onSnapshot((response) => {
         console.log("Current data: ", response.docs[0].data());

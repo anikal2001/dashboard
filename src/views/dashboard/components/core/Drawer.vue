@@ -63,11 +63,51 @@ export default {
 
   data: () => ({
     items: [
-            {
-        title: "Equity Analysis",
-        icon: "fa-chart-area",
-        to: "/pages/analysis"
+      {
+        title: "Trading Terminal",
+        text: true,
+        avatar: "fa-trophy",
+        children: [
+          {
+            title:"Dashboard",
+            icon: "mdi-view-dashboard",
+            to: "/"
+          },
+          {
+            title: "Transaction History",
+            icon: "fas fa-money-check-alt",
+            to: "/tables/transactions"
+          },
+          {
+            title: "Charting",
+            icon: "fa-chart-line",
+            to: "/components/charting"
+          },
+        ]
       },
+      {
+        title: "Security Analysis",
+        text: true,
+        avatar: "fa-trophy",
+        children: [
+          {
+            title: "Company Data",
+            icon: "fa-chart-area",
+            to: "/pages/analysis"
+          },
+          {
+            title: "Filing Search",
+            icon: "fas fa-archive",
+            to: "/components/filings"
+          },
+          {
+            title: "Statement Wizard",
+            icon: "fa-chart-line",
+            to: "/components/fundamentals"
+          },
+        ]
+      },
+            
       {
         title: "Standings",
         icon: "fa-trophy",
@@ -83,45 +123,7 @@ export default {
         icon: "fa-book",
         to: "/pages/resources"
       },
-      {
-        title: "Trading Terminal",
-        text: true,
-        avatar: "fa-trophy",
-        children: [
-          {
-            title:"Dashboard",
-            icon: "mdi-view-dashboard",
-            to: "/"
-          },
-          {
-            title: "Transaction History",
-            icon: "fas fa-money-check-alt",
-            to: "tables/transactions"
-          },
-          {
-            title: "Charting",
-            icon: "fa-chart-line",
-            to: "components/charting"
-          },
-        ]
-      },
-      {
-        title: "Security Analysis",
-        text: true,
-        avatar: "fa-trophy",
-        children: [
-          {
-            title: "Filing Search",
-            icon: "fas fa-archive",
-            to: "tables/transactions"
-          },
-          {
-            title: "Statement Wizard",
-            icon: "fa-chart-line",
-            to: "components/fundamentals"
-          },
-        ]
-      },
+      
     ]
   }),
 

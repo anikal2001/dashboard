@@ -4,8 +4,15 @@
 
 <script>
 import firebase from "firebase";
-import store from './store.js'
+import store from './store.js';
+import router from './router'
+import Vue from 'vue';
+import VueAnalytics from 'vue-analytics';
 import * as Cookies from "js-cookie";
+Vue.use(VueAnalytics, {
+  id: 'UA-173983456-1',
+  router,
+})
 export default {
   name: "App",
   data() {

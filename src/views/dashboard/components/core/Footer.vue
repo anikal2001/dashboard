@@ -69,6 +69,7 @@ By viewing or using this data or information in any manner, you understand and a
 import Axios from 'axios';
 import * as Cookies from "js-cookie";
 const alpaca_key = Cookies.get('alpaca_key')
+const base_link = 'https://tranquil-beyond-74281.herokuapp.com/';
 var token = 'Token ' + alpaca_key
 let config = {
   headers: {
@@ -87,7 +88,7 @@ export default {
     };
   },
   created() {
-    Axios.get('https://rcsandbox.ca/info/accountInfo/', config)
+    Axios.get(base_link + 'info/accountInfo/', config)
     .then((response)=>{
       this.secret_key = response.data.alpaca_secret_key
       this.api_key= response.data.alpaca_api_key
