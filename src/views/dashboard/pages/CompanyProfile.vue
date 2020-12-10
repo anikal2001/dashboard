@@ -747,9 +747,6 @@ day5ChangePercent:"5 Day Change Percentage"},
   },
   methods: {
     get_filings() {
-      db.collection("limits").document(uid).update({
-        'company profile calls':  firebase.firestore.FieldValue.increment(1),
-      });
       this.alert = false;
       this.items.length = 0;
       this.loading = true;
@@ -981,7 +978,7 @@ this.capitalStats = [{ name: this.cleanedNames["totalCash"], val: this.key_stats
         value +
         "/" +
         this.newTicker +
-        "/Annual/" +
+        "/annual/" +
         this.numPeriods +
         "/csv/";
       db.collection('limits').doc(this.statementDocId).update({
@@ -1022,15 +1019,15 @@ this.capitalStats = [{ name: this.cleanedNames["totalCash"], val: this.key_stats
       return [csv_data, headers];
     }
   },
-  get_link(value) {
-    this.loading = true;
-    this.link = value[0];
-    this.items.length = 0;
-    this.headers.length = 0;
-    Axios.get(this.link, config).then(Response => {
+  //get_link(value) {
+   // this.loading = true;
+   // this.link = value[0];
+   // this.items.length = 0;
+   // this.headers.length = 0;
+   // Axios.get(this.link, config).then(Response => {
       //this.populate_table(Response.data);
-    });
-  },
+   // });
+ // },
   normal_names(key) {
     key = key.replace(/([A-Z])/g, " $1").trim();
     key = key.substring(0, 1).toUpperCase() + key.substring(1);

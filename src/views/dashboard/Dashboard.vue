@@ -86,6 +86,8 @@ export default {
             console.log("Error getting documents", err);
           });
       },
+  created() {
+  },
   methods:{
     computed_height(){
       var h = document.getElementById('orderform').clientHeight

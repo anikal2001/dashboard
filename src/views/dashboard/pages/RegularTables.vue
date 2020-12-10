@@ -1,6 +1,7 @@
 <template>
   <v-container fluid tag="section">
     <base-material-card
+    :key="n"
       color="#08182b"
       icon="mdi-clipboard-plus"
       title="Open Orders"
@@ -23,7 +24,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="(task,i) in open_orders[0]" :key="i">
+          <tr v-for="(task,i) in open_orders[0]" :key="open_orders">
             <td>{{task.symbol}}</td>
             <td>{{task.qty}}</td>
             <td>{{task.side}}</td>
@@ -89,7 +90,8 @@ export default {
   data() {
     return {
       transaction_history: null,
-      open_orders: null
+      open_orders: null,
+      n:0,
     };
   },
   created() {
@@ -98,6 +100,9 @@ export default {
     this.get_values(this.transaction_history, this.open_orders);
   },
   methods: {
+    force_rerender(){
+      this.n += 1
+    },
     get_values(transaction, orders) {
       Axios.get(base_link + "info/activity/", config)
         .then(function(Response) {
@@ -141,10 +146,12 @@ export default {
       return ret_date;
     },
     deleteItem(id, index) {
+      console.log(index)
       let link = base_link + "info/cancelOrder/" + id + "/";
       Axios.get(link, config)
         .then(response => {
           this.open_orders.splice(index, 1);
+          this.get_values(this.transaction_history, this.open_orders)
           console.log(this.open_orders);
         })
         .catch(error => {

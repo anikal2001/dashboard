@@ -32,7 +32,7 @@
         v-bind:color="color"
         v-bind:icon="icon"
         title="Cumulative PnL"
-        v-bind:value="acc_details[3]"
+        v-bind:value="acc_details[6]"
         sub-title="12%"
       />
     </v-col>
@@ -77,7 +77,7 @@ export default {
               details.push(Response.data[key]);
             }
           }
-          for (let i = 0; i < 4; i++) {
+          for (let i = 0; i < 8; i++) {
             details[i] = Number.parseFloat(details[i]).toFixed(2);
             details[i] = this.formatNumber(details[i])
             details[i] = "$" + details[i];

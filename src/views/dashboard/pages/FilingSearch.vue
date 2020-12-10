@@ -56,6 +56,7 @@
 
                     <p class="font-weight-light" > Filing Type: {{item.type}}</p>
                     <p class="font-weight-light" > Filing Date: {{item.date}}</p>
+                    <p class="font-weight-light" v-if='item.download!=0'><a :href="item.download">Download</a></p>
                     
                   </a>
                 </v-col>
@@ -83,7 +84,7 @@ export default {
     items: [],
     alert: false,
     loading:false,
-    filing_items: ["10-k", "10-q", "8-k", "all"],
+    filing_items: ["10-K", "10-Q", "8-Q", "All"],
     type: null
   }),
   methods: {
@@ -95,7 +96,7 @@ export default {
         base_link + "info/secSearch/" +
         this.newTicker.toUpperCase() +
         "/" +
-        this.type +
+        this.type.toLowerCase() +
         "/";
       Axios.get(link)
         .then(Response => {

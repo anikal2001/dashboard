@@ -25,6 +25,8 @@ export default new Vuex.Store({
     logout: (state) => {
       state.authenticated = false
       Cookies.set('authenticated', 'false')
+      Cookies.remove('alpaca_key')
+      Cookies.remove('uid')
     },
     login: (state) => {
       state.authenticated = true
